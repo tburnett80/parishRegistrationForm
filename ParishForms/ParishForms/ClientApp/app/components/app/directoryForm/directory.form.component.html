@@ -12,12 +12,23 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4">
-                <label for="family_name">{{getString('family_name')}}</label>
+                <label class="control-label" for="family_name">{{getString('family_name')}}</label>
                 <input id="family_name" type="text" [placeholder]="getString('family_name_ph')"/>
             </div>
             <div class="col-sm-4">
+                <label for="home_phone">{{getString('home_phone')}}</label>
+                <input id="home_phone" type="text" [placeholder]="getString('home_phone_ph')" />
+                <label for="phone_pub">{{getString('home_phone_pub_label')}}</label>
+                <input type="checkbox" value="" id="phone_pub" checked="checked" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4">
                 <label for="address">{{getString('street_address')}}</label>
-                <input id="address" type="text" [placeholder]="getString('street_address_ph')"/>
+                <input id="address" type="text" [placeholder]="getString('street_address_ph')" />
+            </div>
+            <div class="col-sm-4">
+
             </div>
         </div>
         <div class="row">

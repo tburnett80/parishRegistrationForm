@@ -5,7 +5,7 @@ import "rxjs/add/observable/of";
 
 @Injectable()
 export class LocalizationService {
-    private static culture: string;
+    static culture: string;
 
     constructor(private readonly cache: CacheService) {
         LocalizationService.culture = "en-us";
@@ -22,6 +22,9 @@ export class LocalizationService {
         map['description'] = 'This is the sign up form for the Parish Directory Update';
         map['family_name'] = 'Household Name';
         map['family_name_ph'] = 'i.e. Smith';
+        map['home_phone'] = 'Home Phone';
+        map['home_phone_ph'] = 'i.e. 636-946-1893';
+        map['home_phone_pub_label'] = 'Publish phone number in directory';
         map['street_address'] = 'Street Address';
         map['street_address_ph'] = 'i.e. 601 N 4th St.';
         map['city'] = 'City';
