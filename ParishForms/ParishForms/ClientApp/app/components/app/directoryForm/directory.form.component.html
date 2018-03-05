@@ -11,34 +11,37 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-4">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="family_name">{{getString('family_name')}}</label>
-                <input id="family_name" type="text" [placeholder]="getString('family_name_ph')"/>
+                <input class="form-control" id="family_name" type="text" [placeholder]="getString('family_name_ph')"/>
             </div>
-            <div class="col-sm-4">
-                <label for="home_phone">{{getString('home_phone')}}</label>
-                <input id="home_phone" type="text" [placeholder]="getString('home_phone_ph')" />
-                <label for="phone_pub">{{getString('home_phone_pub_label')}}</label>
-                <input type="checkbox" value="" id="phone_pub" checked="checked" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <label for="address">{{getString('street_address')}}</label>
-                <input id="address" type="text" [placeholder]="getString('street_address_ph')" />
-            </div>
-            <div class="col-sm-4">
-
+            <div class="col-sm-4 form-group-sm">
+                <label class="control-label" for="home_phone">{{getString('home_phone')}}</label>
+                <input class="form-control" id="home_phone" type="tel" [placeholder]="getString('home_phone_ph')" />
+                <!--<label class="control-label" for="phone_pub">{{getString('home_phone_pub_label')}}</label>
+                <input class="form-control" type="checkbox" value="" id="phone_pub" checked="checked" />-->
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-4">
-                <label for="city">{{getString('city')}}</label>
-                <input id="city" type="text" [placeholder]="getString('city_ph')"/>
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="address">{{getString('street_address')}}</label>
+                <input class="form-control" id="address" type="text" [placeholder]="getString('street_address_ph')" />
             </div>
-            <div class="col-sm-4">
-                <label for="zip">{{getString('zip')}}</label>
-                <input id="zip" type="text" [placeholder]="getString('zip_ph')"/>
+            <div class="col-sm-4 form-group-sm">
+                <label class="control-label" for="city">{{getString('city')}}</label>
+                <input class="form-control" id="city" type="text" [placeholder]="getString('city_ph')"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="state">{{getString('state')}}</label>
+                <select class="form-control" *ngIf="stateList" id="state">
+                    <option *ngFor="let opt of stateList" [value]="opt.value">{{opt.text}}</option>
+                </select>
+            </div>
+            <div class="col-sm-4 form-group-sm">
+                <label class="control-label" for="zip">{{getString('zip')}}</label>
+                <input class="form-control" id="zip" type="text" [placeholder]="getString('zip_ph')"/>
             </div>
         </div>
 

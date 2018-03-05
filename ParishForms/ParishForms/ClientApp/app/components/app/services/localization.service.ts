@@ -1,20 +1,25 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import { Http, Response } from '@angular/http';
 import { CacheService } from './cache.service';
 import { Observable } from 'rxjs';
 import "rxjs/add/observable/of";
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LocalizationService {
     static culture: string;
 
-    constructor(private readonly cache: CacheService) {
+    constructor(private readonly cache: CacheService, private readonly http: Http,
+        @Inject(PLATFORM_ID) private platformId: Object) {
         LocalizationService.culture = "en-us";
     }
 
     getFormText(): Observable<any> {
-        const fromCache = this.cache.getCache(`${LocalizationService.culture}-translations`);
+        const key = `${LocalizationService.culture}-translations`;
+        const fromCache = this.cache.getCache(key);
         if (fromCache) {
-            return Observable.of(fromCache);
+            return Observable.of(JSON.parse(fromCache));
         } 
 
         const map: any = {};
@@ -31,8 +36,31 @@ export class LocalizationService {
         map['city_ph'] = 'i.e. St Charles';
         map['zip'] = 'Zip';
         map['zip_ph'] = 'i.e. 63301';
+        map['state'] = 'State';
         
-        this.cache.setCache(`${LocalizationService.culture}-translations`, JSON.stringify(map));
+        this.cache.setCache(key, JSON.stringify(map));
         return Observable.of(map);
+    }
+
+    getStatesOptions(): Observable<any> {
+        const key = `${LocalizationService.culture}-stateslist`;
+        const fromCache = this.cache.getCache(key);
+        if (fromCache) {
+            return Observable.of(fromCache);
+        } 
+
+        if (isPlatformServer(this.platformId)) {
+            const map: any = {};
+            map['text'] = 'Select a state';
+            map['value'] = '';
+
+            return Observable.of([map]);
+        }
+
+        return this.http.get(`http://localhost:60588/api/localization/states`)
+            .map((res: Response) => {
+                this.cache.setCache(key, res.json(), 3600000);
+                return res.json();
+            });
     }
 }

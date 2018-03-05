@@ -11,6 +11,11 @@ import { LocalizationService } from '../services/localization.service';
 export class DirectoryFormComponent {
     private labels: any;
     private subscription: Subscription;
+    private stateSub: Subscription;
+
+    stateList: any[];
+    selectedState: string;
+    
 
     constructor(private localizationService: LocalizationService) {
     }
@@ -18,10 +23,14 @@ export class DirectoryFormComponent {
     ngOnInit() {
         this.subscription = this.localizationService.getFormText()
             .subscribe(data => this.labels = data);
+
+        this.stateSub = this.localizationService.getStatesOptions()
+            .subscribe(data => this.stateList = data);
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.stateSub.unsubscribe();
     }
 
     getString(key: string): string | undefined {
@@ -30,6 +39,10 @@ export class DirectoryFormComponent {
         }
 
         return this.labels[key];
+    }
+
+    getStatesList(): any {
+        return this.stateList;
     }
 }
 //https://www.toptal.com/angular-js/angular-4-forms-validation
