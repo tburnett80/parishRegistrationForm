@@ -4,21 +4,25 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { LocalizationService } from './components/app/services/localization.service';
 import { AppComponent } from './components/app/app.component';
-import { DirectoryPageComponent } from './components/app/directoryForm/directory.page.component';
+import { DirectoryFormComponent } from './components/app/directoryForm/directory.form.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        DirectoryPageComponent
+        DirectoryFormComponent
+    ],
+    providers: [
+        LocalizationService
     ],
     imports: [
         CommonModule,
         HttpModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: DirectoryPageComponent },
+            { path: '', redirectTo: 'directory', pathMatch: 'full' },
+            { path: 'directory', component: DirectoryFormComponent }
         ])
     ]
 })

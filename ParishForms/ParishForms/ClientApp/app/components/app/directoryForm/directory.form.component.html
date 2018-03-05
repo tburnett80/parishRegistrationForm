@@ -1,0 +1,35 @@
+﻿<div class="container">
+    <form #directoryForm="ngForm">
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <h2>{{getString('header')}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <h4>{{getString('description')}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <label for="family_name">{{getString('family_name')}}</label>
+                <input id="family_name" type="text" [placeholder]="getString('family_name_ph')"/>
+            </div>
+            <div class="col-sm-4">
+                <label for="address">{{getString('street_address')}}</label>
+                <input id="address" type="text" [placeholder]="getString('street_address_ph')"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4">
+                <label for="city">{{getString('city')}}</label>
+                <input id="city" type="text" [placeholder]="getString('city_ph')"/>
+            </div>
+            <div class="col-sm-4">
+                <label for="zip">{{getString('zip')}}</label>
+                <input id="zip" type="text" [placeholder]="getString('zip_ph')"/>
+            </div>
+        </div>
+
+    </form>
+</div>
