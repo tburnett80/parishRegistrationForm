@@ -25,6 +25,10 @@ export class DirectoryFormComponent {
     }
 
     getString(key: string): string | undefined {
+        if (!this.labels[key]) {
+            return "key not found";
+        }
+
         return this.labels[key];
     }
 }

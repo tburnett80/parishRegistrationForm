@@ -1,26 +1,23 @@
 ﻿import { Injectable } from '@angular/core';
+import { CacheService } from './cache.service';
 import { Observable } from 'rxjs';
 import "rxjs/add/observable/of";
 
 @Injectable()
 export class LocalizationService {
     private static culture: string;
-    private static english: any;
-    private static spanish: any;
 
-    constructor() {
+    constructor(private readonly cache: CacheService) {
         LocalizationService.culture = "en-us";
-        LocalizationService.english = null;
-        LocalizationService.spanish = null;
     }
 
     getFormText(): Observable<any> {
-        if (LocalizationService.english && LocalizationService.culture === 'en-us') {
-            return LocalizationService.english;
-        }
+        const fromCache = this.cache.getCache(`${LocalizationService.culture}-translations`);
+        if (fromCache) {
+            return Observable.of(fromCache);
+        } 
 
         const map: any = {};
-
         map['header'] = 'Borromeo Parish Directory Signup 2018';
         map['description'] = 'This is the sign up form for the Parish Directory Update';
         map['family_name'] = 'Household Name';
@@ -31,8 +28,8 @@ export class LocalizationService {
         map['city_ph'] = 'i.e. St Charles';
         map['zip'] = 'Zip';
         map['zip_ph'] = 'i.e. 63301';
-
-        LocalizationService.english = map;
+        
+        this.cache.setCache(`${LocalizationService.culture}-translations`, JSON.stringify(map));
         return Observable.of(map);
     }
 }

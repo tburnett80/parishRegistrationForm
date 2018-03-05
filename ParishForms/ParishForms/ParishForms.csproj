@@ -22,11 +22,13 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\app\directoryForm\directory.form.component.ts" />
+    <None Remove="ClientApp\app\components\app\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\app\services\localization.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\app\directoryForm\directory.form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\app\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\app\services\localization.service.ts" />
   </ItemGroup>
 

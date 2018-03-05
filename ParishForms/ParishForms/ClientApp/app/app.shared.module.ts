@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { CacheService } from './components/app/services/cache.service';
 import { LocalizationService } from './components/app/services/localization.service';
 import { AppComponent } from './components/app/app.component';
 import { DirectoryFormComponent } from './components/app/directoryForm/directory.form.component';
@@ -14,6 +15,7 @@ import { DirectoryFormComponent } from './components/app/directoryForm/directory
         DirectoryFormComponent
     ],
     providers: [
+        CacheService,
         LocalizationService
     ],
     imports: [
