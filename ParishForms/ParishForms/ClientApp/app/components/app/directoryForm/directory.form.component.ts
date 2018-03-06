@@ -16,7 +16,6 @@ export class DirectoryFormComponent {
     stateList: any[];
     selectedState: string;
     
-
     constructor(private localizationService: LocalizationService) {
     }
 
@@ -25,7 +24,10 @@ export class DirectoryFormComponent {
             .subscribe(data => this.labels = data);
 
         this.stateSub = this.localizationService.getStatesOptions()
-            .subscribe(data => this.stateList = data);
+            .subscribe(data => {
+                this.stateList = data
+                this.selectedState = "MO";
+            });
     }
 
     ngOnDestroy() {
@@ -43,6 +45,18 @@ export class DirectoryFormComponent {
 
     getStatesList(): any {
         return this.stateList;
+    }
+
+    refreshTranslations() {
+        console.log("refreshsing data....")
+        this.subscription.unsubscribe();
+        this.stateSub.unsubscribe();
+
+        this.subscription = this.localizationService.getFormText()
+            .subscribe(data => this.labels = data);
+
+        this.stateSub = this.localizationService.getStatesOptions()
+            .subscribe(data => this.stateList = data);
     }
 }
 //https://www.toptal.com/angular-js/angular-4-forms-validation

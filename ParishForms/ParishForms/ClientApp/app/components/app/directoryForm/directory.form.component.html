@@ -1,12 +1,12 @@
 ﻿<div class="container">
     <form #directoryForm="ngForm">
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-6">
+            <div class="col-sm-offset-2 col-sm-8">
                 <h2>{{getString('header')}}</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-6">
+            <div class="col-sm-offset-2 col-sm-8">
                 <h4>{{getString('description')}}</h4>
             </div>
         </div>
@@ -18,8 +18,6 @@
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="home_phone">{{getString('home_phone')}}</label>
                 <input class="form-control" id="home_phone" type="tel" [placeholder]="getString('home_phone_ph')" />
-                <!--<label class="control-label" for="phone_pub">{{getString('home_phone_pub_label')}}</label>
-                <input class="form-control" type="checkbox" value="" id="phone_pub" checked="checked" />-->
             </div>
         </div>
         <div class="row">
@@ -35,7 +33,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="state">{{getString('state')}}</label>
-                <select class="form-control" *ngIf="stateList" id="state">
+                <select [(ngModel)]="selectedState" name="selectedState" class="form-control" *ngIf="stateList" id="state">
                     <option *ngFor="let opt of stateList" [value]="opt.value">{{opt.text}}</option>
                 </select>
             </div>
@@ -44,6 +42,11 @@
                 <input class="form-control" id="zip" type="text" [placeholder]="getString('zip_ph')"/>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-6">
+                <input type="checkbox" class="form-control-static" id="phone_pub" checked="checked" />
+                <label class="control-label" for="phone_pub">{{getString('home_phone_pub_label')}}</label>
+            </div>
+        </div>
     </form>
 </div>
