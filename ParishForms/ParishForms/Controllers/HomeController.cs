@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ParishForms.Controllers
@@ -17,6 +13,13 @@ namespace ParishForms.Controllers
         public IActionResult Error()
         {
             ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+
+            #if RELEASE
+                ViewData["IsLocal"] = "false";
+            #else
+                ViewData["IsLocal"] = "true";
+            #endif
+
             return View();
         }
     }

@@ -1,6 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LocalizationService } from '../services/localization.service';
+import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
 
 @Component({
     selector: 'directory-form',
@@ -12,12 +13,13 @@ export class DirectoryFormComponent {
     private labels: any;
     private subscription: Subscription;
     private stateSub: Subscription;
+    private cultureSub: Subscription;
 
     stateList: any[];
     selectedState: string;
     
-    constructor(private localizationService: LocalizationService) {
-    }
+    constructor(private localizationService: LocalizationService,
+        private changeEmitter: CultureChangedEmitterService) { }
 
     ngOnInit() {
         this.subscription = this.localizationService.getFormText()
@@ -28,11 +30,16 @@ export class DirectoryFormComponent {
                 this.stateList = data
                 this.selectedState = "MO";
             });
+
+        this.cultureSub = this.changeEmitter.subscribe((next: any) => {
+            this.refreshTranslations();
+        });
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.stateSub.unsubscribe();
+        this.cultureSub.unsubscribe();
     }
 
     translate(key: string): string | undefined {

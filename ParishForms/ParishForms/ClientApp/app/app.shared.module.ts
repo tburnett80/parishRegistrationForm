@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { EnvironmentSettings } from './components/app/services/client.settings.service';
+import { CultureChangedEmitterService } from './components/app/services/cultureChangedEmitter.service';
 import { CacheService } from './components/app/services/cache.service';
 import { LocalizationService } from './components/app/services/localization.service';
 
@@ -22,6 +23,7 @@ import { DirectoryPageComponent } from './components/app/directoryForm/directory
     ],
     providers: [
         EnvironmentSettings,
+        CultureChangedEmitterService,
         CacheService,
         LocalizationService
     ],

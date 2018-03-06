@@ -78,20 +78,16 @@ namespace ParishForms.Controllers
             {
                 return Ok(new Dictionary<string, string>
                 {
-                    { "Borromeo Parish Directory Signup 2018", "ES Borromeo Parish Directory Signup 2018" },
-                    { "description", "This is the sign up form for the Parish Directory Update" },
-                    { "family_name", "Household Name" },
-                    { "family_name_ph", "i.e. Smith" },
-                    { "home_phone", "Home Phone" },
-                    { "home_phone_ph", "i.e. 636-946-1893" },
-                    { "home_phone_pub_label", "Publish phone number and address in directory" },
-                    { "street_address", "Street Address" },
-                    { "street_address_ph", "i.e. 601 N 4th St." },
-                    { "city", "City" },
-                    { "city_ph", "i.e. St Charles" },
-                    { "zip", "Zip" },
-                    { "zip_ph", "i.e. 63301" },
-                    { "state", "State" }
+                    { "Household Name", "Familia" },
+                    { "Home Phone", "Teléfono de casa" },
+                    { "Street Address", "Dirección" },
+                    { "City", "Ciudad" },
+                    { "State", "Estado" },
+                    { "Zip", "Codigo" },
+                    { "Adult 1", "Adulto 1" },
+                    { "Adult 2", "Adulto 2" },
+                    { "Email Address", "correo electronico" },
+                    { "Mobile Phone", "Teléfono móvil" }
                 });
             });
         }

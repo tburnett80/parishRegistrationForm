@@ -27,6 +27,7 @@
     <None Remove="ClientApp\app\components\app\directoryForm\directory.page.component.ts" />
     <None Remove="ClientApp\app\components\app\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\app\services\client.settings.service.ts" />
+    <None Remove="ClientApp\app\components\app\services\cultureChangedEmitter.service.ts" />
     <None Remove="ClientApp\app\components\app\services\localization.service.ts" />
   </ItemGroup>
 
@@ -36,6 +37,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\app\directoryForm\directory.page.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\app\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\app\services\client.settings.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\app\services\cultureChangedEmitter.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\app\services\localization.service.ts" />
   </ItemGroup>
 

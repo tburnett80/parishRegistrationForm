@@ -1,6 +1,7 @@
 ﻿import { Component, ApplicationRef, EventEmitter, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LocalizationService } from '../services/localization.service';
+import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
 
 @Component({
     selector: 'culture-selector',
@@ -9,15 +10,15 @@ import { LocalizationService } from '../services/localization.service';
 })
 
 export class CultureComponent {
-    @Output() cultureChanged = new EventEmitter();
 
-    constructor(private readonly localizationService: LocalizationService, private ref: ApplicationRef) {
+    constructor(private readonly localizationService: LocalizationService,
+        private ref: ApplicationRef, private changeEmitter: CultureChangedEmitterService) {
     }
 
     cultureClick(event: Event) {
         if (event.srcElement && event.srcElement.id) {
             LocalizationService.culture = event.srcElement.id;
-            this.cultureChanged.emit(event.srcElement.id);
+            this.changeEmitter.next(`cultureChanged to ${LocalizationService.culture}`)
         }
     }
 
