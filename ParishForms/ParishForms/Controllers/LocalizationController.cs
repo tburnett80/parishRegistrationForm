@@ -78,7 +78,7 @@ namespace ParishForms.Controllers
             {
                 return Ok(new Dictionary<string, string>
                 {
-                    { "header", "ES Borromeo Parish Directory Signup 2018" },
+                    { "Borromeo Parish Directory Signup 2018", "ES Borromeo Parish Directory Signup 2018" },
                     { "description", "This is the sign up form for the Parish Directory Update" },
                     { "family_name", "Household Name" },
                     { "family_name_ph", "i.e. Smith" },

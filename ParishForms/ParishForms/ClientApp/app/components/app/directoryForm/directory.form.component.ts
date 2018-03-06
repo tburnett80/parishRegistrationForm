@@ -35,9 +35,10 @@ export class DirectoryFormComponent {
         this.stateSub.unsubscribe();
     }
 
-    getString(key: string): string | undefined {
-        if (!this.labels[key]) {
-            return "key not found";
+    translate(key: string): string | undefined {
+        //Translation lookups use the english value, so we fail over to english.
+        if (!this.labels || !this.labels[key]) {
+            return key;
         }
 
         return this.labels[key];

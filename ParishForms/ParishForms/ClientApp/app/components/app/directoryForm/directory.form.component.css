@@ -5,3 +5,7 @@
     border-radius:5px;
     border:2px solid #555;
 }
+
+textarea {
+    min-height: 100px;
+}

@@ -2,50 +2,98 @@
     <form #directoryForm="ngForm">
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
-                <h2>{{getString('header')}}</h2>
+                <h2>{{translate('Borromeo Parish Directory Signup 2018')}}</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
-                <h4>{{getString('description')}}</h4>
+                <h4>{{translate('This is the sign up form for the Parish Directory Update')}}</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="family_name">{{getString('family_name')}}</label>
-                <input class="form-control" id="family_name" type="text" [placeholder]="getString('family_name_ph')"/>
+                <label class="control-label" for="family_name">{{translate('Household Name')}}</label>
+                <input class="form-control" id="family_name" type="text" [placeholder]="translate('i.e. Smith')"/>
             </div>
             <div class="col-sm-4 form-group-sm">
-                <label class="control-label" for="home_phone">{{getString('home_phone')}}</label>
-                <input class="form-control" id="home_phone" type="tel" [placeholder]="getString('home_phone_ph')" />
+                <label class="control-label" for="home_phone">{{translate('Home Phone')}}</label>
+                <input class="form-control" id="home_phone" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="address">{{getString('street_address')}}</label>
-                <input class="form-control" id="address" type="text" [placeholder]="getString('street_address_ph')" />
+                <label class="control-label" for="address">{{translate('Street Address')}}</label>
+                <input class="form-control" id="address" type="text" [placeholder]="translate('i.e. 601 N 4th St.')" />
             </div>
             <div class="col-sm-4 form-group-sm">
-                <label class="control-label" for="city">{{getString('city')}}</label>
-                <input class="form-control" id="city" type="text" [placeholder]="getString('city_ph')"/>
+                <label class="control-label" for="city">{{translate('City')}}</label>
+                <input class="form-control" id="city" type="text" [placeholder]="translate('i.e. St Charles')"/>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="state">{{getString('state')}}</label>
+                <label class="control-label" for="state">{{translate('State')}}</label>
                 <select [(ngModel)]="selectedState" name="selectedState" class="form-control" *ngIf="stateList" id="state">
                     <option *ngFor="let opt of stateList" [value]="opt.value">{{opt.text}}</option>
                 </select>
             </div>
             <div class="col-sm-4 form-group-sm">
-                <label class="control-label" for="zip">{{getString('zip')}}</label>
-                <input class="form-control" id="zip" type="text" [placeholder]="getString('zip_ph')"/>
+                <label class="control-label" for="zip">{{translate('Zip')}}</label>
+                <input class="form-control" id="zip" type="text" [placeholder]="translate('i.e. 63301')"/>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-6">
                 <input type="checkbox" class="form-control-static" id="phone_pub" checked="checked" />
-                <label class="control-label" for="phone_pub">{{getString('home_phone_pub_label')}}</label>
+                <label class="control-label" for="phone_pub">{{translate('Publish phone number and address in directory?')}}</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3 class="col-sm-offset-2 col-sm-4">{{translate('Adult 1')}}</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="address">{{translate('First Name')}}</label>
+                <input class="form-control" id="address" type="text" [placeholder]="translate('John')" />
+            </div>
+            <div class="col-sm-4 form-group-sm">
+                <label class="control-label" for="city">{{translate('Email Address')}}</label>
+                <input class="form-control" id="city" type="text" [placeholder]="translate('test@test.com')" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="address">{{translate('Mobile Phone')}}</label>
+                <input class="form-control" id="address" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="col-sm-offset-2 col-sm-4">{{translate('Adult 2')}}</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="address">{{translate('First Name')}}</label>
+                <input class="form-control" id="address" type="text" [placeholder]="translate('Jane')" />
+            </div>
+            <div class="col-sm-4 form-group-sm">
+                <label class="control-label" for="city">{{translate('Email Address')}}</label>
+                <input class="form-control" id="city" type="text" [placeholder]="translate('test@test.com')" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-4 form-group-sm">
+                <label class="control-label" for="address">{{translate('Mobile Phone')}}</label>
+                <input class="form-control" id="address" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
+            </div>
+        </div>
+        <div class="row">
+            <h3 class="col-sm-offset-2 col-sm-6">{{translate('Children and other Familiy Members')}}</h3>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8 form-group-sm">
+                <label class="control-label" for="city">{{translate('Enter Children and others seperated by commas')}}</label>
+                <textarea class="form-control" [placeholder]="translate('i.e. Jimmy, Sally, Walter, Veronica')"></textarea>
             </div>
         </div>
     </form>
