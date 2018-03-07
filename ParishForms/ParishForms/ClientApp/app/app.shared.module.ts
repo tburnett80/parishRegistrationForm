@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { EnvironmentSettings } from './components/app/services/client.settings.service';
-import { CultureChangedEmitterService } from './components/app/services/cultureChangedEmitter.service';
-import { CacheService } from './components/app/services/cache.service';
-import { LocalizationService } from './components/app/services/localization.service';
+import { EnvironmentSettings } from './components/services/client.settings.service';
+import { CultureChangedEmitterService } from './components/services/cultureChangedEmitter.service';
+import { CacheService } from './components/services/cache.service';
+import { LocalizationService } from './components/services/localization.service';
 
-import { AppComponent } from './components/app/app.component';
-import { CultureComponent } from './components/app/culturePicker/culture.component';
-import { DirectoryFormComponent } from './components/app/directoryForm/directory.form.component';
-import { DirectoryPageComponent } from './components/app/directoryForm/directory.page.component';
+import { AppComponent } from './components/app.component';
+import { CultureComponent } from './components/culturePicker/culture.component';
+import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
+import { DirectoryPageComponent } from './components/directoryForm/directory.page.component';
 
 @NgModule({
     declarations: [

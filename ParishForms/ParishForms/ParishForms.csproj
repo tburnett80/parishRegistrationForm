@@ -22,23 +22,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\app\components\app\culturePicker\culture.component.ts" />
-    <None Remove="ClientApp\app\components\app\directoryForm\directory.form.component.ts" />
-    <None Remove="ClientApp\app\components\app\directoryForm\directory.page.component.ts" />
-    <None Remove="ClientApp\app\components\app\services\cache.service.ts" />
-    <None Remove="ClientApp\app\components\app\services\client.settings.service.ts" />
-    <None Remove="ClientApp\app\components\app\services\cultureChangedEmitter.service.ts" />
-    <None Remove="ClientApp\app\components\app\services\localization.service.ts" />
+    <None Remove="ClientApp\app\components\culturePicker\culture.component.ts" />
+    <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
+    <None Remove="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <None Remove="ClientApp\app\components\services\cache.service.ts" />
+    <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
+    <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
+    <None Remove="ClientApp\app\components\services\localization.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app\components\app\culturePicker\culture.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\directoryForm\directory.form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\directoryForm\directory.page.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\services\cache.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\services\client.settings.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\services\cultureChangedEmitter.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\app\services\localization.service.ts" />
+    <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
+    <ProjectReference Include="..\ParishForms.IoC\ParishForms.IoC.csproj" />
+    <ProjectReference Include="..\ParishForms.Managers\ParishForms.Managers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\culturePicker\culture.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.form.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\client.settings.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\localization.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
