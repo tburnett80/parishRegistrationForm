@@ -15,7 +15,6 @@ namespace DataProvider.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            //Add table mappings here
             modelBuilder.ApplyConfiguration(new LocalizationValueEntityMapping());
         }
 

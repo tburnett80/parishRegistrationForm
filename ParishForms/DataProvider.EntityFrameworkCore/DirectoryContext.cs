@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataProvider.EntityFrameworkCore.Entities.Common;
+using DataProvider.EntityFrameworkCore.Entities.Directory;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataProvider.EntityFrameworkCore
 {
@@ -13,8 +15,17 @@ namespace DataProvider.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            //Add table mappings here
             //modelBuilder.ApplyConfiguration(new PersonTypeEntityMapping());
         }
+        
+        public DbSet<AddressEntity> Addresses { get; set; }
+
+        public DbSet<EmailAddressEntity> EmailAddress { get; set; }
+
+        public DbSet<StateEntity> States { get; set; }
+
+        public DbSet<PhoneEntity> Phones { get; set; }
+
+        public DbSet<SubmisionEntitiy> Submisions { get; set; }
     }
 }

@@ -14,8 +14,8 @@ namespace DataProvider.EntityFrameworkCore.Entities.Localization
 
         public string TranslationCulture { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTimeOffset LastModified { get; set; }
     }
 }

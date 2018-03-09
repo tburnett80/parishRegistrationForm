@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataProvider.EntityFrameworkCore.Entities.Logging;
+using DataProvider.EntityFrameworkCore.EntityMappings.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataProvider.EntityFrameworkCore
 {
@@ -13,8 +15,12 @@ namespace DataProvider.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            //Add table mappings here
-            //modelBuilder.ApplyConfiguration(new PersonTypeEntityMapping());
+            modelBuilder.ApplyConfiguration(new LogHeaderEntityMapping());
+            modelBuilder.ApplyConfiguration(new LogDetailEntityMapping());
         }
+
+        public DbSet<LogHeaderEntity> LogHeaders { get; set; }
+
+        public DbSet<LogDetailEntity> LogDetails { get; set; }
     }
 }

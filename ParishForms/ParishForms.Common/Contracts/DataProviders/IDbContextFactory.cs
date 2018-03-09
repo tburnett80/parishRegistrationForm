@@ -8,12 +8,12 @@ namespace ParishForms.Common.Contracts.DataProviders
     /// This is used to ensure operations have their own instance
     /// Otherwise multi-threading doesnt work quite right.
     /// </summary>
-    public interface IDbContextFactory : IDisposable
+    public interface IDbContextFactory<TContext> : IDisposable where TContext : DbContext, new()
     {
         /// <summary>
         /// Construct an Entity Framework DbContext 
         /// </summary>
         /// <returns></returns>
-        TContext ConstructContext<TContext>() where TContext : DbContext;
+        TContext ConstructContext();
     }
 }
