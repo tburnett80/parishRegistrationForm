@@ -22,6 +22,10 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Logging
             builder.Property(e => e.Timestamp)
                 .HasColumnName("eventTs")
                 .ValueGeneratedOnAdd();
+
+            builder.HasMany(e => e.Details)
+                .WithOne(e => e.Header)
+                .HasForeignKey(e => e.HeaderId);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using DataProvider.EntityFrameworkCore.Entities.Common;
 
 namespace DataProvider.EntityFrameworkCore.Entities.Directory
 {
-    public sealed class SubmisionEntitiy
+    public class SubmisionEntitiy
     {
         public int Id { get; set; }
 
@@ -31,5 +32,17 @@ namespace DataProvider.EntityFrameworkCore.Entities.Directory
         public string AdultTwoFirstName { get; set; }
 
         public string OtherFamily { get; set; }
+
+        public virtual AddressEntity HomeAddress { get; set; }
+
+        public virtual PhoneEntity HomePhone { get; set; }
+
+        public virtual PhoneEntity AdultOneMobilePhone { get; set; }
+
+        public virtual PhoneEntity AdultTwoMobilePhone { get; set; }
+
+        public virtual EmailAddressEntity AdultOneEmail { get; set; }
+
+        public virtual EmailAddressEntity AdultTwoEmail { get; set; }
     }
 }

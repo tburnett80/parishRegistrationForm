@@ -1,7 +1,7 @@
 ﻿
 namespace DataProvider.EntityFrameworkCore.Entities.Logging
 {
-    public sealed class LogDetailEntity
+    public class LogDetailEntity
     {
         public int Id { get; set; }
 
@@ -10,5 +10,7 @@ namespace DataProvider.EntityFrameworkCore.Entities.Logging
         public int EventType { get; set; }
 
         public string EventText { get; set; }
+
+        public virtual LogHeaderEntity Header { get; set; }
     }
 }

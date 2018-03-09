@@ -1,7 +1,7 @@
 ﻿
 namespace DataProvider.EntityFrameworkCore.Entities.Common
 {
-    public sealed class AddressEntity
+    public class AddressEntity
     {
         public int Id { get; set; }
 
@@ -14,5 +14,7 @@ namespace DataProvider.EntityFrameworkCore.Entities.Common
         public string City { get; set; }
 
         public string Zip { get; set; }
+
+        public virtual StateEntity State { get; set; }
     }
 }

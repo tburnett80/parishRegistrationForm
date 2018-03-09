@@ -40,6 +40,10 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
                 .HasMaxLength(10)
                 .IsUnicode()
                 .IsRequired();
+
+            builder.HasOne(e => e.State)
+                .WithMany()
+                .HasForeignKey(e => e.StateId);
         }
     }
 }

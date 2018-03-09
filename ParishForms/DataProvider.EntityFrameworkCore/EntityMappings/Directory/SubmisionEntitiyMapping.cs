@@ -68,6 +68,30 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Directory
                 .HasMaxLength(1024)
                 .IsUnicode()
                 .IsRequired();
+
+            builder.HasOne(e => e.HomeAddress)
+                .WithMany()
+                .HasForeignKey(e => e.AddressId);
+
+            builder.HasOne(e => e.HomePhone)
+                .WithMany()
+                .HasForeignKey(e => e.HomePhoneId);
+
+            builder.HasOne(e => e.AdultOneMobilePhone)
+                .WithMany()
+                .HasForeignKey(e => e.AdultOnePhoneId);
+
+            builder.HasOne(e => e.AdultTwoMobilePhone)
+                .WithMany()
+                .HasForeignKey(e => e.AdultTwoPhoneId);
+
+            builder.HasOne(e => e.AdultOneEmail)
+                .WithMany()
+                .HasForeignKey(e => e.AdultOneEmailId);
+
+            builder.HasOne(e => e.AdultTwoEmail)
+                .WithMany()
+                .HasForeignKey(e => e.AdultTwoEmailId);
         }
     }
 }
