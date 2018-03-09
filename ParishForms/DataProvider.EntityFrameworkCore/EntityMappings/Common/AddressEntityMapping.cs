@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
     {
         public void Configure(EntityTypeBuilder<AddressEntity> builder)
         {
-            builder.ToTable("address", "common")
+            builder.ToTable("address")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)
@@ -40,6 +40,10 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
                 .HasMaxLength(10)
                 .IsUnicode()
                 .IsRequired();
+
+            builder.HasOne(e => e.State)
+                .WithMany()
+                .HasForeignKey(e => e.StateId);
 
             builder.HasOne(e => e.State)
                 .WithMany()

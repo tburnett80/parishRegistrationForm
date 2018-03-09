@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
     {
         public void Configure(EntityTypeBuilder<EmailAddressEntity> builder)
         {
-            builder.ToTable("emailAddresses", "common")
+            builder.ToTable("emailAddresses")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

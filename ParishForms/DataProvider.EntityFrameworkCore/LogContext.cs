@@ -6,7 +6,9 @@ namespace DataProvider.EntityFrameworkCore
 {
     public sealed class LogContext : DbContext
     {
-        public LogContext(DbContextOptions<LogContext> options)
+        public LogContext() { }
+
+        public LogContext(DbContextOptions options)
             : base(options)
         {
         }

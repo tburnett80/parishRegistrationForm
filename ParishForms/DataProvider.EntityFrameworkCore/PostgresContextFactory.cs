@@ -7,14 +7,14 @@ namespace DataProvider.EntityFrameworkCore
 {
     public sealed class PostgresContextFactory<TContext> : IDbContextFactory<TContext> where TContext : DbContext, new()
     {
-        private readonly DbContextOptions<TContext> _options;
+        private readonly DbContextOptions _options;
 
         public PostgresContextFactory(ConfigSettingsDto settings)
         {
             if(settings == null)
                 throw new ArgumentNullException(nameof(settings));
 
-            var builder = new DbContextOptionsBuilder<TContext>();
+            var builder = new DbContextOptionsBuilder();
             builder.UseNpgsql(settings.ConnectionString);
 
             _options = builder.Options;

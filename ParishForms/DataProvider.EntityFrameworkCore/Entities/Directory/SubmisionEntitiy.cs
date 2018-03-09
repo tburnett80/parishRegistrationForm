@@ -7,7 +7,7 @@ namespace DataProvider.EntityFrameworkCore.Entities.Directory
     {
         public int Id { get; set; }
 
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
 
         public int AddressId { get; set; }
 

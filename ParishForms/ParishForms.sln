@@ -5,17 +5,19 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms", "ParishForms\ParishForms.csproj", "{3ACB0C90-3358-479B-A575-65688A1182A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.Common", "ParishForms.Common\ParishForms.Common.csproj", "{1F52F9B3-110A-4555-A83F-11A9FEF03D2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.Common", "ParishForms.Common\ParishForms.Common.csproj", "{1F52F9B3-110A-4555-A83F-11A9FEF03D2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.IoC", "ParishForms.IoC\ParishForms.IoC.csproj", "{E68B403D-C438-43DB-8F9F-F201EACD2333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.IoC", "ParishForms.IoC\ParishForms.IoC.csproj", "{E68B403D-C438-43DB-8F9F-F201EACD2333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.Managers", "ParishForms.Managers\ParishForms.Managers.csproj", "{37E89954-F0EC-4850-832E-F9522D665E43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.Managers", "ParishForms.Managers\ParishForms.Managers.csproj", "{37E89954-F0EC-4850-832E-F9522D665E43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.Engines", "ParishForms.Engines\ParishForms.Engines.csproj", "{C959E0FE-D6EC-4838-B48E-AFBDE9BFFE4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.Engines", "ParishForms.Engines\ParishForms.Engines.csproj", "{C959E0FE-D6EC-4838-B48E-AFBDE9BFFE4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.Accessors", "ParishForms.Accessors\ParishForms.Accessors.csproj", "{D60D9714-CE3D-48AA-9DF1-40FECCD456B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.Accessors", "ParishForms.Accessors\ParishForms.Accessors.csproj", "{D60D9714-CE3D-48AA-9DF1-40FECCD456B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProvider.EntityFrameworkCore", "DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj", "{37E52460-7D2E-454A-870D-167144C2F8E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProvider.EntityFrameworkCore", "DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj", "{37E52460-7D2E-454A-870D-167144C2F8E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParishForms.Tests", "ParishForms.Tests\ParishForms.Tests.csproj", "{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{37E52460-7D2E-454A-870D-167144C2F8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37E52460-7D2E-454A-870D-167144C2F8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37E52460-7D2E-454A-870D-167144C2F8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

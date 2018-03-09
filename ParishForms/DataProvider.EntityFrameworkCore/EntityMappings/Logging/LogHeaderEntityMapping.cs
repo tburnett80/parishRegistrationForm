@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Logging
     {
         public void Configure(EntityTypeBuilder<LogHeaderEntity> builder)
         {
-            builder.ToTable("header", "logging")
+            builder.ToTable("header")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

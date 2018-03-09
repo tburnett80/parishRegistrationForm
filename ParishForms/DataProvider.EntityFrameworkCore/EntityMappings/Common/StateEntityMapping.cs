@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
     {
         public void Configure(EntityTypeBuilder<StateEntity> builder)
         {
-            builder.ToTable("states", "common")
+            builder.ToTable("states")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

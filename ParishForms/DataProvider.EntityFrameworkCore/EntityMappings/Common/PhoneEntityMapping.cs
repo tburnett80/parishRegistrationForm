@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Common
     {
         public void Configure(EntityTypeBuilder<PhoneEntity> builder)
         {
-            builder.ToTable("phones", "common")
+            builder.ToTable("phones")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

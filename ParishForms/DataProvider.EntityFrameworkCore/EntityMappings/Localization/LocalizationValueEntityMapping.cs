@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Localization
     {
         public void Configure(EntityTypeBuilder<LocalizationValueEntity> builder)
         {
-            builder.ToTable("translations", "localization")
+            builder.ToTable("translations")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

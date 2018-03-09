@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace ParishForms.Common.Extensions
 {
     /// <summary>
@@ -16,6 +18,11 @@ namespace ParishForms.Common.Extensions
             return string.IsNullOrEmpty(value)
                 ? value
                 : value.Trim();
+        }
+
+        public static string GuidToId(this Guid value)
+        {
+            return value.ToString().Replace("-", "");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Directory
     {
         public void Configure(EntityTypeBuilder<SubmisionEntitiy> builder)
         {
-            builder.ToTable("submisions", "directory")
+            builder.ToTable("submisions")
                 .HasKey(e => e.Id);
 
             builder.Property(e => e.Id)

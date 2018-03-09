@@ -14,7 +14,7 @@ namespace DataProvider.EntityFrameworkCore.Entities.Logging
 
         public int Level { get; set; }
 
-        public DateTimeOffset Timestamp { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
 
         public virtual ICollection<LogDetailEntity> Details { get; set; }
     }

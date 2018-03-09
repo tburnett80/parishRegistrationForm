@@ -6,7 +6,9 @@ namespace DataProvider.EntityFrameworkCore
 {
     public sealed class LocalizationContext : DbContext
     {
-        public LocalizationContext(DbContextOptions<LocalizationContext> options)
+        public LocalizationContext() { }
+
+        public LocalizationContext(DbContextOptions options)
             : base(options)
         {
         }
