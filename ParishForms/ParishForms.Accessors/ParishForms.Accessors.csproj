@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataProvider.Cache\DataProvider.Cache.csproj" />
+    <ProjectReference Include="..\DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
   </ItemGroup>
 
