@@ -24,5 +24,12 @@ namespace ParishForms.Common.Extensions
         {
             return value.ToString().Replace("-", "");
         }
+
+        public static int TryToInt(this string value)
+        {
+            return string.IsNullOrEmpty(value.TryTrim())
+                ? 0
+                : int.Parse(value.TryTrim());
+        }
     }
 }

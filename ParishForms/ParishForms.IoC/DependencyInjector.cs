@@ -7,6 +7,7 @@ using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.DataProviders;
 using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Contracts.Managers;
+using ParishForms.Common.Extensions;
 using ParishForms.Common.Models;
 using ParishForms.Engines;
 using ParishForms.Managers;
@@ -20,9 +21,8 @@ namespace ParishForms.IoC
         {
             services.AddSingleton<ConfigSettingsDto>(new ConfigSettingsDto
             {
-                //ConnectionString = configuration["ConfigSettings:DbConnStr"],
-                ConnectionString = "Server=192.168.1.1;Port=5432;Database=parish;User Id=user1;Password=password1;",
-                StateCacheTtlSeconds = 3600
+                ConnectionString = configuration["CONNECTION_STRING"],
+                StateCacheTtlSeconds = configuration["STATE_CACHE_TTL"].TryToInt()
             });
 
             services.AddSingleton<ICacheProvider, MemoryCache>();

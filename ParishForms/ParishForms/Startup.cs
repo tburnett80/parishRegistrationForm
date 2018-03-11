@@ -1,16 +1,23 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParishForms.Common.Contracts.Managers;
 
 namespace ParishForms
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -20,6 +27,13 @@ namespace ParishForms
         {
             IoC.DependencyInjector.AddServices(services, Configuration);
             services.AddMvc();
+
+            //pre-cache localization data
+            Task.Factory.StartNew(() =>
+            {
+                var loc = services.BuildServiceProvider().GetService<ILocalizationManager>();
+                loc.GetStates().Wait();
+            }, TaskCreationOptions.LongRunning);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
