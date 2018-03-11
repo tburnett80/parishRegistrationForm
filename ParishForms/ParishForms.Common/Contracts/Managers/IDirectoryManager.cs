@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ParishForms.Common.Models.Common;
+using ParishForms.Common.Models.Directory;
 
 namespace ParishForms.Common.Contracts.Managers
 {
-    interface IDirectoryManager
+    public interface IDirectoryManager
     {
+        Task<IEnumerable<StateDto>> GetStateList();
+
+        Task<int> StoreSubmision(SubmisionDto submision);
     }
 }

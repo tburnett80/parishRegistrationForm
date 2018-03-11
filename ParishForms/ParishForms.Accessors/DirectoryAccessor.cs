@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataProvider.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.DataProviders;
+using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
 
 namespace ParishForms.Accessors
@@ -23,10 +27,18 @@ namespace ParishForms.Accessors
         {
             using (var ctx = _contextFactory.ConstructContext())
             {
-
+                await ctx.Submisions.AddAsync(submision.ToEntity());
+                return await ctx.SaveChangesAsync(true);
             }
+        }
 
-            throw new NotImplementedException();
+        public async Task<IEnumerable<StateDto>> GetStates()
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                var ents = await ctx.States.ToListAsync();
+                return ents.Select(e => e.ToDto());
+            }
         }
     }
 }

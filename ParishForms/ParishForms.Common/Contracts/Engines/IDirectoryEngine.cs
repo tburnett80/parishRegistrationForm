@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
 
-namespace ParishForms.Common.Contracts.Accessors
+namespace ParishForms.Common.Contracts.Engines
 {
-    public interface IDirectoryAccessor
+    public interface IDirectoryEngine
     {
         Task<IEnumerable<StateDto>> GetStates();
 
