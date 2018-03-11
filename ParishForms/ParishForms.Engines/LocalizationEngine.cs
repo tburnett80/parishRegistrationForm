@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.Engines;
+using ParishForms.Common.Extensions;
+using ParishForms.Common.Models;
 using ParishForms.Common.Models.Common;
 
 namespace ParishForms.Engines
@@ -26,6 +28,14 @@ namespace ParishForms.Engines
         }
         #endregion
 
+        public async Task PreLoadCache()
+        {
+            var cultures = await _localizationAccessor.GetListOfCultures();
+            await GetStates();
+            foreach (var culture in cultures)
+                await GetTranslationsForCulture(culture);
+        }
+
         public async Task<IEnumerable<StateDto>> GetStates()
         {
             var cached = _cacheAccessor.GetStates();
@@ -36,6 +46,19 @@ namespace ParishForms.Engines
             await _cacheAccessor.CacheStates(states);
 
             return states;
+        }
+
+        public async Task<IEnumerable<TranslationDto>> GetTranslationsForCulture(string culture)
+        {
+            var cached = _cacheAccessor.GetTranslations(culture.TryTrim().ToLower());
+            if (cached.Any())
+                return cached;
+
+            var translations = await _localizationAccessor.GetTranslations(culture.TryTrim().ToLower());
+            if(translations.Any())
+                await _cacheAccessor.CacheTranslations(translations);
+
+            return translations;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace ParishForms
             Task.Factory.StartNew(() =>
             {
                 var loc = services.BuildServiceProvider().GetService<ILocalizationManager>();
-                loc.GetStates().Wait();
+                loc.PreLoadCache().Wait();
             }, TaskCreationOptions.LongRunning);
         }
 
