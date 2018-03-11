@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataProvider.Cache\DataProvider.Cache.csproj" />
+    <ProjectReference Include="..\DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\ParishForms.Accessors\ParishForms.Accessors.csproj" />
     <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
     <ProjectReference Include="..\ParishForms.Engines\ParishForms.Engines.csproj" />

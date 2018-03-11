@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ParishForms.Common.Models.Common;
 
 namespace ParishForms.Common.Contracts.Engines
 {
-    interface ILocalizationEngine
+    public interface ILocalizationEngine
     {
+        Task<IEnumerable<StateDto>> GetStates();
     }
 }
