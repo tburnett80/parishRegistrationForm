@@ -51,7 +51,8 @@ namespace ParishForms.Accessors
 
         public async Task CacheTranslations(IEnumerable<TranslationDto> trans)
         {
-            await _provider.CacheObject($"{trans.FirstOrDefault()?.LocalizedCulture}::{TranslationKeyPart}", trans.ToList(), _settings.StateCacheTtlSeconds);
+            await _provider.CacheObject($"{trans.FirstOrDefault()?.LocalizedCulture.ToLower()}::{TranslationKeyPart}", 
+                trans.ToList(), _settings.TranslationCacheTtlSeconds);
         }
     }
 }

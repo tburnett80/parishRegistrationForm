@@ -22,7 +22,8 @@ namespace ParishForms.IoC
             services.AddSingleton<ConfigSettingsDto>(new ConfigSettingsDto
             {
                 ConnectionString = configuration["CONNECTION_STRING"],
-                StateCacheTtlSeconds = configuration["STATE_CACHE_TTL"].TryToInt()
+                StateCacheTtlSeconds = configuration["STATE_CACHE_TTL"].TryToInt(),
+                TranslationCacheTtlSeconds = configuration["TRANSLATION_CACHE_TTL"].TryToInt()
             });
 
             services.AddSingleton<ICacheProvider, MemoryCache>();

@@ -6,5 +6,7 @@ namespace ParishForms.Common.Models
         public string ConnectionString { get; set; }
 
         public int StateCacheTtlSeconds { get; set; }
+
+        public int TranslationCacheTtlSeconds { get; set; }
     }
 }

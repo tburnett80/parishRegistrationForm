@@ -24,24 +24,19 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Directory
                 .IsRequired();
 
             builder.Property(e => e.HomePhoneId)
-                .HasColumnName("homePhoneId")
-                .IsRequired();
+                .HasColumnName("homePhoneId");
 
             builder.Property(e => e.AdultOnePhoneId)
-                .HasColumnName("adultOnePhoneId")
-                .IsRequired();
+                .HasColumnName("adultOnePhoneId");
 
             builder.Property(e => e.AdultTwoPhoneId)
-                .HasColumnName("adultTwoPhoneId")
-                .IsRequired();
+                .HasColumnName("adultTwoPhoneId");
 
             builder.Property(e => e.AdultOneEmailId)
-                .HasColumnName("adultOneEmailId")
-                .IsRequired();
+                .HasColumnName("adultOneEmailId");
 
             builder.Property(e => e.AdultTwoEmailId)
-                .HasColumnName("adultTwoEmailId")
-                .IsRequired();
+                .HasColumnName("adultTwoEmailId");
 
             builder.Property(e => e.PublishPhone)
                 .HasColumnName("publishPhone")
@@ -60,14 +55,12 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Directory
             builder.Property(e => e.AdultTwoFirstName)
                 .HasColumnName("adult2")
                 .HasMaxLength(64)
-                .IsUnicode()
-                .IsRequired();
+                .IsUnicode();
 
             builder.Property(e => e.OtherFamily)
                 .HasColumnName("others")
                 .HasMaxLength(1024)
-                .IsUnicode()
-                .IsRequired();
+                .IsUnicode();
 
             builder.HasOne(e => e.HomeAddress)
                 .WithMany()
