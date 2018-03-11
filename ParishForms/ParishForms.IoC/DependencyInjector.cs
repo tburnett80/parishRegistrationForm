@@ -21,7 +21,7 @@ namespace ParishForms.IoC
             services.AddSingleton<ConfigSettingsDto>(new ConfigSettingsDto
             {
                 //ConnectionString = configuration["ConfigSettings:DbConnStr"],
-                ConnectionString = "",
+                ConnectionString = "Server=192.168.1.1;Port=5432;Database=parish;User Id=user1;Password=password1;",
                 StateCacheTtlSeconds = 3600
             });
 

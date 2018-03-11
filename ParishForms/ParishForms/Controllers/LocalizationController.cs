@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Contracts.Managers;
+using ParishForms.ViewModels;
 
 namespace ParishForms.Controllers
 {
@@ -25,7 +26,7 @@ namespace ParishForms.Controllers
         public async Task<IActionResult> GetStatesList()
         {
             var states = await _manager.GetStates();
-            return Ok(states.ToDictionary(k => k.Abbreviation, v => v.Name));
+            return Ok(states.Select(s => new DropDownRow { Value = s.Abbreviation, Text = s.Name }));
         }
 
         [HttpGet("labels/{culture}")]
