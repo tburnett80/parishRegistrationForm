@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
+using DataProvider.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ParishForms.Common.Contracts.DataProviders;
 using ParishForms.Common.Contracts.Managers;
 
 namespace ParishForms
@@ -14,7 +16,6 @@ namespace ParishForms
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                //.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -31,7 +32,15 @@ namespace ParishForms
             //pre-cache localization data
             Task.Factory.StartNew(() =>
             {
-                var loc = services.BuildServiceProvider().GetService<ILocalizationManager>();
+                var provider = services.BuildServiceProvider();
+
+                //ensure db and tables exist.
+                using (var factory = provider.GetService<IDbContextFactory<CreationContext>>())
+                using (var ctx = factory.ConstructContext())
+                { }
+
+                //load localization values into cache
+                var loc = provider.GetService<ILocalizationManager>();
                 loc.PreLoadCache().Wait();
             }, TaskCreationOptions.LongRunning);
         }

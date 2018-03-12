@@ -11,7 +11,6 @@ namespace DataProvider.EntityFrameworkCore
         public LogContext(DbContextOptions options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

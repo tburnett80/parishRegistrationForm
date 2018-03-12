@@ -13,4 +13,7 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/aspnetcore:2.0
 WORKDIR /app
 COPY --from=build-env /app/out .
+ENV CONNECTION_STRING=""
+ENV STATE_CACHE_TTL=""
+ENV TRANSLATION_CACHE_TTL=""
 ENTRYPOINT ["dotnet", "ParishForms.dll"]

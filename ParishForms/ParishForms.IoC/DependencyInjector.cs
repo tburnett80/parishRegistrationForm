@@ -27,6 +27,7 @@ namespace ParishForms.IoC
             });
 
             services.AddSingleton<ICacheProvider, MemoryCache>();
+            services.AddTransient<IDbContextFactory<CreationContext>, PostgresContextFactory<CreationContext>>();
             services.AddTransient<IDbContextFactory<LocalizationContext>, PostgresContextFactory<LocalizationContext>>();
             services.AddTransient<IDbContextFactory<LogContext>, PostgresContextFactory<LogContext>>();
             services.AddTransient<IDbContextFactory<DirectoryContext>, PostgresContextFactory<DirectoryContext>>();
