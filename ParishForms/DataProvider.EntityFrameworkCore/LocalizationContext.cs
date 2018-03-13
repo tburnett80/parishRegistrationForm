@@ -20,8 +20,11 @@ namespace DataProvider.EntityFrameworkCore
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new StateEntityMapping());
+            modelBuilder.ApplyConfiguration(new CultureEntityMapping());
             modelBuilder.ApplyConfiguration(new LocalizationValueEntityMapping());
         }
+
+        public DbSet<CultureEntity> Cultures { get; set; }
 
         public DbSet<LocalizationValueEntity> Translations { get; set; }
 

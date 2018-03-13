@@ -18,8 +18,16 @@ export class CultureComponent {
     cultureClick(event: Event) {
         if (event.srcElement && event.srcElement.id) {
             LocalizationService.culture = event.srcElement.id;
-            this.changeEmitter.next(`cultureChanged to ${LocalizationService.culture}`)
+            this.changeEmitter.next(`cultureChanged to ${LocalizationService.culture}`);
         }
+    }
+
+    getCultures() {
+        return this.localizationService.getCultures();
+    }
+
+    isCultureCached(culture: string): boolean {
+        return this.localizationService.isCultureLoaded(culture);
     }
 
     isSelected(id: string): boolean {

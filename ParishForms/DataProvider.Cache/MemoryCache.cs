@@ -54,7 +54,11 @@ namespace DataProvider.Cache
 
             return await Task.Factory.StartNew(() =>
             {
-                _cache.Add(key, new Container(ttlSeconds, obj, typeof(TEntity).SimpleTypeOf()));
+                if (_cache.ContainsKey(key))
+                    _cache[key] = new Container(ttlSeconds, obj, typeof(TEntity).SimpleTypeOf());
+                else
+                    _cache.Add(key, new Container(ttlSeconds, obj, typeof(TEntity).SimpleTypeOf()));
+
                 return true;
             });
         }

@@ -27,6 +27,7 @@ namespace DataProvider.EntityFrameworkCore
             modelBuilder.ApplyConfiguration(new LogHeaderEntityMapping());
             modelBuilder.ApplyConfiguration(new LogDetailEntityMapping());
 
+            modelBuilder.ApplyConfiguration(new CultureEntityMapping());
             modelBuilder.ApplyConfiguration(new LocalizationValueEntityMapping());
 
             modelBuilder.ApplyConfiguration(new StateEntityMapping());

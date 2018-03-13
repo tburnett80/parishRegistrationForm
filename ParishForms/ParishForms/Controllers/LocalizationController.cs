@@ -34,5 +34,12 @@ namespace ParishForms.Controllers
             var translations = await _manager.GetTranslations(culture);
             return Ok(translations.ToDictionary(k => k.KeyText, v => v.LocalizedText));
         }
+
+        [HttpGet("list-cultures")]
+        public async Task<IActionResult> GetSupportedCultures()
+        {
+            var cults = await _manager.GetCultureList();
+            return Ok(cults.Select(c => new DropDownRow { Value = c.Culture, Text = c.Name }));
+        }
     }
 }

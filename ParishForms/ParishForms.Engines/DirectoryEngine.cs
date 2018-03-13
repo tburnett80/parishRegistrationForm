@@ -56,14 +56,7 @@ namespace ParishForms.Engines
             if (string.IsNullOrEmpty(submision.FamilyName.TryTrim()))
                 return false;
 
-            if (string.IsNullOrEmpty(submision.AdultOneFirstName.TryTrim()))
-                return false;
-
-            if (submision.HomeAddress == null)
-                return false;
-
-
-            return true;
+            return !string.IsNullOrEmpty(submision.AdultOneFirstName.TryTrim());
         }
         #endregion
 

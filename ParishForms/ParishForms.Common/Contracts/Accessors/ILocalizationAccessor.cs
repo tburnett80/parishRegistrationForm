@@ -9,7 +9,7 @@ namespace ParishForms.Common.Contracts.Accessors
     {
         Task<IEnumerable<StateDto>> GetStates();
 
-        Task<IEnumerable<string>> GetListOfCultures();
+        Task<IEnumerable<CultureDto>> GetListOfCultures();
 
         Task<IEnumerable<TranslationDto>> GetTranslations(string culture);
     }

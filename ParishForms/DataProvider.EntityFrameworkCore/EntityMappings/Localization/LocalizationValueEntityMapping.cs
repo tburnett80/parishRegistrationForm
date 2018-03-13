@@ -15,27 +15,23 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Localization
                 .HasColumnName("id")
                 .ValueGeneratedOnAdd();
 
+            builder.Property(e => e.KeyCultureId)
+                .HasColumnName("keyCultureId")
+                .IsRequired();
+
+            builder.Property(e => e.TranslationCultureId)
+                .HasColumnName("tranCultureId")
+                .IsRequired();
+
             builder.Property(e => e.KeyText)
                 .HasColumnName("key")
                 .HasMaxLength(4000)
                 .IsUnicode()
                 .IsRequired();
 
-            builder.Property(e => e.KeyCulture)
-                .HasColumnName("keyCulture")
-                .HasMaxLength(10)
-                .IsUnicode()
-                .IsRequired();
-
             builder.Property(e => e.TranslationText)
                 .HasColumnName("value")
                 .HasMaxLength(4000)
-                .IsUnicode()
-                .IsRequired();
-
-            builder.Property(e => e.TranslationCulture)
-                .HasColumnName("valueCulture")
-                .HasMaxLength(10)
                 .IsUnicode()
                 .IsRequired();
 
@@ -46,6 +42,14 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Localization
             builder.Property(e => e.LastModified)
                 .HasColumnName("dtmUpdated")
                 .ValueGeneratedOnAddOrUpdate();
+
+            builder.HasOne(e => e.KeyCulture)
+                .WithMany()
+                .HasForeignKey(e => e.KeyCultureId);
+
+            builder.HasOne(e => e.TranslationCulture)
+                .WithMany()
+                .HasForeignKey(e => e.TranslationCultureId);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Contracts.Managers;
 using ParishForms.Common.Models;
@@ -34,6 +33,11 @@ namespace ParishForms.Managers
         public async Task<IEnumerable<TranslationDto>> GetTranslations(string culture)
         {
             return await _engine.GetTranslationsForCulture(culture);
+        }
+
+        public async Task<IEnumerable<CultureDto>> GetCultureList()
+        {
+            return await _engine.GetCultureList();
         }
     }
 }

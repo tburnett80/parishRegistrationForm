@@ -30,10 +30,10 @@ namespace ParishForms.Engines
 
         public async Task PreLoadCache()
         {
-            var cultures = await _localizationAccessor.GetListOfCultures();
+            var cultures = await GetCultureList();
             await GetStates();
             foreach (var culture in cultures)
-                await GetTranslationsForCulture(culture);
+                await GetTranslationsForCulture(culture.Culture);
         }
 
         public async Task<IEnumerable<StateDto>> GetStates()
@@ -59,6 +59,18 @@ namespace ParishForms.Engines
                 await _cacheAccessor.CacheTranslations(translations);
 
             return translations;
+        }
+
+        public async Task<IEnumerable<CultureDto>> GetCultureList()
+        {
+            var cached = _cacheAccessor.GetCultures();
+            if(cached.Any())
+                return cached;
+
+            var cultures = await _localizationAccessor.GetListOfCultures();
+            await _cacheAccessor.CacheCultures(cultures);
+
+            return cultures;
         }
     }
 }

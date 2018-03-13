@@ -5,7 +5,8 @@ import { isPlatformServer } from '@angular/common';
 export class CacheService {
     constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
-    setCache(key: string, json: string, ttl: number = 600000) {
+    //default is 2 hours, or 7200000 milliseconds
+    setCache(key: string, json: string, ttl: number = 7200000) {
 
         if (isPlatformServer(this.platformId)) {
             return;
@@ -16,8 +17,6 @@ export class CacheService {
             return;
         }
 
-        console.log("data: ", json);
-
         const container: any = {};
         container["expires"] = new Date().getTime() + ttl;
         container["data"] = json;
@@ -25,7 +24,7 @@ export class CacheService {
         localStorage.setItem(key, JSON.stringify(container));
     }
 
-    getCache(key: string): string | null {
+    getCache(key: string): any | null {
         if (isPlatformServer(this.platformId)) {
             return null;
         }
@@ -53,6 +52,5 @@ export class CacheService {
         }
 
         return container["data"];
-        //return JSON.parse();
     }
 }

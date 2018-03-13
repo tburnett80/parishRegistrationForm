@@ -16,6 +16,7 @@ namespace ParishForms.Accessors
         #region Constructor and Private members
         private const string StateKeyPart = "CommonStates";
         private const string TranslationKeyPart = "Translations";
+        private const string CulturesKeyPart = "CultureList";
 
         private readonly ICacheProvider _provider;
         private readonly ConfigSettingsDto _settings;
@@ -53,6 +54,17 @@ namespace ParishForms.Accessors
         {
             await _provider.CacheObject($"{trans.FirstOrDefault()?.LocalizedCulture.ToLower()}::{TranslationKeyPart}", 
                 trans.ToList(), _settings.TranslationCacheTtlSeconds);
+        }
+
+        public IEnumerable<CultureDto> GetCultures()
+        {
+            return (IEnumerable<CultureDto>)
+                   _provider.GetObjectFromCache<List<CultureDto>>(CulturesKeyPart) ?? new CultureDto[0];
+        }
+
+        public async Task CacheCultures(IEnumerable<CultureDto> cultures)
+        {
+            await _provider.CacheObject(CulturesKeyPart, cultures.ToList(), _settings.TranslationCacheTtlSeconds);
         }
     }
 }

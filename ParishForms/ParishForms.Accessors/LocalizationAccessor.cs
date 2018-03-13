@@ -32,14 +32,12 @@ namespace ParishForms.Accessors
             }
         }
 
-        public async Task<IEnumerable<string>> GetListOfCultures()
+        public async Task<IEnumerable<CultureDto>> GetListOfCultures()
         {
             using (var ctx = _contextFactory.ConstructContext())
             {
-                return await ctx.Translations
-                    .Select(t => t.TranslationCulture)
-                    .Distinct()
-                    .ToListAsync();
+                var ents = await ctx.Cultures.ToListAsync();
+                return ents.Select(e => e.ToDto());
             }
         }
 
@@ -48,7 +46,9 @@ namespace ParishForms.Accessors
             using (var ctx = _contextFactory.ConstructContext())
             {
                 var ents = await ctx.Translations
-                    .Where(t => t.TranslationCulture.Equals(culture))
+                    .Include(t => t.KeyCulture)
+                    .Include(t => t.TranslationCulture)
+                    .Where(t => t.TranslationCulture.CultureCode.Equals(culture))
                     .ToListAsync();
 
                 return ents.Select(e => e.ToDto());

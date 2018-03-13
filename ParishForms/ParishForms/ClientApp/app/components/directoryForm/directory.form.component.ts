@@ -10,8 +10,6 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 })
 
 export class DirectoryFormComponent {
-    private labels: any;
-    private subscription: Subscription;
     private stateSub: Subscription;
     private cultureSub: Subscription;
 
@@ -22,12 +20,10 @@ export class DirectoryFormComponent {
         private changeEmitter: CultureChangedEmitterService) { }
 
     ngOnInit() {
-        this.subscription = this.localizationService.getFormText()
-            .subscribe(data => this.labels = data);
-
+        this.localizationService.initializeLocalization();
         this.stateSub = this.localizationService.getStatesOptions()
             .subscribe(data => {
-                this.stateList = data
+                this.stateList = data;
                 this.selectedState = "MO";
             });
 
@@ -37,18 +33,12 @@ export class DirectoryFormComponent {
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
         this.stateSub.unsubscribe();
         this.cultureSub.unsubscribe();
     }
 
     translate(key: string): string | undefined {
-        //Translation lookups use the english value, so we fail over to english.
-        if (!this.labels || !this.labels[key]) {
-            return key;
-        }
-
-        return this.labels[key];
+        return this.localizationService.translate(key);
     }
 
     getStatesList(): any {
@@ -56,15 +46,7 @@ export class DirectoryFormComponent {
     }
 
     refreshTranslations() {
-        console.log("refreshsing data....")
-        this.subscription.unsubscribe();
-        this.stateSub.unsubscribe();
-
-        this.subscription = this.localizationService.getFormText()
-            .subscribe(data => this.labels = data);
-
-        this.stateSub = this.localizationService.getStatesOptions()
-            .subscribe(data => this.stateList = data);
+        console.log("refreshsing data....");
     }
 }
 //https://www.toptal.com/angular-js/angular-4-forms-validation

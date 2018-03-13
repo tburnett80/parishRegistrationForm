@@ -12,5 +12,7 @@ namespace ParishForms.Common.Contracts.Managers
         Task PreLoadCache();
 
         Task<IEnumerable<TranslationDto>> GetTranslations(string culture);
+
+        Task<IEnumerable<CultureDto>> GetCultureList();
     }
 }

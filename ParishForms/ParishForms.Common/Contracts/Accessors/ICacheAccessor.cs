@@ -14,5 +14,9 @@ namespace ParishForms.Common.Contracts.Accessors
         IEnumerable<TranslationDto> GetTranslations(string culture);
 
         Task CacheTranslations(IEnumerable<TranslationDto> trans);
+
+        IEnumerable<CultureDto> GetCultures();
+
+        Task CacheCultures(IEnumerable<CultureDto> cultures);
     }
 }

@@ -27,10 +27,22 @@ namespace ParishForms.Accessors
 
             return new TranslationDto
             {
-                KeyCulture = ent.KeyCulture,
+                KeyCulture = ent.KeyCulture.CultureCode.ToLower(),
+                LocalizedCulture = ent.TranslationCulture.CultureCode.ToLower(),
                 KeyText = ent.KeyText,
-                LocalizedCulture = ent.TranslationCulture,
                 LocalizedText = ent.TranslationText
+            };
+        }
+
+        internal static CultureDto ToDto(this CultureEntity ent)
+        {
+            if (ent == null)
+                return null;
+
+            return new CultureDto
+            {
+                Culture = ent.CultureCode,
+                Name = ent.CultureName
             };
         }
     }

@@ -1,4 +1,6 @@
 ﻿<div>
-    <a id="en-us" (click)="cultureClick($event)" class="front-link" [ngClass]="{selected: isSelected('en-us')}">English</a>
-    <a id="es-mx" (click)="cultureClick($event)" [ngClass]="{selected: isSelected('es-mx')}">Español</a>
+    <a *ngFor="let cult of getCultures(); first as isFirst" 
+       (click)="cultureClick($event)" 
+       [attr.id]="cult.value" 
+       [ngClass]="{ selected: isSelected(cult.value), 'front-link': isFirst }">{{cult.text}}</a>
 </div>
