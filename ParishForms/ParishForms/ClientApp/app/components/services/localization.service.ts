@@ -12,7 +12,7 @@ export class LocalizationService {
     static culture: string;
     private getCultureListSub: Subscription;
     private transSubs: any;
-
+    
     constructor(private readonly cache: CacheService, private http: Http,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
         LocalizationService.culture = "en-us";
@@ -28,13 +28,16 @@ export class LocalizationService {
         const cultsFromCache = this.cache.getCache(culturesKey);
         const cacheFunc = (cult: any) => this.cacheCulture(cult.value);
         if (!cultsFromCache) {
+            if (this.getCultureListSub)
+                return;
+
             this.getCultureListSub = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
                 .map(res => {
                     this.cache.setCache(culturesKey, res.json());
                     return res.json();
                 })
                 .subscribe(cultures => {
-                    cultures.forEach(cacheFunc);
+                    cultures.filter().forEach(cacheFunc);
                     this.getCultureListSub.unsubscribe();
                 });
         } else {
@@ -43,6 +46,9 @@ export class LocalizationService {
     }
 
     getCultures() {
+        if (LocalizationService.caching)
+            return null;
+
         const culturesKey = 'CulturesList';
         const cultsFromCache = this.cache.getCache(culturesKey);
         if (!cultsFromCache) {
@@ -66,7 +72,9 @@ export class LocalizationService {
 
         let fromCache: any = this.cache.getCache(`${LocalizationService.culture}-translations`);
         if (!fromCache) {
-            console.log("translation culture not in cache, getting data...");
+            if (this.transSubs[LocalizationService.culture])
+                return key;
+
             this.transSubs[LocalizationService.culture] = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/labels/${LocalizationService.culture}/`)
                 .map((res: Response) => {
                     this.cache.setCache(`${LocalizationService.culture}-translations`, res.json());
@@ -81,10 +89,6 @@ export class LocalizationService {
             return fromCache[key];
         
         return key;
-    }
-
-    isCultureLoaded(culture: string): boolean {
-        return this.cache.getCache(`${culture}-translations`);
     }
 
     getStatesOptions(): Observable<any> {
@@ -110,12 +114,17 @@ export class LocalizationService {
         const fromCache = this.cache.getCache(key);
 
         if (!fromCache) {
+            if (this.transSubs[culture])
+                return;
+
             this.transSubs[culture] = this.http
                 .get(`${this.settings.getApiUrlBase()}/api/localization/labels/${culture}/`)
                 .map((res: Response) => {
                     this.cache.setCache(key, res.json());
                     return res.json();
-                }).subscribe(() => this.transSubs[culture].unsubscribe());
+                }).subscribe(() => {
+                    this.transSubs[culture].unsubscribe();
+                });
         }
     }
 }

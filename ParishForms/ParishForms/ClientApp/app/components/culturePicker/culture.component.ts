@@ -26,10 +26,6 @@ export class CultureComponent {
         return this.localizationService.getCultures();
     }
 
-    isCultureCached(culture: string): boolean {
-        return this.localizationService.isCultureLoaded(culture);
-    }
-
     isSelected(id: string): boolean {
         return LocalizationService.culture === id;
     }
