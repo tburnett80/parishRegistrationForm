@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove=".dockerignore" />
     <None Remove="ClientApp\app\components\culturePicker\culture.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.page.component.ts" />
@@ -33,7 +32,6 @@
     <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
     <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
     <None Remove="ClientApp\app\components\services\localization.service.ts" />
-    <None Remove="Dockerfile" />
   </ItemGroup>
 
   <ItemGroup>
