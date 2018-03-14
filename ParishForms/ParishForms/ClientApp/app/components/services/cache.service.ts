@@ -17,6 +17,9 @@ export class CacheService {
             return;
         }
 
+        if (!json)
+            return;
+
         const container: any = {};
         container["expires"] = new Date().getTime() + ttl;
         container["data"] = json;
