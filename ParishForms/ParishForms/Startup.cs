@@ -30,19 +30,19 @@ namespace ParishForms
             services.AddMvc();
 
             //pre-cache localization data
-            //Task.Factory.StartNew(() =>
-            //{
-            //    var provider = services.BuildServiceProvider();
+            Task.Factory.StartNew(() =>
+            {
+                var provider = services.BuildServiceProvider();
 
-            //    //ensure db and tables exist.
-            //    using (var factory = provider.GetService<IDbContextFactory<CreationContext>>())
-            //    using (var ctx = factory.ConstructContext())
-            //    { }
+                //ensure db and tables exist.
+                using (var factory = provider.GetService<IDbContextFactory<CreationContext>>())
+                using (var ctx = factory.ConstructContext())
+                { }
 
-            //    //load localization values into cache
-            //    var loc = provider.GetService<ILocalizationManager>();
-            //    loc.PreLoadCache().Wait();
-            //}, TaskCreationOptions.LongRunning);
+                //load localization values into cache
+                var loc = provider.GetService<ILocalizationManager>();
+                loc.PreLoadCache().Wait();
+            }, TaskCreationOptions.LongRunning);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
