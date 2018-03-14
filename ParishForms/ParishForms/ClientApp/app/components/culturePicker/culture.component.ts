@@ -11,7 +11,7 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 
 export class CultureComponent {
     private getCultureListSub: Subscription;
-    private cultures: any[];
+    cultures: any[];
 
     constructor(private readonly localizationService: LocalizationService,
         private ref: ApplicationRef, private changeEmitter: CultureChangedEmitterService) {
