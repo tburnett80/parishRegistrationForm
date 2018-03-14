@@ -19,51 +19,39 @@ export class LocalizationService {
         this.transSubs = {};
     }
 
-    initializeLocalization() {
-        //pre-cache states
-        this.getStatesOptions();
-
+    initializeLocalization(): Observable<any> {
         //pre-cache cultures and translations
         const culturesKey = 'CulturesList';
         const cultsFromCache = this.cache.getCache(culturesKey);
         const cacheFunc = (cult: any) => this.cacheCulture(cult.value);
-        if (!cultsFromCache) {
-            if (this.getCultureListSub)
-                return;
+        const filter = (cult: any) => cult.value !== 'en-us';
 
-            this.getCultureListSub = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
-                .map(res => {
-                    this.cache.setCache(culturesKey, res.json());
-                    return res.json();
-                })
-                .subscribe(cultures => {
-                    cultures.filter().forEach(cacheFunc);
-                    this.getCultureListSub.unsubscribe();
-                });
-        } else {
-            cultsFromCache.forEach(cacheFunc);
-        }
+        if (cultsFromCache)
+            return Observable.of(cultsFromCache);
+
+        //pre-cache states
+        this.getStatesOptions();
+
+        return this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
+            .map(res => {
+                this.cache.setCache(culturesKey, res.json());
+                res.json().filter(filter).forEach(cacheFunc);
+                return res.json();
+            });
     }
 
-    getCultures() {
-        if (LocalizationService.caching)
-            return null;
-
+    getCultures(): Observable<any> {
         const culturesKey = 'CulturesList';
         const cultsFromCache = this.cache.getCache(culturesKey);
-        if (!cultsFromCache) {
-            this.getCultureListSub = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
+
+        if(cultsFromCache)
+            return Observable.of(cultsFromCache);
+
+        return this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
                 .map(res => {
                     this.cache.setCache(culturesKey, res.json());
                     return res.json();
-                })
-                .subscribe(cultures => {
-                    this.getCultureListSub.unsubscribe();
-                    return cultures;
                 });
-        } else {
-            return cultsFromCache;
-        }
     }
 
     translate(key: string): string {
@@ -82,6 +70,7 @@ export class LocalizationService {
                 }).subscribe(data => {
                     fromCache = data;
                     this.transSubs[LocalizationService.culture].unsubscribe();
+                    this.transSubs[LocalizationService.culture] = null;
                 });
         }
 
@@ -124,6 +113,7 @@ export class LocalizationService {
                     return res.json();
                 }).subscribe(() => {
                     this.transSubs[culture].unsubscribe();
+                    this.transSubs[culture] = null;
                 });
         }
     }

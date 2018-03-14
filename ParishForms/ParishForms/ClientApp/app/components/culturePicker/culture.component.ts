@@ -10,9 +10,22 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 })
 
 export class CultureComponent {
+    private getCultureListSub: Subscription;
+    private cultures: any[];
 
     constructor(private readonly localizationService: LocalizationService,
         private ref: ApplicationRef, private changeEmitter: CultureChangedEmitterService) {
+    }
+
+    ngOnInit() {
+        this.getCultureListSub =
+            this.localizationService.initializeLocalization().subscribe((data: any) => {
+                this.cultures = data;
+            });
+    }
+
+    ngOnDestroy() {
+        this.getCultureListSub.unsubscribe();
     }
 
     cultureClick(event: Event) {
@@ -20,10 +33,6 @@ export class CultureComponent {
             LocalizationService.culture = event.srcElement.id;
             this.changeEmitter.next(`cultureChanged to ${LocalizationService.culture}`);
         }
-    }
-
-    getCultures() {
-        return this.localizationService.getCultures();
     }
 
     isSelected(id: string): boolean {

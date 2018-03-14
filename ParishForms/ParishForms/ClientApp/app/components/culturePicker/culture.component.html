@@ -1,5 +1,5 @@
 ﻿<div>
-    <a *ngFor="let cult of getCultures(); first as isFirst" 
+    <a *ngFor="let cult of cultures; first as isFirst" 
        (click)="cultureClick($event)" 
        [attr.id]="cult.value" 
        [ngClass]="{ selected: isSelected(cult.value), 'front-link': isFirst }">{{cult.text}}</a>

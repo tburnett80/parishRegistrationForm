@@ -25,6 +25,7 @@
     <None Remove="ClientApp\app\components\culturePicker\culture.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <None Remove="ClientApp\app\components\models\DirectoryForm.ts" />
     <None Remove="ClientApp\app\components\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
     <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
@@ -41,6 +42,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\culturePicker\culture.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\models\DirectoryForm.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\client.settings.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
