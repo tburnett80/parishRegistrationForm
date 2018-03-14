@@ -12,19 +12,37 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 export class DirectoryFormComponent {
     private stateSub: Subscription;
     private cultureSub: Subscription;
+    formModel: IDirectoryModel;
 
     stateList: any[];
-    selectedState: string;
+    //selectedState: string;
     
     constructor(private localizationService: LocalizationService,
         private changeEmitter: CultureChangedEmitterService) { }
 
     ngOnInit() {
+        this.formModel = {
+            publishPhone: true,
+            publisAddress: true,
+            familyName: "",
+            adult1FName: "",
+            adult2FName: "",
+            otherNames: "",
+            homePhone: "",
+            address: "",
+            city: "",
+            state: "",
+            zip: "",
+            adult1Email: "",
+            adult2Email: "",
+            adult1Cell: "",
+            adult2Cell: ""
+        };
         this.localizationService.initializeLocalization();
         this.stateSub = this.localizationService.getStatesOptions()
             .subscribe(data => {
                 this.stateList = data;
-                this.selectedState = "MO";
+                this.formModel.state = "MO";
             });
 
         this.cultureSub = this.changeEmitter.subscribe((next: any) => {

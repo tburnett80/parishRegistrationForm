@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="state">{{translate('State')}}</label>
-                <select [(ngModel)]="selectedState" name="selectedState" class="form-control" *ngIf="stateList" id="state">
+                <select [(ngModel)]="formModel.state" name="formModel.state" class="form-control" *ngIf="stateList" id="state">
                     <option *ngFor="let opt of stateList" [value]="opt.value">{{opt.text}}</option>
                 </select>
             </div>
@@ -43,9 +43,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-6">
+            <div class="col-sm-offset-2 col-sm-4">
+                <input type="checkbox" class="form-control-static" id="add_pub" checked="checked" />
+                <label class="control-label" for="add_pub">{{translate('Publish address in directory?')}}</label>
+            </div>
+            <div class="col-sm-4">
                 <input type="checkbox" class="form-control-static" id="phone_pub" checked="checked" />
-                <label class="control-label" for="phone_pub">{{translate('Publish phone number and address in directory?')}}</label>
+                <label class="control-label" for="phone_pub">{{translate('Publish phone number in directory?')}}</label>
             </div>
         </div>
 
