@@ -18,5 +18,9 @@ namespace ParishForms.Common.Contracts.Accessors
         IEnumerable<CultureDto> GetCultures();
 
         Task CacheCultures(IEnumerable<CultureDto> cultures);
+
+        IDictionary<string, int> GetDirectoryFormLimits();
+
+        Task CacheDirectoryFormLimits(IDictionary<string, int> limits);
     }
 }

@@ -58,6 +58,23 @@ namespace ParishForms.Engines
 
             return !string.IsNullOrEmpty(submision.AdultOneFirstName.TryTrim());
         }
+
+        public async Task<IDictionary<string, int>> GetFormLimits()
+        {
+            var fromCache = _cacheAccessor.GetDirectoryFormLimits();
+            if (fromCache.Keys.Any())
+                return fromCache;
+
+            var sublimits = await _directoryAccessor.GetFieldLengths<SubmisionDto>();
+            var addressLimits = await _directoryAccessor.GetFieldLengths<AddressDto>();
+            var emailLimits = await _directoryAccessor.GetFieldLengths<EmailDto>();
+            var phoneLimits = await _directoryAccessor.GetFieldLengths<PhoneDto>();
+
+            var results = Merge(emailLimits, Merge(phoneLimits, Merge(addressLimits, sublimits)));
+            await _cacheAccessor.CacheDirectoryFormLimits(results);
+
+            return results;
+        }
         #endregion
 
         #region Private methods
@@ -66,6 +83,19 @@ namespace ParishForms.Engines
             var states = await GetStates();
             return states.FirstOrDefault(s => 
                 s.Abbreviation.ToUpper().Equals(abbr.ToUpper()));
+        }
+
+        private IDictionary<string, int> Merge(IDictionary<string, int> fist, IDictionary<string, int> second)
+        {
+            foreach (var key in fist.Keys)
+            {
+                if(second.ContainsKey(key))
+                    continue;
+
+                second.Add(key, fist[key]);
+            }
+
+            return second;
         }
         #endregion
     }

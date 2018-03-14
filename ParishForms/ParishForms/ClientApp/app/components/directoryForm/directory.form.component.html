@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="family_name">{{translate('Household Name')}}</label>
-                <input class="form-control" id="family_name" type="text" [placeholder]="translate('i.e. Smith')"/>
+                <input class="form-control" id="family_name" type="text" [text-len]="directory" [placeholder]="translate('i.e. Smith')"/>
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="home_phone">{{translate('Home Phone')}}</label>

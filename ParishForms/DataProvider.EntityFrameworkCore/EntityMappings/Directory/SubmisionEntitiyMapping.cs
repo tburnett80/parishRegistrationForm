@@ -46,6 +46,11 @@ namespace DataProvider.EntityFrameworkCore.EntityMappings.Directory
                 .HasColumnName("publishAddress")
                 .IsRequired();
 
+            builder.Property(e => e.FamilyName)
+                .HasColumnName("houseHoldName")
+                .HasMaxLength(64)
+                .IsRequired();
+
             builder.Property(e => e.AdultOneFirstName)
                 .HasColumnName("adult1")
                 .HasMaxLength(64)

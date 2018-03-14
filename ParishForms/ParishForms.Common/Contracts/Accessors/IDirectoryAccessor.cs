@@ -10,5 +10,7 @@ namespace ParishForms.Common.Contracts.Accessors
         Task<IEnumerable<StateDto>> GetStates();
 
         Task<int> StoreSubmision(SubmisionDto submision);
+
+        Task<IDictionary<string, int>> GetFieldLengths<TEnt>() where TEnt : class;
     }
 }

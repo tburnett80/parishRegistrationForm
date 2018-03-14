@@ -4,9 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { TextLengthDirective } from './components/directives/text-len.directive';
+
 import { EnvironmentSettings } from './components/services/client.settings.service';
 import { CultureChangedEmitterService } from './components/services/cultureChangedEmitter.service';
 import { CacheService } from './components/services/cache.service';
+import { FormConstraintsService } from './components/services/form-constraints.service';
 import { LocalizationService } from './components/services/localization.service';
 
 import { AppComponent } from './components/app.component';
@@ -17,6 +20,7 @@ import { DirectoryPageComponent } from './components/directoryForm/directory.pag
 @NgModule({
     declarations: [
         AppComponent,
+        TextLengthDirective,
         CultureComponent,
         DirectoryFormComponent,
         DirectoryPageComponent
@@ -25,6 +29,7 @@ import { DirectoryPageComponent } from './components/directoryForm/directory.pag
         EnvironmentSettings,
         CultureChangedEmitterService,
         CacheService,
+        FormConstraintsService,
         LocalizationService
     ],
     imports: [

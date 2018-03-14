@@ -1,5 +1,8 @@
-﻿using DataProvider.EntityFrameworkCore.Entities.Common;
+﻿using System;
+using System.IO;
+using DataProvider.EntityFrameworkCore.Entities.Common;
 using DataProvider.EntityFrameworkCore.Entities.Directory;
+using DataProvider.EntityFrameworkCore.Entities.Localization;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
 
@@ -66,6 +69,27 @@ namespace ParishForms.Accessors
                 EmailType = (int) dto.EmailType,
                 Email = dto.Address
             };
+        }
+
+        internal static Type ToEntityType(this Type dtoType)
+        {
+            switch (dtoType.FullName)
+            {
+                case "ParishForms.Common.Models.CultureDto":
+                    return typeof(CultureEntity);
+                case "ParishForms.Common.Models.Directory.SubmisionDto":
+                    return typeof(SubmisionEntitiy);
+                case "ParishForms.Common.Models.Common.AddressDto":
+                    return typeof(AddressEntity);
+                case "ParishForms.Common.Models.Common.EmailDto":
+                    return typeof(EmailAddressEntity);
+                case "ParishForms.Common.Models.Common.PhoneDto":
+                    return typeof(PhoneEntity);
+                case "ParishForms.Common.Models.Common.StateDto":
+                    return typeof(StateEntity);
+                default:
+                    return typeof(object);
+            }
         }
     }
 }

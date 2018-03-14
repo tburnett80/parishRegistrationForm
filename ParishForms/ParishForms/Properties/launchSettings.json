@@ -13,7 +13,7 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Server=192.168.1.1;Port=5432;Database=parish;User Id=user1;Password=password1;",
+        "CONNECTION_STRING": "Server=10.200.7.116;Port=5432;Database=parish;User Id=user1;Password=password1;",
         "STATE_CACHE_TTL": "14400",
         "TRANSLATION_CACHE_TTL": "14400"
       }

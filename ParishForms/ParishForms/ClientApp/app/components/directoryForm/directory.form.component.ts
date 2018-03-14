@@ -68,3 +68,17 @@ export class DirectoryFormComponent {
     }
 }
 //https://www.toptal.com/angular-js/angular-4-forms-validation
+
+/* http://localhost:3020/api/directory/limits
+{
+	"AdultOneFirstName": 64,
+	"AdultTwoFirstName": 64,
+    "FamilyName": 64,
+	"OtherFamily": 1024,
+	"City": 64,
+	"Street": 255,
+	"Zip": 10,
+	"Number": 15,
+	"Email": 255
+}
+*/

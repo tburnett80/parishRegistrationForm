@@ -30,6 +30,12 @@ namespace ParishForms.Managers
         {
             return await _directoryEngine.StoreSubmision(submision);
         }
+
+        public async Task<IDictionary<string, int>> GetFormLimits()
+        {
+            return await _directoryEngine.GetFormLimits();
+        }
+
         #endregion
     }
 }

@@ -40,5 +40,22 @@ namespace ParishForms.Accessors
                 return ents.Select(e => e.ToDto());
             }
         }
+
+        public async Task<IDictionary<string, int>> GetFieldLengths<TEnt>() where TEnt : class
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                using (var ctx = _contextFactory.ConstructContext())
+                {
+                    var model = ctx.Model.GetEntityTypes()
+                        .FirstOrDefault(t => t.Name.Equals(typeof(TEnt).ToEntityType().FullName));
+
+                    return model?.GetProperties()
+                               .Where(p => p.FindAnnotation("MaxLength") != null)
+                               .ToDictionary(k => k.Name, v => (int)v.FindAnnotation("MaxLength").Value)
+                           ?? new Dictionary<string, int>();
+                }
+            });
+        }
     }
 }

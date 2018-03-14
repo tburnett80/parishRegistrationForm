@@ -17,6 +17,7 @@ namespace ParishForms.Accessors
         private const string StateKeyPart = "CommonStates";
         private const string TranslationKeyPart = "Translations";
         private const string CulturesKeyPart = "CultureList";
+        private const string DirectoryFormLimitsKey = "DirectoryFormLimits";
 
         private readonly ICacheProvider _provider;
         private readonly ConfigSettingsDto _settings;
@@ -59,12 +60,25 @@ namespace ParishForms.Accessors
         public IEnumerable<CultureDto> GetCultures()
         {
             return (IEnumerable<CultureDto>)
-                   _provider.GetObjectFromCache<List<CultureDto>>(CulturesKeyPart) ?? new CultureDto[0];
+                   _provider.GetObjectFromCache<List<CultureDto>>(CulturesKeyPart) 
+                   ?? new CultureDto[0];
         }
 
         public async Task CacheCultures(IEnumerable<CultureDto> cultures)
         {
             await _provider.CacheObject(CulturesKeyPart, cultures.ToList(), _settings.TranslationCacheTtlSeconds);
+        }
+
+        public IDictionary<string, int> GetDirectoryFormLimits()
+        {
+            return (IDictionary<string, int>)
+                   _provider.GetObjectFromCache<Dictionary<string, int>>(DirectoryFormLimitsKey)
+                   ?? new Dictionary<string, int>();
+        }
+
+        public async Task CacheDirectoryFormLimits(IDictionary<string, int> limits)
+        {
+            await _provider.CacheObject(DirectoryFormLimitsKey, limits.ToDictionary(k => k, v => v), _settings.TranslationCacheTtlSeconds);
         }
     }
 }
