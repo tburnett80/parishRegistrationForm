@@ -148,41 +148,57 @@ namespace ParishForms.Tests
 
         private TContext InitTranslations(TContext ctx)
         {
+            ctx.AddRange(new[]
+            {
+                new CultureEntity
+                {
+                    CultureCode = "en-us",
+                    CultureName = "English"
+                },
+                new CultureEntity
+                {
+                    CultureCode = "es-mx",
+                    CultureName = "Spanish"
+                },
+            });
+
+            ctx.SaveChanges(true);
+
             ctx.AddRange(new []
             {
                 new LocalizationValueEntity
                 {
-                    KeyCulture = "en-us",
+                    KeyCultureId = 1,
                     KeyText = "Household Name",
-                    TranslationCulture = "es-mx",
+                    TranslationCultureId = 2,
                     TranslationText = "Familia"
                 },
                 new LocalizationValueEntity
                 {
-                    KeyCulture = "en-us",
+                    KeyCultureId = 1,
                     KeyText = "Home Phone",
-                    TranslationCulture = "es-mx",
+                    TranslationCultureId = 2,
                     TranslationText = "Teléfono de casa"
                 },
                 new LocalizationValueEntity
                 {
-                    KeyCulture = "en-us",
+                    KeyCultureId = 1,
                     KeyText = "Street Address",
-                    TranslationCulture = "es-mx",
+                    TranslationCultureId = 2,
                     TranslationText = "Dirección"
                 },
                 new LocalizationValueEntity
                 {
-                    KeyCulture = "en-us",
+                    KeyCultureId = 1,
                     KeyText = "City",
-                    TranslationCulture = "es-mx",
+                    TranslationCultureId = 2,
                     TranslationText = "Ciudad"
                 },
                 new LocalizationValueEntity
                 {
-                    KeyCulture = "en-us",
+                    KeyCultureId = 1,
                     KeyText = "Email Address",
-                    TranslationCulture = "es-mx",
+                    TranslationCultureId = 2,
                     TranslationText = "correo electronico"
                 },
             });

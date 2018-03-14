@@ -63,8 +63,8 @@ namespace ParishForms.Tests.DataProvderTests
                     ctx.Translations.Add(new LocalizationValueEntity
                     {
                         KeyText = "Sample",
-                        KeyCulture = "en-us",
-                        TranslationCulture = "es-mx",
+                        KeyCultureId = 1,
+                        TranslationCultureId = 2,
                         TranslationText = "Muestra"
                     });
 
