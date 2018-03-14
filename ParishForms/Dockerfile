@@ -13,7 +13,7 @@ COPY ParishForms.Managers/* ./
 COPY ParishForms.Managers/* ./
 COPY ParishForms.Tests/* ./
 COPY ParishForms.sln
-RUN dotnet publish -c Release -o out ParishForms.sln
+RUN dotnet publish -c Release -o out ParishForms.sln /p:CopyOutputSymbolsToPublishDirectory=false
 
 # Build runtime image
 FROM microsoft/aspnetcore:2.0
