@@ -2,17 +2,16 @@
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY DataProvider.Cache/* ./
-COPY DataProvider.EntityFrameworkCore/* ./
-COPY ParishForms/* ./
-COPY ParishForms.Accessors/* ./
-COPY ParishForms.Common/* ./
-COPY ParishForms.Engines/* ./
-COPY ParishForms.IoC/* ./
-COPY ParishForms.Managers/* ./
-COPY ParishForms.Managers/* ./
-COPY ParishForms.Tests/* ./
-COPY ParishForms.sln ./
+COPY DataProvider.Cache/* ./DataProvider.Cache
+COPY DataProvider.EntityFrameworkCore/* ./DataProvider.EntityFrameworkCore
+COPY ParishForms/* ./ParishForms
+COPY ParishForms.Accessors/* ./ParishForms.Accessors
+COPY ParishForms.Common/* ./ParishForms.Common
+COPY ParishForms.Engines/* ./ParishForms.Engines
+COPY ParishForms.IoC/* ./ParishForms.IoC
+COPY ParishForms.Managers/* ./ParishForms.Managers
+COPY ParishForms.Tests/* ./ParishForms.Tests
+RUN ls -a
 RUN dotnet publish -c Release -o out ParishForms/ParishForms.csproj /p:CopyOutputSymbolsToPublishDirectory=false
 
 # Build runtime image
