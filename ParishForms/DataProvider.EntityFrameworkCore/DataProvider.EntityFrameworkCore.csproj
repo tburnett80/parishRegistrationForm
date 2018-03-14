@@ -12,5 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
 </Project>

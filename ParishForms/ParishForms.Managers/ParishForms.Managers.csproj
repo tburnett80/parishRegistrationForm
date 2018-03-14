@@ -9,5 +9,7 @@
     <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
     <ProjectReference Include="..\ParishForms.Engines\ParishForms.Engines.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
 </Project>

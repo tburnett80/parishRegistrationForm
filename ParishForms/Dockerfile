@@ -10,7 +10,10 @@ COPY ParishForms.Common/* ./
 COPY ParishForms.Engines/* ./
 COPY ParishForms.IoC/* ./
 COPY ParishForms.Managers/* ./
-RUN cd ParishForms && dotnet publish -c Release -o out
+COPY ParishForms.Managers/* ./
+COPY ParishForms.Tests/* ./
+COPY ParishForms.sln
+RUN dotnet publish -c Release -o out ParishForms.sln
 
 # Build runtime image
 FROM microsoft/aspnetcore:2.0

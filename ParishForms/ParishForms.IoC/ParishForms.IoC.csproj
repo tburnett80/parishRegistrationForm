@@ -17,5 +17,7 @@
     <ProjectReference Include="..\ParishForms.Engines\ParishForms.Engines.csproj" />
     <ProjectReference Include="..\ParishForms.Managers\ParishForms.Managers.csproj" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
 </Project>

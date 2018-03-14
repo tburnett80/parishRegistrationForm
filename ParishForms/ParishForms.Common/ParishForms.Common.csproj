@@ -7,5 +7,7 @@
   <ItemGroup>
     <Folder Include="Models\Logging\" />
   </ItemGroup>
-
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
 </Project>

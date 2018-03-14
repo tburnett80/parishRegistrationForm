@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms", "ParishForms\ParishForms.csproj", "{3ACB0C90-3358-479B-A575-65688A1182A5}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProvider.EntityFramewor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParishForms.Tests", "ParishForms.Tests\ParishForms.Tests.csproj", "{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataProvider.Cache", "DataProvider.Cache\DataProvider.Cache.csproj", "{70B1D34D-E737-438F-A202-FF8F88CE41BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataProvider.Cache", "DataProvider.Cache\DataProvider.Cache.csproj", "{70B1D34D-E737-438F-A202-FF8F88CE41BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,7 +58,6 @@ Global
 		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EFDC0A3-1DAA-4DCA-81F7-9B6568A5E531}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70B1D34D-E737-438F-A202-FF8F88CE41BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70B1D34D-E737-438F-A202-FF8F88CE41BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B1D34D-E737-438F-A202-FF8F88CE41BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
