@@ -84,9 +84,9 @@
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="adult1Email">{{translate('Email Address')}}</label>
-                <input class="form-control" id="adult1Email" #aemail1="ngModel" type="email" [(ngModel)]="formModel.adult1Email" npt-constr name="adult1Email" [placeholder]="translate('test@test.com')" />
+                <input class="form-control" id="adult1Email" #aemail1="ngModel" type="email" [(ngModel)]="formModel.adult1Email" email2 npt-constr name="adult1Email" [placeholder]="translate('test@test.com')" />
                 <div *ngIf="aemail1.invalid && (aemail1.dirty || aemail1.touched)" class="alert alert-danger">
-                    <div *ngIf="aemail1.errors.pattern">{{translate('Invalid email address')}}</div>
+                    <div *ngIf="aemail1.errors.email">{{translate('Invalid email address')}}</div>
                 </div>
             </div>
         </div>
@@ -112,9 +112,9 @@
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="adult2Email">{{translate('Email Address')}}</label>
-                <input class="form-control" id="adult2Email" #aemail2="ngModel" type="email" [(ngModel)]="formModel.adult2Email" npt-constr name="adult2Email" [placeholder]="translate('test@test.com')" />
+                <input class="form-control" id="adult2Email" #aemail2="ngModel" type="email" [(ngModel)]="formModel.adult2Email" email2 npt-constr name="adult2Email" [placeholder]="translate('test@test.com')" />
                 <div *ngIf="aemail2.invalid && (aemail2.dirty || aemail2.touched)" class="alert alert-danger">
-                    <div *ngIf="aemail2.errors.pattern">{{translate('Invalid email address')}}</div>
+                    <div *ngIf="aemail2.errors.email">{{translate('Invalid email address')}}</div>
                 </div>
             </div>
         </div>
@@ -141,8 +141,10 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <button [disable]="!ngForm.valid">{{translate('Submit Directory Form')}}</button>
+                <div>Valid: {{directoryForm.valid}}</div>
+                <button type="button" class="btn btn-success" [ngClass]="{disabled : !directoryForm.valid}">{{translate('Submit Directory Form')}}</button>
             </div>
         </div>
     </form>
 </div>
+m
