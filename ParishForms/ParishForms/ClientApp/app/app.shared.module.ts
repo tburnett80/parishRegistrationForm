@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { TextLengthDirective } from './components/directives/text-len.directive';
 import { EmailValidatorDirective } from './components/directives/email-validator.directive';
+import { PhoneValidatorDirective } from './components/directives/phone-validator.directive';
 
 import { EnvironmentSettings } from './components/services/client.settings.service';
 import { CultureChangedEmitterService } from './components/services/cultureChangedEmitter.service';
@@ -23,6 +24,7 @@ import { DirectoryPageComponent } from './components/directoryForm/directory.pag
         AppComponent,
         TextLengthDirective,
         EmailValidatorDirective,
+        PhoneValidatorDirective,
         CultureComponent,
         DirectoryFormComponent,
         DirectoryPageComponent

@@ -21,9 +21,9 @@
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="home_phone">{{translate('Home Phone')}}</label>
-                <input class="form-control" id="home_phone" #hphone="ngModel" type="tel" [(ngModel)]="formModel.homePhone" name="homePhone" npt-constr [placeholder]="translate('i.e. 636-946-1893')" />
+                <input class="form-control" id="home_phone" #hphone="ngModel" type="tel" [(ngModel)]="formModel.homePhone" name="homePhone" phone npt-constr [placeholder]="translate('i.e. 636-946-1893')" />
                 <div *ngIf="hphone.invalid && (hphone.dirty || hphone.touched)" class="alert alert-danger">
-                    <div *ngIf="hphone.errors.pattern">{{translate('Invalid phone number')}}</div>
+                    <div *ngIf="hphone.errors.phone">{{translate('Invalid phone number')}}</div>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="adult1Cell">{{translate('Mobile Phone')}}</label>
-                <input class="form-control" id="adult1Cell" #aphone1="ngModel" type="tel" [(ngModel)]="formModel.adult1Cell" npt-constr name="adult1Cell" [placeholder]="translate('i.e. 636-946-1893')" />
+                <input class="form-control" id="adult1Cell" #aphone1="ngModel" type="tel" [(ngModel)]="formModel.adult1Cell" phone npt-constr name="adult1Cell" [placeholder]="translate('i.e. 636-946-1893')" />
                 <div *ngIf="aphone1.invalid && (aphone1.dirty || aphone1.touched)" class="alert alert-danger">
                     <div *ngIf="aphone1.errors.pattern">{{translate('Invalid phone number')}}</div>
                 </div>
@@ -121,7 +121,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="adult2Cell">{{translate('Mobile Phone')}}</label>
-                <input class="form-control" id="adult2Cell" #aphone2="ngModel" type="tel" [(ngModel)]="formModel.adult2Cell" npt-constr name="adult2Cell" [placeholder]="translate('i.e. 636-946-1893')" />
+                <input class="form-control" id="adult2Cell" #aphone2="ngModel" type="tel" [(ngModel)]="formModel.adult2Cell" phone npt-constr name="adult2Cell" [placeholder]="translate('i.e. 636-946-1893')" />
                 <div *ngIf="aphone2.invalid && (aphone2.dirty || aphone2.touched)" class="alert alert-danger">
                     <div *ngIf="aphone2.errors.pattern">{{translate('Invalid phone number')}}</div>
                 </div>

@@ -14,6 +14,9 @@ export class TextLengthDirective {
             .then((data) => {
                 if (data && data[this.el.nativeElement.name.toLowerCase()]) {
                     this.el.nativeElement.maxLength = data[this.el.nativeElement.name.toLowerCase()];
+                } else {
+                    if (this.el.nativeElement.type === 'tel')
+                        this.el.nativeElement.maxLength = 12;
                 }
             });
     }
