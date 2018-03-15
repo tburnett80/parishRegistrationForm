@@ -4,4 +4,5 @@ cd  parishRegistrationForm/ParishForms/ParishForms
 dotnet publish -c Release -o out /p:CopyOutputSymbolsToPublishDirectory=false
 docker build -t parish-frm .
 
+cd ../../../
 rm -rf parishRegistrationForm/
