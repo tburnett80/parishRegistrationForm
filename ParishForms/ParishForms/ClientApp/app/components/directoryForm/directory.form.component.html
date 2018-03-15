@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <form #directoryForm="ngForm">
+    <form #directoryForm="ngForm" name="directory">
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8">
                 <h2>{{translate('Borromeo Parish Directory Signup 2018')}}</h2>
@@ -12,64 +12,91 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="family_name">{{translate('Household Name')}}</label>
-                <input class="form-control" id="family_name" type="text" [text-len]="directory" [placeholder]="translate('i.e. Smith')"/>
+                <label class="control-label" for="FamilyName">{{translate('Household Name')}}</label>
+                <input class="form-control" id="FamilyName" #famname="ngModel" [(ngModel)]="formModel.familyName" name="FamilyName" type="text" pattern="^[^0-9]+$" npt-constr [placeholder]="translate('i.e. Smith')" required />
+                <div *ngIf="famname.invalid && (famname.dirty || famname.touched)" class="alert alert-danger">
+                    <div *ngIf="famname.errors.required">{{translate('Household Name is required')}}</div>
+                    <div *ngIf="famname.errors.pattern">{{translate('Letters and symbols only')}}</div>
+                </div>
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="home_phone">{{translate('Home Phone')}}</label>
-                <input class="form-control" id="home_phone" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
+                <input class="form-control" id="home_phone" #hphone="ngModel" type="tel" [(ngModel)]="formModel.homePhone" name="homePhone" npt-constr [placeholder]="translate('i.e. 636-946-1893')" />
+                <div *ngIf="hphone.invalid && (hphone.dirty || hphone.touched)" class="alert alert-danger">
+                    <div *ngIf="hphone.errors.pattern">{{translate('Invalid phone number')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="address">{{translate('Street Address')}}</label>
-                <input class="form-control" id="address" type="text" [placeholder]="translate('i.e. 601 N 4th St.')" />
+                <input class="form-control" id="address" #address="ngModel" type="text" [(ngModel)]="formModel.address" name="street" npt-constr [placeholder]="translate('i.e. 601 N 4th St.')" required />
+                <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+                    <div *ngIf="address.errors.required">{{translate('Street Address is required')}}</div>
+                </div>
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="city">{{translate('City')}}</label>
-                <input class="form-control" id="city" type="text" [placeholder]="translate('i.e. St Charles')"/>
+                <input class="form-control" id="city" #city="ngModel" type="text" [(ngModel)]="formModel.city" name="city" npt-constr pattern="^[^0-9]+$" [placeholder]="translate('i.e. St Charles')" required />
+                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                    <div *ngIf="city.errors.required">{{translate('City is required')}}</div>
+                    <div *ngIf="city.errors.pattern">{{translate('Letters and symbols only')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="state">{{translate('State')}}</label>
                 <select [(ngModel)]="formModel.state" name="formModel.state" class="form-control" *ngIf="stateList" id="state">
-                    <option *ngFor="let opt of stateList" [value]="opt.value">{{opt.text}}</option>
+                    <option *ngFor="let opt of stateList" [value]="opt.value">{{translate(opt.text)}}</option>
                 </select>
             </div>
             <div class="col-sm-4 form-group-sm">
                 <label class="control-label" for="zip">{{translate('Zip')}}</label>
-                <input class="form-control" id="zip" type="text" [placeholder]="translate('i.e. 63301')"/>
+                <input class="form-control" id="zip" #zip="ngModel" type="number" [(ngModel)]="formModel.zip" name="zip" npt-constr [placeholder]="translate('i.e. 63301')" required />
+                <div *ngIf="zip.invalid && (zip.dirty || zip.touched)" class="alert alert-danger">
+                    <div *ngIf="zip.errors.required">{{translate('Zip is required')}}</div>
+                    <div *ngIf="zip.errors.pattern">{{translate('Numbers only')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4">
-                <input type="checkbox" class="form-control-static" id="add_pub" checked="checked" />
+                <input type="checkbox" class="form-control-static" id="add_pub" checked="checked" [(ngModel)]="formModel.publisAddress" name="publisAddress" />
                 <label class="control-label" for="add_pub">{{translate('Publish address in directory?')}}</label>
             </div>
             <div class="col-sm-4">
-                <input type="checkbox" class="form-control-static" id="phone_pub" checked="checked" />
+                <input type="checkbox" class="form-control-static" id="phone_pub" checked="checked" [(ngModel)]="formModel.publishPhone" name="publishPhone" />
                 <label class="control-label" for="phone_pub">{{translate('Publish phone number in directory?')}}</label>
             </div>
         </div>
-
         <div class="row">
             <h3 class="col-sm-offset-2 col-sm-4">{{translate('Adult 1')}}</h3>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="address">{{translate('First Name')}}</label>
-                <input class="form-control" id="address" type="text" [placeholder]="translate('John')" />
+                <label class="control-label" for="adult1FName">{{translate('First Name')}}</label>
+                <input class="form-control" id="adult1FName" #afamname1="ngModel" type="text" [(ngModel)]="formModel.adult1FName" npt-constr name="adultonefirstname" pattern="^[^0-9]+$" [placeholder]="translate('John')" required />
+                <div *ngIf="afamname1.invalid && (afamname1.dirty || afamname1.touched)" class="alert alert-danger">
+                    <div *ngIf="afamname1.errors.required">{{translate('Name is required')}}</div>
+                    <div *ngIf="afamname1.errors.pattern">{{translate('Letters and symbols only')}}</div>
+                </div>
             </div>
             <div class="col-sm-4 form-group-sm">
-                <label class="control-label" for="city">{{translate('Email Address')}}</label>
-                <input class="form-control" id="city" type="text" [placeholder]="translate('test@test.com')" />
+                <label class="control-label" for="adult1Email">{{translate('Email Address')}}</label>
+                <input class="form-control" id="adult1Email" #aemail1="ngModel" type="email" [(ngModel)]="formModel.adult1Email" npt-constr name="adult1Email" [placeholder]="translate('test@test.com')" />
+                <div *ngIf="aemail1.invalid && (aemail1.dirty || aemail1.touched)" class="alert alert-danger">
+                    <div *ngIf="aemail1.errors.pattern">{{translate('Invalid email address')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="address">{{translate('Mobile Phone')}}</label>
-                <input class="form-control" id="address" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
+                <label class="control-label" for="adult1Cell">{{translate('Mobile Phone')}}</label>
+                <input class="form-control" id="adult1Cell" #aphone1="ngModel" type="tel" [(ngModel)]="formModel.adult1Cell" npt-constr name="adult1Cell" [placeholder]="translate('i.e. 636-946-1893')" />
+                <div *ngIf="aphone1.invalid && (aphone1.dirty || aphone1.touched)" class="alert alert-danger">
+                    <div *ngIf="aphone1.errors.pattern">{{translate('Invalid phone number')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -77,18 +104,27 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="address">{{translate('First Name')}}</label>
-                <input class="form-control" id="address" type="text" [placeholder]="translate('Jane')" />
+                <label class="control-label" for="adult2FName">{{translate('First Name')}}</label>
+                <input class="form-control" id="adult2FName" #afamname2="ngModel" type="text" [(ngModel)]="formModel.adult2FName" npt-constr name="adulttwofirstname" pattern="^[^0-9]+$" [placeholder]="translate('Jane')" />
+                <div *ngIf="afamname2.invalid && (afamname2.dirty || afamname2.touched)" class="alert alert-danger">
+                    <div *ngIf="afamname2.errors.pattern">{{translate('Letters and symbols only')}}</div>
+                </div>
             </div>
             <div class="col-sm-4 form-group-sm">
-                <label class="control-label" for="city">{{translate('Email Address')}}</label>
-                <input class="form-control" id="city" type="text" [placeholder]="translate('test@test.com')" />
+                <label class="control-label" for="adult2Email">{{translate('Email Address')}}</label>
+                <input class="form-control" id="adult2Email" #aemail2="ngModel" type="email" [(ngModel)]="formModel.adult2Email" npt-constr name="adult2Email" [placeholder]="translate('test@test.com')" />
+                <div *ngIf="aemail2.invalid && (aemail2.dirty || aemail2.touched)" class="alert alert-danger">
+                    <div *ngIf="aemail2.errors.pattern">{{translate('Invalid email address')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <label class="control-label" for="address">{{translate('Mobile Phone')}}</label>
-                <input class="form-control" id="address" type="tel" [placeholder]="translate('i.e. 636-946-1893')" />
+                <label class="control-label" for="adult2Cell">{{translate('Mobile Phone')}}</label>
+                <input class="form-control" id="adult2Cell" #aphone2="ngModel" type="tel" [(ngModel)]="formModel.adult2Cell" npt-constr name="adult2Cell" [placeholder]="translate('i.e. 636-946-1893')" />
+                <div *ngIf="aphone2.invalid && (aphone2.dirty || aphone2.touched)" class="alert alert-danger">
+                    <div *ngIf="aphone2.errors.pattern">{{translate('Invalid phone number')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -96,13 +132,16 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-8 form-group-sm">
-                <label class="control-label" for="city">{{translate('Enter Children and others seperated by commas')}}</label>
-                <textarea class="form-control" [placeholder]="translate('i.e. Jimmy, Sally, Walter, Veronica')"></textarea>
+                <label class="control-label" for="otherNames">{{translate('Enter Children and others seperated by commas')}}</label>
+                <textarea class="form-control" id="otherNames" #otherNames="ngModel" [(ngModel)]="formModel.otherNames" name="otherNames" pattern="^[^0-9]+$" npt-constr [placeholder]="translate('i.e. Jimmy, Sally, Walter, Veronica')"></textarea>
+                <div *ngIf="otherNames.invalid && (otherNames.dirty || otherNames.touched)" class="alert alert-danger">
+                    <div *ngIf="otherNames.errors.pattern">{{translate('Letters and symbols only')}}</div>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <button>{{translate('Submit Directory Form')}}</button>
+                <button [disable]="!ngForm.valid">{{translate('Submit Directory Form')}}</button>
             </div>
         </div>
     </form>

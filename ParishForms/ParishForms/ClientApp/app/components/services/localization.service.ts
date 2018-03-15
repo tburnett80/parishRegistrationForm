@@ -10,16 +10,18 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocalizationService {
     static culture: string;
-    private getCultureListSub: Subscription;
-    private transSubs: any;
+    private static transSubs: any;
+    private static initProm: Promise<any>;
+    private static stateProm: Promise<any>;
     
     constructor(private readonly cache: CacheService, private http: Http,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
         LocalizationService.culture = "en-us";
-        this.transSubs = {};
+        if (!LocalizationService.transSubs)
+            LocalizationService.transSubs = { };
     }
 
-    initializeLocalization(): Observable<any> {
+    private initializeLocalization(): Observable<any> {
         //pre-cache cultures and translations
         const culturesKey = 'CulturesList';
         const cultsFromCache = this.cache.getCache(culturesKey);
@@ -32,12 +34,16 @@ export class LocalizationService {
         //pre-cache states
         this.getStatesOptions();
 
-        return this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
-            .map(res => {
-                this.cache.setCache(culturesKey, res.json());
-                res.json().filter(filter).forEach(cacheFunc);
-                return res.json();
-            });
+        if (!LocalizationService.initProm) {
+            LocalizationService.initProm = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
+                .map(res => {
+                    this.cache.setCache(culturesKey, res.json());
+                    res.json().filter(filter).forEach(cacheFunc);
+                    return res.json();
+                }).toPromise();
+        }
+
+        return Observable.fromPromise(LocalizationService.initProm);
     }
 
     getCultures(): Observable<any> {
@@ -47,36 +53,35 @@ export class LocalizationService {
         if(cultsFromCache)
             return Observable.of(cultsFromCache);
 
-        return this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
-                .map(res => {
-                    this.cache.setCache(culturesKey, res.json());
-                    return res.json();
-                });
+        return this.initializeLocalization();
     }
 
     translate(key: string): string {
         if (LocalizationService.culture === 'en-us')
             return key;
 
-        let fromCache: any = this.cache.getCache(`${LocalizationService.culture}-translations`);
-        if (!fromCache) {
-            if (this.transSubs[LocalizationService.culture])
-                return key;
+        const fromCache = this.cache.getCache(`${LocalizationService.culture}-translations`);
+        if (fromCache && fromCache[key])
+            return fromCache[key];
+        if (fromCache && !fromCache[key])
+            return key;
 
-            this.transSubs[LocalizationService.culture] = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/labels/${LocalizationService.culture}/`)
+        if (!LocalizationService.transSubs[LocalizationService.culture]) {
+            LocalizationService.transSubs[LocalizationService.culture] = this.http
+                .get(`${this.settings.getApiUrlBase()}/api/localization/labels/${LocalizationService.culture}/`)
                 .map((res: Response) => {
                     this.cache.setCache(`${LocalizationService.culture}-translations`, res.json());
                     return res.json();
-                }).subscribe(data => {
-                    fromCache = data;
-                    this.transSubs[LocalizationService.culture].unsubscribe();
-                    this.transSubs[LocalizationService.culture] = null;
-                });
+                }).toPromise();
         }
 
-        if (fromCache && fromCache[key])
-            return fromCache[key];
-        
+        LocalizationService.transSubs[LocalizationService.culture].then((data: any) => {
+            if (data && data[key])
+                return data[key];
+            else
+                return key;
+        });
+
         return key;
     }
 
@@ -87,15 +92,15 @@ export class LocalizationService {
             return Observable.of(fromCache);
         } 
 
-        if (this.settings.getApiUrlBase() !== undefined) {
-            return this.http.get(`${this.settings.getApiUrlBase()}/api/localization/states`)
+        if (this.settings.getApiUrlBase() !== undefined && !LocalizationService.stateProm) {
+            LocalizationService.stateProm = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/states`)
                 .map((res: Response) => {
                     this.cache.setCache(key, res.json());
                     return res.json();
-                });
+                }).toPromise();
         }
 
-        return Observable.of(null);
+        return Observable.fromPromise(LocalizationService.stateProm);
     }
 
     private cacheCulture(culture: string) {
@@ -103,18 +108,15 @@ export class LocalizationService {
         const fromCache = this.cache.getCache(key);
 
         if (!fromCache) {
-            if (this.transSubs[culture])
+            if (LocalizationService.transSubs[culture])
                 return;
 
-            this.transSubs[culture] = this.http
+            LocalizationService.transSubs[culture] = this.http
                 .get(`${this.settings.getApiUrlBase()}/api/localization/labels/${culture}/`)
                 .map((res: Response) => {
                     this.cache.setCache(key, res.json());
                     return res.json();
-                }).subscribe(() => {
-                    this.transSubs[culture].unsubscribe();
-                    this.transSubs[culture] = null;
-                });
+                }).toPromise();
         }
     }
 }

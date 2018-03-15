@@ -9,30 +9,58 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class FormConstraintsService {
+    static calls: any = {};
 
     constructor(private readonly cache: CacheService, private http: Http,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
     }
 
-    getDirectoryLimits(): Observable<any> {
-        return this.getFormConstraints("directory", "/api/directory/limits");
+    getLimits(formName: string): Promise<any> {
+        if (!formName)
+            return new Promise((resolve) => {
+                resolve(undefined);
+            });
+
+        switch (formName.toLowerCase()) {
+            case "directory":
+                return this.getFormConstraints(formName, `/api/${formName}/limits`);
+            default:
+                return new Promise((resolve) => {
+                    resolve(undefined);
+                });
+        }
     }
 
-    private getFormConstraints(formName: string, urlPath: string): Observable<any> {
+    private getFormConstraints(formName: string, urlPath: string): Promise<any> {
         if (isPlatformServer(this.platformId)) {
-            return Observable.of(null);
+            return new Promise((resolve) => {
+                 resolve(undefined);
+            });
         }
 
         const frmKey = `${formName}::formLimits`;
         const fromCache = this.cache.getCache(frmKey);
 
-        if (fromCache)
-            return Observable.of(fromCache);
+        if (fromCache) {
+            if (FormConstraintsService.calls[frmKey]) {
+                FormConstraintsService.calls[frmKey] = null;
+            }
+            
+            return new Promise((resolve) => {
+                resolve(fromCache);
+            });
+        }
 
-        return this.http.get(`${this.settings.getApiUrlBase()}${urlPath}`)
+        if (FormConstraintsService.calls[frmKey]) {
+            return FormConstraintsService.calls[frmKey];
+        }
+
+        FormConstraintsService.calls[frmKey] = this.http.get(`${this.settings.getApiUrlBase()}${urlPath}`)
             .map(res => {
                 this.cache.setCache(frmKey, res.json());
                 return res.json();
-            });
+            }).toPromise();
+
+        return FormConstraintsService.calls[frmKey];
     }
 }

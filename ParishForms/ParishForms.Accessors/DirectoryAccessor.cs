@@ -52,7 +52,7 @@ namespace ParishForms.Accessors
 
                     return model?.GetProperties()
                                .Where(p => p.FindAnnotation("MaxLength") != null)
-                               .ToDictionary(k => k.Name, v => (int)v.FindAnnotation("MaxLength").Value)
+                               .ToDictionary(k => k.Name.ToLower(), v => (int)v.FindAnnotation("MaxLength").Value)
                            ?? new Dictionary<string, int>();
                 }
             });

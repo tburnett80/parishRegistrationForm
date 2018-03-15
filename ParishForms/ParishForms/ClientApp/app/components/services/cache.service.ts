@@ -34,7 +34,6 @@ export class CacheService {
 
         const data = localStorage.getItem(key);
         if (!data) {
-            console.log("nothing in local storage for key: ", key);
             return null;
         }
 

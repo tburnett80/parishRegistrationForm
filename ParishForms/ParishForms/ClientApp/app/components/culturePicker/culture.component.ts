@@ -19,7 +19,7 @@ export class CultureComponent {
 
     ngOnInit() {
         this.getCultureListSub =
-            this.localizationService.initializeLocalization().subscribe((data: any) => {
+            this.localizationService.getCultures().subscribe((data: any) => {
                 this.cultures = data;
             });
     }

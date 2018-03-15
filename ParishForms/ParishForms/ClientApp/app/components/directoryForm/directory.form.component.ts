@@ -15,7 +15,6 @@ export class DirectoryFormComponent {
     formModel: IDirectoryModel;
 
     stateList: any[];
-    //selectedState: string;
     
     constructor(private localizationService: LocalizationService,
         private changeEmitter: CultureChangedEmitterService) { }
@@ -38,7 +37,7 @@ export class DirectoryFormComponent {
             adult1Cell: "",
             adult2Cell: ""
         };
-        this.localizationService.initializeLocalization();
+
         this.stateSub = this.localizationService.getStatesOptions()
             .subscribe(data => {
                 this.stateList = data;
