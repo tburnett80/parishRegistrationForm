@@ -8,5 +8,7 @@ namespace ParishForms.Common.Models
         public int StateCacheTtlSeconds { get; set; }
 
         public int TranslationCacheTtlSeconds { get; set; }
+
+        public string RedirectUrl { get; set; }
     }
 }

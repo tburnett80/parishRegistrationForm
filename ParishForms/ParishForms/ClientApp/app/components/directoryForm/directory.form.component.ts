@@ -1,7 +1,9 @@
 ﻿import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LocalizationService } from '../services/localization.service';
 import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
+import { DirectoryService } from '../services/directory.service';
 
 @Component({
     selector: 'directory-form',
@@ -12,12 +14,12 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 export class DirectoryFormComponent {
     private stateSub: Subscription;
     private cultureSub: Subscription;
+    private dirSub: Subscription;
     formModel: IDirectoryModel;
-
     stateList: any[];
     
-    constructor(private localizationService: LocalizationService,
-        private changeEmitter: CultureChangedEmitterService) { }
+    constructor(private localizationService: LocalizationService, private router: Router,
+        private changeEmitter: CultureChangedEmitterService, private service: DirectoryService) { }
 
     ngOnInit() {
         this.formModel = {
@@ -52,6 +54,8 @@ export class DirectoryFormComponent {
     ngOnDestroy() {
         this.stateSub.unsubscribe();
         this.cultureSub.unsubscribe();
+        if (this.dirSub)
+            this.dirSub.unsubscribe();
     }
 
     translate(key: string): string | undefined {
@@ -60,5 +64,12 @@ export class DirectoryFormComponent {
 
     refreshTranslations() {
         console.log("refreshsing data....");
+    }
+
+    submit() {
+        this.dirSub = this.service.storeForm(this.formModel).subscribe((data) => {
+            console.log("response: ", data);
+            this.router.navigate(['./directory-result']);
+        });
     }
 }

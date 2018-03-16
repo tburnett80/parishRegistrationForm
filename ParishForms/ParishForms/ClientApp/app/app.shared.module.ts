@@ -13,11 +13,13 @@ import { CultureChangedEmitterService } from './components/services/cultureChang
 import { CacheService } from './components/services/cache.service';
 import { FormConstraintsService } from './components/services/form-constraints.service';
 import { LocalizationService } from './components/services/localization.service';
+import { DirectoryService } from './components/services/directory.service';
 
 import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
 import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
 import { DirectoryPageComponent } from './components/directoryForm/directory.page.component';
+import { DirectoryResultComponent } from './components/directoryForm/directory.result.component';
 
 @NgModule({
     declarations: [
@@ -27,14 +29,16 @@ import { DirectoryPageComponent } from './components/directoryForm/directory.pag
         PhoneValidatorDirective,
         CultureComponent,
         DirectoryFormComponent,
-        DirectoryPageComponent
+        DirectoryPageComponent,
+        DirectoryResultComponent
     ],
     providers: [
         EnvironmentSettings,
         CultureChangedEmitterService,
         CacheService,
         FormConstraintsService,
-        LocalizationService
+        LocalizationService,
+        DirectoryService
     ],
     imports: [
         CommonModule,
@@ -42,7 +46,8 @@ import { DirectoryPageComponent } from './components/directoryForm/directory.pag
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
-            { path: 'directory', component: DirectoryPageComponent }
+            { path: 'directory', component: DirectoryPageComponent },
+            { path: 'directory-result', component: DirectoryResultComponent }
         ])
     ]
 })

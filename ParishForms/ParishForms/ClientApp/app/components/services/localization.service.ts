@@ -34,6 +34,9 @@ export class LocalizationService {
         //pre-cache states
         this.getStatesOptions();
 
+        //trigger cache for settings
+        this.settings.getRedirectUrl();
+
         if (!LocalizationService.initProm) {
             LocalizationService.initProm = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
                 .map(res => {

@@ -23,7 +23,8 @@ namespace ParishForms.IoC
             {
                 ConnectionString = configuration["CONNECTION_STRING"],
                 StateCacheTtlSeconds = configuration["STATE_CACHE_TTL"].TryToInt(),
-                TranslationCacheTtlSeconds = configuration["TRANSLATION_CACHE_TTL"].TryToInt()
+                TranslationCacheTtlSeconds = configuration["TRANSLATION_CACHE_TTL"].TryToInt(),
+                RedirectUrl = configuration["REDIRECT_URL"]
             });
 
             services.AddSingleton<ICacheProvider, MemoryCache>();

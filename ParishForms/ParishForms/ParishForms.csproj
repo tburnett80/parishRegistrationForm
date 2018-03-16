@@ -20,7 +20,10 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\components\validators\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\validators\**" />
+    <None Remove="ClientApp\app\components\validators\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,10 +33,12 @@
     <None Remove="ClientApp\app\components\directives\text-len.directive.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <None Remove="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <None Remove="ClientApp\app\components\models\DirectoryForm.ts" />
     <None Remove="ClientApp\app\components\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
     <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
+    <None Remove="ClientApp\app\components\services\directory.service.ts" />
     <None Remove="ClientApp\app\components\services\form-constraints.service.ts" />
     <None Remove="ClientApp\app\components\services\localization.service.ts" />
   </ItemGroup>
@@ -51,16 +56,14 @@
     <TypeScriptCompile Include="ClientApp\app\components\directives\text-len.directive.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.page.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\models\DirectoryForm.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\client.settings.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\directory.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\form-constraints.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\localization.service.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\validators\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Contracts.Managers;
+using ParishForms.ViewModels;
 
 namespace ParishForms.Controllers
 {
@@ -24,6 +25,15 @@ namespace ParishForms.Controllers
         {
             var lengths = await _manager.GetFormLimits();
             return Ok(lengths);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> StoreDirectoryForm([FromBody] DirectoryFormViewModel frm)
+        {
+            if (frm == null)
+                return BadRequest("Could not deserialize the form.");
+
+            return Ok("");
         }
     }
 }

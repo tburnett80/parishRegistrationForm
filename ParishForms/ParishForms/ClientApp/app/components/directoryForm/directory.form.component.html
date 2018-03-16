@@ -141,10 +141,8 @@
         </div>
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
-                <div>Valid: {{directoryForm.valid}}</div>
-                <button type="button" class="btn btn-success" [ngClass]="{disabled : !directoryForm.valid}">{{translate('Submit Directory Form')}}</button>
+                <button type="button" (click)="submit()" class="btn btn-success" [ngClass]="{disabled : !directoryForm.valid}">{{translate('Submit Directory Form')}}</button>
             </div>
         </div>
     </form>
 </div>
-m
