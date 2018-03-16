@@ -16,6 +16,15 @@ export class DirectoryService {
             return Observable.of(null);
         }
 
-        return this.http.post(`${this.settings.getApiUrlBase()}/api/directory`, frm);
+        return this.http.post(`${this.settings.getApiUrlBase()}/api/directory`, frm)
+            .retryWhen(err => {
+                return err.flatMap((er: any) => {
+                    console.log("error tring to submit directory form: ", er.status);
+                    console.log("will retry submission in 5 second.");
+                    return Observable.of(er.status).delay(5000);
+                })
+                .take(3)
+                .concat(Observable.throw({error: 'Was an error after retrying 3 times. Please try again later.'}));
+            });
     }
 }

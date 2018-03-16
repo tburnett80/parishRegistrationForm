@@ -38,6 +38,9 @@ export class DirectoryResultComponent {
     ngOnDestroy() {
         if (this.sub)
             this.sub.unsubscribe();
+
+        if(this.timer)
+            clearInterval(this.timer);
     }
 
     translate(key: string): string | undefined {
