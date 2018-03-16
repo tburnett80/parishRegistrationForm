@@ -7,7 +7,7 @@ import { ModalDirective } from 'ngx-bootstrap';
     styleUrls: ['./common-modal.component.css']
 })
 export class CommonModalComponent {
-    @ViewChild('modalChild') childModal: ModalDirective;
+    @ViewChild('modalChild') modalChild: ModalDirective;
     private _title: string = "";
     private _btn: string = "";
 
@@ -37,6 +37,6 @@ export class CommonModalComponent {
         this.childModal.show();
     }
     hide() {
-        this.childModal.hide();
+        this.modalChild.hide();
     }
 }
