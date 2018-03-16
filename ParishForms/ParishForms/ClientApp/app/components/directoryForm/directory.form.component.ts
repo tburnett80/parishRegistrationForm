@@ -58,6 +58,7 @@ export class DirectoryFormComponent {
             .subscribe(data => {
                 this.router.navigate(['./directory-result']);
             }, err => {
+                //TODO: show error message via modal here. 
                 console.log("Error response: ", err);
             });
     }

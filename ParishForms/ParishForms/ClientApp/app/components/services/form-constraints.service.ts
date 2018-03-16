@@ -3,6 +3,7 @@ import { isPlatformServer } from '@angular/common';
 import { Http, Response } from '@angular/http';
 import { CacheService } from './cache.service';
 import { EnvironmentSettings } from './client.settings.service';
+import { SpinnerService } from './spinner.service';
 import { Observable, Subscription } from 'rxjs';
 import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
@@ -10,8 +11,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class FormConstraintsService {
     static calls: any = {};
+    static readonly spinnerName:string = "frmConstraint";
 
-    constructor(private readonly cache: CacheService, private http: Http,
+    constructor(private readonly cache: CacheService, private http: Http, private readonly spinner: SpinnerService,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
     }
 
@@ -55,11 +57,14 @@ export class FormConstraintsService {
             return FormConstraintsService.calls[frmKey];
         }
 
+        this.spinner.show(FormConstraintsService.spinnerName);
         FormConstraintsService.calls[frmKey] = this.http.get(`${this.settings.getApiUrlBase()}${urlPath}`)
             .map(res => {
                 this.cache.setCache(frmKey, res.json());
                 return res.json();
-            }).toPromise();
+            })
+            .do(() => this.spinner.hide(FormConstraintsService.spinnerName))
+            .toPromise();
 
         return FormConstraintsService.calls[frmKey];
     }

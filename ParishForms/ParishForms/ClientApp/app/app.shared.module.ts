@@ -14,11 +14,13 @@ import { CacheService } from './components/services/cache.service';
 import { FormConstraintsService } from './components/services/form-constraints.service';
 import { LocalizationService } from './components/services/localization.service';
 import { DirectoryService } from './components/services/directory.service';
+import { SpinnerService } from './components/services/spinner.service';
 
 import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
 import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
 import { DirectoryResultComponent } from './components/directoryForm/directory.result.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,8 @@ import { DirectoryResultComponent } from './components/directoryForm/directory.r
         PhoneValidatorDirective,
         CultureComponent,
         DirectoryFormComponent,
-        DirectoryResultComponent
+        DirectoryResultComponent,
+        SpinnerComponent
     ],
     providers: [
         EnvironmentSettings,
@@ -36,7 +39,8 @@ import { DirectoryResultComponent } from './components/directoryForm/directory.r
         CacheService,
         FormConstraintsService,
         LocalizationService,
-        DirectoryService
+        DirectoryService,
+        SpinnerService
     ],
     imports: [
         CommonModule,

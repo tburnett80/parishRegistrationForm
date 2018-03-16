@@ -40,6 +40,8 @@
     <None Remove="ClientApp\app\components\services\directory.service.ts" />
     <None Remove="ClientApp\app\components\services\form-constraints.service.ts" />
     <None Remove="ClientApp\app\components\services\localization.service.ts" />
+    <None Remove="ClientApp\app\components\services\spinner.service.ts" />
+    <None Remove="ClientApp\app\components\spinner\spinner.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +64,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\services\directory.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\form-constraints.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\localization.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\spinner.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\spinner\spinner.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

@@ -2,14 +2,16 @@
 import { Http, Response } from '@angular/http';
 import { isPlatformServer } from '@angular/common';
 import { CacheService } from './cache.service';
-import { Observable, Subscription } from 'rxjs';
+import { SpinnerService } from './spinner.service';
+import { Observable } from 'rxjs';
 import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class EnvironmentSettings {
+    static readonly spinnerName: string = "getSettings";
 
-    constructor( @Inject(PLATFORM_ID) private platformId: Object,
+    constructor( @Inject(PLATFORM_ID) private platformId: Object, private readonly spinner: SpinnerService,
         private readonly cache: CacheService, private http: Http) { }
 
     getApiUrlBase(): string | undefined {
@@ -37,10 +39,11 @@ export class EnvironmentSettings {
         if (fromCache && fromCache["redirectUrl"])
             return Observable.of(fromCache["redirectUrl"]);
 
+        this.spinner.show(EnvironmentSettings.spinnerName);
         return this.http.get(`${this.getApiUrlBase()}/api/settings`)
             .map((res: Response) => {
                 this.cache.setCache(key, res.json());
                 return res.json()["redirectUrl"];
-            });
+            }).do(() => this.spinner.hide(EnvironmentSettings.spinnerName));
     }
 }
