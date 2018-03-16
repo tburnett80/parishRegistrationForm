@@ -18,7 +18,6 @@ import { DirectoryService } from './components/services/directory.service';
 import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
 import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
-import { DirectoryPageComponent } from './components/directoryForm/directory.page.component';
 import { DirectoryResultComponent } from './components/directoryForm/directory.result.component';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { DirectoryResultComponent } from './components/directoryForm/directory.r
         PhoneValidatorDirective,
         CultureComponent,
         DirectoryFormComponent,
-        DirectoryPageComponent,
         DirectoryResultComponent
     ],
     providers: [
@@ -46,7 +44,7 @@ import { DirectoryResultComponent } from './components/directoryForm/directory.r
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
-            { path: 'directory', component: DirectoryPageComponent },
+            { path: 'directory', component: DirectoryFormComponent },
             { path: 'directory-result', component: DirectoryResultComponent }
         ])
     ]

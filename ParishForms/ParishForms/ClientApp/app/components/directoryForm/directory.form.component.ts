@@ -55,8 +55,7 @@ export class DirectoryFormComponent {
     submit() {
         this.setFormModel();
         this.dirSub = this.service.storeForm(this.formModel)
-            .subscribe((data) => {
-                console.log("response was good: ", data);
+            .subscribe(data => {
                 this.router.navigate(['./directory-result']);
             }, err => {
                 console.log("Error response: ", err);

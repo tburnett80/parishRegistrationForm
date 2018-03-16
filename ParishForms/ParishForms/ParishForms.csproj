@@ -32,7 +32,6 @@
     <None Remove="ClientApp\app\components\directives\phone-validator.directive.ts" />
     <None Remove="ClientApp\app\components\directives\text-len.directive.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
-    <None Remove="ClientApp\app\components\directoryForm\directory.page.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <None Remove="ClientApp\app\components\models\DirectoryForm.ts" />
     <None Remove="ClientApp\app\components\services\cache.service.ts" />
@@ -55,7 +54,6 @@
     <TypeScriptCompile Include="ClientApp\app\components\directives\phone-validator.directive.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directives\text-len.directive.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.form.component.ts" />
-    <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.page.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\models\DirectoryForm.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
