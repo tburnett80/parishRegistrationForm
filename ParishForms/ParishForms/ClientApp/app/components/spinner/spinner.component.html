@@ -1,0 +1,7 @@
+﻿<div class="overlay" *ngIf="show">
+    <div *ngIf="loadingImage" class="loading">
+        <img *ngIf="loadingImage" [attr.src]="loadingImage"/>
+        <div class="loading-msg">Loading...</div>
+    </div>
+    <ng-content></ng-content>
+</div>

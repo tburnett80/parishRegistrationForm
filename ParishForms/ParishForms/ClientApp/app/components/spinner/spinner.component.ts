@@ -1,25 +1,37 @@
-﻿import { Component, Input } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SpinnerService } from '../services/spinner.service';
 
-//<spinner loadingImage="path/to/loading.gif" [show]="true"></spinner>
+//<spinner loadingImage="path/to/loading.gif" [(show)]="true"></spinner>
 @Component({
     selector: 'spinner',
-    template: `<div *ngIf="show">
-                 <img *ngIf="loadingImage" [src]="loadingImage" />
-                 <ng-content></ng-content>
-               </div>`
+    templateUrl: './spinner.component.html',
+    styleUrls: ['./spinner.component.css']
 })
 export class SpinnerComponent {
+    private isShowing: boolean = false;
+
+    set show(val: boolean) {
+        this.isShowing = val;
+        this.showChange.emit(this.isShowing);
+    }
+
     @Input() name: string;
     @Input() loadingImage: string;
-    @Input() show = false;
+    @Input()
+    get show(): boolean {
+        return this.isShowing;
+    }
+    @Output() showChange = new EventEmitter();
 
     constructor(private readonly service: SpinnerService) { }
 
     ngOnInit() {
         if (!this.name)
             throw new Error("Spinner requires a 'name' attribute");
-
         this.service._register(this);
+    }
+
+    ngOnDestroy() {
+        this.service._unregister(this);
     }
 }

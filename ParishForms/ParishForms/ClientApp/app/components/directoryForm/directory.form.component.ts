@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { LocalizationService } from '../services/localization.service';
 import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
 import { CacheService } from '../services/cache.service';
@@ -19,11 +19,13 @@ export class DirectoryFormComponent {
     private dirSub: Subscription;
     formModel: IDirectoryModel;
     stateList: any[];
+    loaderUrl: string;
     
     constructor(private readonly localizationService: LocalizationService, private readonly router: Router, private readonly cache: CacheService,
         private readonly changeEmitter: CultureChangedEmitterService, private readonly service: DirectoryService) { }
 
     ngOnInit() {
+        this.loaderUrl = require("../spinner/images/Squaricle-2s-100px.gif");
         this.formModel = this.getFormModel();
         this.stateSub = this.localizationService.getStatesOptions()
             .subscribe(data => {

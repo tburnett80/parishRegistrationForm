@@ -6,4 +6,9 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+    loaderUrl: string;
+
+    ngOnInit() {
+        this.loaderUrl = require("./spinner/images/Squaricle-2s-100px.gif");
+    }
 }

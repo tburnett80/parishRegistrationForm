@@ -23,12 +23,16 @@ export class DirectoryService {
         return this.http.post(`${this.settings.getApiUrlBase()}/api/directory`, frm)
             .retryWhen(err => {
                 return err.flatMap((er: any) => {
-                    console.log("error tring to submit directory form: ", er.status);
-                    console.log("will retry submission in 5 second.");
+                    console.log("retry...");
                     return Observable.of(er.status).delay(5000);
                 })
                 .take(3)
-                .concat(Observable.throw({error: 'Was an error after retrying 3 times. Please try again later.'}));
-            }).do(() => this.spinner.hide(DirectoryService.spinnerName));
+                .concat(Observable.throw({ error: 'Error trying to submit form. Retried 3 times. Please try again later.' }));
+            })
+            .do(() => this.spinner.hide(DirectoryService.spinnerName))
+            .catch((err: any) => {
+                this.spinner.hide(DirectoryService.spinnerName);
+                return Observable.throw(err);
+            });
     }
 }
