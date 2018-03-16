@@ -34,7 +34,7 @@ export class CommonModalComponent {
     @Output() showChange = new EventEmitter();
     
     show() {
-        this.childModal.show();
+        this.modalChild.show();
     }
     hide() {
         this.modalChild.hide();
