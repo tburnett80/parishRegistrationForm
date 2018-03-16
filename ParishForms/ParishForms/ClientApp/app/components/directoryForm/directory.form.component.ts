@@ -100,6 +100,6 @@ export class DirectoryFormComponent {
 
     private setFormModel() {
         if(this.formModel)
-            this.cache.setCache(DirectoryFormComponent.frmKey, JSON.stringify(this.formModel));
+            this.cache.setCache(DirectoryFormComponent.frmKey, JSON.stringify(this.formModel), 259200000);
     }
 }
