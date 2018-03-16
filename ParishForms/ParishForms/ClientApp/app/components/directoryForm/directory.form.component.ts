@@ -1,17 +1,17 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalizationService } from '../services/localization.service';
 import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
 import { CacheService } from '../services/cache.service';
 import { DirectoryService } from '../services/directory.service';
+import { CommonModalComponent } from '../modal/common-modal.component';
 
 @Component({
     selector: 'directory-form',
     templateUrl: './directory.form.component.html',
     styleUrls: ['./directory.form.component.css']
 })
-
 export class DirectoryFormComponent {
     static readonly frmKey: string = "DirectoryForm";
     private stateSub: Subscription;
@@ -20,7 +20,12 @@ export class DirectoryFormComponent {
     formModel: IDirectoryModel;
     stateList: any[];
     loaderUrl: string;
-    
+    modaltitle: string | undefined;
+    modalbody: string | undefined;
+    modalBtn: string | undefined;
+
+    @ViewChild('modalChild') modal: CommonModalComponent;
+
     constructor(private readonly localizationService: LocalizationService, private readonly router: Router, private readonly cache: CacheService,
         private readonly changeEmitter: CultureChangedEmitterService, private readonly service: DirectoryService) { }
 
@@ -36,6 +41,9 @@ export class DirectoryFormComponent {
         this.cultureSub = this.changeEmitter.subscribe((next: any) => {
             this.refreshTranslations();
         });
+
+        this.modaltitle = this.translate('Error Submiting Form');
+        this.modalBtn = this.translate("Ok");
     }
 
     ngOnDestroy() {
@@ -60,7 +68,8 @@ export class DirectoryFormComponent {
             .subscribe(data => {
                 this.router.navigate(['./directory-result']);
             }, err => {
-                //TODO: show error message via modal here. 
+                this.modalbody = this.translate(err.error);
+                this.modal.show();
                 console.log("Error response: ", err);
             });
     }

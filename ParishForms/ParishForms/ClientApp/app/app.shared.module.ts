@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { ModalDirective, ModalModule } from 'ngx-bootstrap';
 
 import { TextLengthDirective } from './components/directives/text-len.directive';
 import { EmailValidatorDirective } from './components/directives/email-validator.directive';
@@ -21,6 +22,7 @@ import { CultureComponent } from './components/culturePicker/culture.component';
 import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
 import { DirectoryResultComponent } from './components/directoryForm/directory.result.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CommonModalComponent } from './components/modal/common-modal.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +33,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         CultureComponent,
         DirectoryFormComponent,
         DirectoryResultComponent,
-        SpinnerComponent
+        SpinnerComponent,
+        CommonModalComponent
     ],
     providers: [
         EnvironmentSettings,
@@ -46,6 +49,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
         CommonModule,
         HttpModule,
         FormsModule,
+        ModalModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
             { path: 'directory', component: DirectoryFormComponent },
