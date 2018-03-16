@@ -30,11 +30,12 @@ namespace ParishForms.Controllers
         [HttpPost]
         public async Task<IActionResult> StoreDirectoryForm([FromBody] DirectoryFormViewModel frm)
         {
-            //if (frm == null)
-            //    return BadRequest("Could not deserialize the form.");
+            if (frm == null)
+                return BadRequest("Could not deserialize the form.");
 
-            //return Ok("");
-            return BadRequest("Could not deserialize the form.");
+            var result = await _manager.StoreSubmision(frm.ToDto());
+
+            return Ok("");
         }
     }
 }
