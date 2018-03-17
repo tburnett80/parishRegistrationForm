@@ -5,6 +5,7 @@ namespace ParishForms.Common.Models.Directory
     {
         Unset = 0,
         ValidationFailed,
+        SaveFailure,
         Exception,
         Success
     }

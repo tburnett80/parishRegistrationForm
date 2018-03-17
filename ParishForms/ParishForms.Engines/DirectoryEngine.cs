@@ -46,7 +46,15 @@ namespace ParishForms.Engines
             var state = await GetStateByAbbr(submision.HomeAddress.State.Abbreviation);
             submision.HomeAddress.State.Id = state.Id;
 
-            //return await _directoryAccessor.StoreSubmision(submision);
+            var rowCount = await _directoryAccessor.StoreSubmision(submision);
+
+            return new SaveResult
+            {
+                Type = DeterminExpectedRowCount(submision) == rowCount
+                    ? ResultType.Success
+                    : ResultType.SaveFailure,
+                RowsAffected = rowCount
+            };
         }
 
         public bool ValidateSubmision(SubmisionDto submision)
@@ -88,6 +96,30 @@ namespace ParishForms.Engines
         #endregion
 
         #region Private methods
+        private int DeterminExpectedRowCount(SubmisionDto dto)
+        {
+            var count = 1;
+            if (dto.HomeAddress != null)
+                count++;
+
+            if (dto.HomePhone != null)
+                count++;
+
+            if (dto.AdultOneEmailAddress != null)
+                count++;
+
+            if (dto.AdultOneMobilePhone != null)
+                count++;
+
+            if (dto.AdultTwoEmailAddress != null)
+                count++;
+
+            if (dto.AdultTwoMobilePhone != null)
+                count++;
+
+            return count;
+        }
+
         private async Task<StateDto> GetStateByAbbr(string abbr)
         {
             var states = await GetStates();

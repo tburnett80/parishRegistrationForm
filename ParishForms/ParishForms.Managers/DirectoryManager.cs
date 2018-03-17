@@ -26,12 +26,24 @@ namespace ParishForms.Managers
             return await _directoryEngine.GetStates();
         }
 
-        public async Task<int> StoreSubmision(SubmisionDto submision)
+        public async Task<SaveResult> StoreSubmision(SubmisionDto submision)
         {
-            if (!_directoryEngine.ValidateSubmision(submision))
-                return -3;
+            try
+            {
+                if (!_directoryEngine.ValidateSubmision(submision))
+                    return new SaveResult { Type = ResultType.ValidationFailed };
 
-            return await _directoryEngine.StoreSubmision(submision);
+                return await _directoryEngine.StoreSubmision(submision);
+            }
+            catch (Exception ex)
+            {
+                //TODO: log error here
+                return new SaveResult
+                {
+                    Type = ResultType.Exception,
+                    Message = ex.Message
+                };
+            }
         }
 
         public async Task<IDictionary<string, int>> GetFormLimits()
