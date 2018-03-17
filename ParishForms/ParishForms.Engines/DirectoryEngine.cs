@@ -41,14 +41,14 @@ namespace ParishForms.Engines
             return states;
         }
 
-        public async Task<int> StoreSubmision(SubmisionDto submision)
+        public async Task<SaveResult> StoreSubmision(SubmisionDto submision)
         {
             //validate can save
 
             var state = await GetStateByAbbr(submision.HomeAddress.State.Abbreviation);
             submision.HomeAddress.State.Id = state.Id;
 
-            return await _directoryAccessor.StoreSubmision(submision);
+            //return await _directoryAccessor.StoreSubmision(submision);
         }
 
         public bool ValidateSubmision(SubmisionDto submision)

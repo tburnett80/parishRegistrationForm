@@ -9,7 +9,7 @@ namespace ParishForms.Common.Contracts.Engines
     {
         Task<IEnumerable<StateDto>> GetStates();
 
-        Task<int> StoreSubmision(SubmisionDto submision);
+        Task<SaveResult> StoreSubmision(SubmisionDto submision);
 
         Task<IDictionary<string, int>> GetFormLimits();
     }
