@@ -31,5 +31,10 @@ namespace ParishForms.Common.Extensions
                 ? 0
                 : int.Parse(value.TryTrim());
         }
+
+        public static bool HasValue(this string value)
+        {
+            return !string.IsNullOrEmpty(value.TryTrim());
+        }
     }
 }

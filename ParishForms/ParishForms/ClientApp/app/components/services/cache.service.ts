@@ -39,14 +39,15 @@ export class CacheService {
 
         const container = JSON.parse(data);
         if (!container) {
-            console.log("Could not parse json: ", data);
             return null;
         }
 
         if (!container.data || !container.expires) {
-            console.log("Container json property null: ", data);
             return null;
         }
+
+        if (container.data instanceof Array && container.data.length === 0)
+            return null;
 
         if (container["expires"] < new Date().getTime()) {
             console.log("Cache expired for key: ", key);
