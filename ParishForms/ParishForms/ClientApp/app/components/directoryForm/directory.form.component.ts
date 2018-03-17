@@ -99,7 +99,7 @@ export class DirectoryFormComponent {
     }
 
     private setFormModel() {
-        if(this.formModel)
-            this.cache.setCache(DirectoryFormComponent.frmKey, JSON.stringify(this.formModel), 259200000);
+        if(this.formModel) //Store form model for 7 days by default.
+            this.cache.setCache(DirectoryFormComponent.frmKey, JSON.stringify(this.formModel), 604800000);
     }
 }

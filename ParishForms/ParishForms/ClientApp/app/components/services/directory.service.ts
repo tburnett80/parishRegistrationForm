@@ -23,7 +23,10 @@ export class DirectoryService {
         return this.http.post(`${this.settings.getApiUrlBase()}/api/directory`, frm)
             .retryWhen(err => {
                 return err.flatMap((er: any) => {
-                    console.log("retry...");
+                    console.log("Error returned: ", `${er.status} ( ${er.statusText} )`);
+                    if (er._body)
+                        console.log("returned message: ", er._body);
+                    console.log("retrying form submit in 5 seconds...");
                     return Observable.of(er.status).delay(5000);
                 })
                 .take(3)
