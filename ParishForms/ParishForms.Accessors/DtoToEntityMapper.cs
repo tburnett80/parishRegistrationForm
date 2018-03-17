@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DataProvider.EntityFrameworkCore.Entities.Common;
 using DataProvider.EntityFrameworkCore.Entities.Directory;
 using DataProvider.EntityFrameworkCore.Entities.Localization;
+using DataProvider.EntityFrameworkCore.Entities.Logging;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
+using ParishForms.Common.Models.Logging;
 
 namespace ParishForms.Accessors
 {
@@ -69,6 +72,48 @@ namespace ParishForms.Accessors
                 EmailType = (int) dto.EmailType,
                 Email = dto.Address
             };
+        }
+
+        internal static LogHeaderEntity ToEntity(this ExceptionLogDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new LogHeaderEntity
+            {
+                Level = (int) dto.Level,
+                Timestamp = DateTimeOffset.UtcNow,
+                Details = dto.Ex.ToEntities()
+            };
+        }
+
+        internal static ICollection<LogDetailEntity> ToEntities(this Exception ex)
+        {
+            if(ex == null)
+                return new List<LogDetailEntity>();
+
+            var ents = new List<LogDetailEntity>
+            {
+                new LogDetailEntity
+                {
+                    EventType = (int) EventType.ExceptionMessage,
+                    EventText = ex.Message
+                },
+                new LogDetailEntity
+                {
+                    EventType = (int) EventType.StackTrace,
+                    EventText = ex.StackTrace
+                }
+            };
+
+            if(ex.InnerException != null)
+                ents.Add(new LogDetailEntity
+                {
+                    EventType = (int) EventType.InnerMessage,
+                    EventText = ex.InnerException.Message
+                });
+
+            return ents;
         }
 
         internal static Type ToEntityType(this Type dtoType)

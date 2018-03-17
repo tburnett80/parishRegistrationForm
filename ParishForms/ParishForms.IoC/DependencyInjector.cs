@@ -34,6 +34,7 @@ namespace ParishForms.IoC
             services.AddTransient<IDbContextFactory<DirectoryContext>, PostgresContextFactory<DirectoryContext>>();
 
             services.AddTransient<ICacheAccessor, CacheAccessor>();
+            services.AddTransient<ILogAccessor, LogAccessor>();
             services.AddTransient<ILocalizationAccessor, LocalizationAccessor>();
             services.AddTransient<IDirectoryAccessor, DirectoryAccessor>();
 

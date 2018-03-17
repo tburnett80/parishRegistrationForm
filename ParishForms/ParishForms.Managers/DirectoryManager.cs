@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Contracts.Managers;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
+using ParishForms.Common.Models.Logging;
 
 namespace ParishForms.Managers
 {
@@ -12,11 +14,15 @@ namespace ParishForms.Managers
     {
         #region Constructor and Private Members
         private readonly IDirectoryEngine _directoryEngine;
+        private readonly ILogAccessor _logger;
 
-        public DirectoryManager(IDirectoryEngine directoryEngine)
+        public DirectoryManager(IDirectoryEngine directoryEngine, ILogAccessor logger)
         {
             _directoryEngine = directoryEngine
                 ?? throw new ArgumentNullException(nameof(directoryEngine));
+
+            _logger = logger
+                ?? throw new ArgumentNullException(nameof(logger));
         }
         #endregion
 
@@ -37,7 +43,7 @@ namespace ParishForms.Managers
             }
             catch (Exception ex)
             {
-                //TODO: log error here
+                await _logger.LogException(new ExceptionLogDto(ex));
                 return new SaveResult
                 {
                     Type = ResultType.Exception,
