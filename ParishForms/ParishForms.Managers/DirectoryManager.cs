@@ -28,6 +28,9 @@ namespace ParishForms.Managers
 
         public async Task<int> StoreSubmision(SubmisionDto submision)
         {
+            if (!_directoryEngine.ValidateSubmision(submision))
+                return -3;
+
             return await _directoryEngine.StoreSubmision(submision);
         }
 

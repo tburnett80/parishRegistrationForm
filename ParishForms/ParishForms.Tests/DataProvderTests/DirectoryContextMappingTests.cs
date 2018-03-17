@@ -104,6 +104,7 @@ namespace ParishForms.Tests.DataProvderTests
                     {
                         AdultOneFirstName = "MoarTest",
                         AdultTwoFirstName = "YesTest",
+                        FamilyName = "Testington",
                         OtherFamily = "Test",
                         PublishAddress = true,
                         PublishPhone = false,

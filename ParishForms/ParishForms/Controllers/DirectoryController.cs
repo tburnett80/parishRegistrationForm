@@ -34,8 +34,10 @@ namespace ParishForms.Controllers
                 return BadRequest("Could not deserialize the form.");
 
             var result = await _manager.StoreSubmision(frm.ToDto());
+            if (result == -3)
+                return BadRequest("required fields were missing, could not save.");
 
-            return Ok("");
+            return Ok();
         }
     }
 }

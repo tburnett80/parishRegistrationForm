@@ -12,5 +12,7 @@ namespace ParishForms.Common.Contracts.Engines
         Task<SaveResult> StoreSubmision(SubmisionDto submision);
 
         Task<IDictionary<string, int>> GetFormLimits();
+
+        bool ValidateSubmision(SubmisionDto submision);
     }
 }

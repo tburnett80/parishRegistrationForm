@@ -43,8 +43,6 @@ namespace ParishForms.Engines
 
         public async Task<SaveResult> StoreSubmision(SubmisionDto submision)
         {
-            //validate can save
-
             var state = await GetStateByAbbr(submision.HomeAddress.State.Abbreviation);
             submision.HomeAddress.State.Id = state.Id;
 
@@ -54,6 +52,18 @@ namespace ParishForms.Engines
         public bool ValidateSubmision(SubmisionDto submision)
         {
             if (string.IsNullOrEmpty(submision.FamilyName.TryTrim()))
+                return false;
+
+            if (submision.HomeAddress == null)
+                return false;
+
+            if (string.IsNullOrEmpty(submision.HomeAddress.City))
+                return false;
+
+            if (string.IsNullOrEmpty(submision.HomeAddress.Zip))
+                return false;
+
+            if (string.IsNullOrEmpty(submision.HomeAddress.Street))
                 return false;
 
             return !string.IsNullOrEmpty(submision.AdultOneFirstName.TryTrim());
