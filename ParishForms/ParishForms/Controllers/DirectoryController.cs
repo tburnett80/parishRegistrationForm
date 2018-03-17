@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Contracts.Managers;
+using ParishForms.Common.Models.Directory;
 using ParishForms.ViewModels;
 
 namespace ParishForms.Controllers
@@ -30,14 +31,20 @@ namespace ParishForms.Controllers
         [HttpPost]
         public async Task<IActionResult> StoreDirectoryForm([FromBody] DirectoryFormViewModel frm)
         {
-            if (frm == null)
-                return BadRequest("Could not deserialize the form.");
-
             var result = await _manager.StoreSubmision(frm.ToDto());
-            if (result == -3)
-                return BadRequest("required fields were missing, could not save.");
-
-            return Ok();
+            switch (result.Type)
+            {
+                case ResultType.Success:
+                    return Ok();
+                case ResultType.SaveFailure:
+                    return BadRequest("failed to save all records");
+                case ResultType.ValidationFailed:
+                    return BadRequest("Validation failed.");
+                case ResultType.Exception:
+                    return StatusCode(500, result.Message);
+                default:
+                    return BadRequest("Unknown failure.");
+            }
         }
     }
 }

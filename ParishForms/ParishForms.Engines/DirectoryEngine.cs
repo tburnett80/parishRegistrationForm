@@ -59,6 +59,9 @@ namespace ParishForms.Engines
 
         public bool ValidateSubmision(SubmisionDto submision)
         {
+            if (submision == null)
+                return false;
+
             if (string.IsNullOrEmpty(submision.FamilyName.TryTrim()))
                 return false;
 
