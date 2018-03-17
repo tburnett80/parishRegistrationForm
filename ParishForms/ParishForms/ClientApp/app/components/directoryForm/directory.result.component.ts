@@ -1,7 +1,8 @@
 ﻿import { Component } from '@angular/core';
 import { LocalizationService } from '../services/localization.service';
 import { EnvironmentSettings } from '../services/client.settings.service';
-import { Observable, Subscription } from 'rxjs';
+import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'directory-result',
@@ -13,9 +14,11 @@ export class DirectoryResultComponent {
     counter: number = 20;
     private url: string;
     private sub: Subscription;
+    private cultureSub: Subscription;
     private timer: any;
 
-    constructor(private service: EnvironmentSettings, private loc: LocalizationService) { }
+    constructor(private service: EnvironmentSettings, private loc: LocalizationService,
+        private readonly changeEmitter: CultureChangedEmitterService) { }
 
     ngOnInit() {
         this.sub = this.service.getRedirectUrl().subscribe(data => {
@@ -24,9 +27,13 @@ export class DirectoryResultComponent {
                 this.sub.unsubscribe();
         });
 
-        setInterval(() => {
+        this.cultureSub = this.changeEmitter.subscribe((next: any) => {
+            this.refreshTranslations();
+        });
+
+        this.timer = setInterval(() => {
             console.log("timmer pop: ", this.counter);
-            if (this.counter === 0) {
+            if (this.counter === 1) {
                 clearInterval(this.timer);
                 window.location.href = this.url;
             } else {
@@ -39,11 +46,18 @@ export class DirectoryResultComponent {
         if (this.sub)
             this.sub.unsubscribe();
 
+        if (this.cultureSub)
+            this.cultureSub.unsubscribe();
+
         if(this.timer)
             clearInterval(this.timer);
     }
 
     translate(key: string): string | undefined {
         return this.loc.translate(key);
+    }
+
+    refreshTranslations() {
+        console.log("refreshsing data....");
     }
 }

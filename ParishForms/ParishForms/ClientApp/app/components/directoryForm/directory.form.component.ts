@@ -68,6 +68,8 @@ export class DirectoryFormComponent {
             .subscribe(data => {
                 this.router.navigate(['./directory-result']);
             }, err => {
+                this.modaltitle = this.translate('Error Submiting Form');
+                this.modalBtn = this.translate("Ok");
                 this.modalbody = this.translate(err.error);
                 this.modal.show();
                 console.log("Error response: ", err);
