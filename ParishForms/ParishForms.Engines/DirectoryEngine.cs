@@ -49,7 +49,6 @@ namespace ParishForms.Engines
                 throw new InvalidDataException($"Could not match state: {submision.HomeAddress.State.Abbreviation}");
 
             submision.HomeAddress.State.Id = state.Id;
-            submision.HomeAddress.State = null;
 
             var rowCount = await _directoryAccessor.StoreSubmision(submision);
 
@@ -67,19 +66,28 @@ namespace ParishForms.Engines
             if (submision == null)
                 return false;
 
-            if (string.IsNullOrEmpty(submision.FamilyName.TryTrim()))
+            if (!submision.FamilyName.HasValue())
                 return false;
 
             if (submision.HomeAddress == null)
                 return false;
 
-            if (string.IsNullOrEmpty(submision.HomeAddress.City))
+            if (!submision.HomeAddress.City.HasValue())
                 return false;
 
             if (string.IsNullOrEmpty(submision.HomeAddress.Zip))
                 return false;
 
             if (string.IsNullOrEmpty(submision.HomeAddress.Street))
+                return false;
+
+            if (!ValidatePhone(submision.HomePhone, true))
+                return false;
+
+            if (!ValidatePhone(submision.AdultOneMobilePhone))
+                return false;
+
+            if (!ValidatePhone(submision.AdultTwoMobilePhone))
                 return false;
 
             return !string.IsNullOrEmpty(submision.AdultOneFirstName.TryTrim());
@@ -126,6 +134,23 @@ namespace ParishForms.Engines
                 count++;
 
             return count;
+        }
+
+        private bool ValidatePhone(PhoneDto dto, bool isRequired = false)
+        {
+            if (isRequired && dto == null)
+                return false;
+
+            if (isRequired)
+                return dto.Number.IsNumeric();
+            
+            if (dto == null)
+                return true;
+
+            // ReSharper disable once SimplifyConditionalTernaryExpression
+            return dto.Number.HasValue() 
+                ? dto.Number.IsNumeric()
+                : true;
         }
 
         private async Task<StateDto> GetStateByAbbr(string abbr)

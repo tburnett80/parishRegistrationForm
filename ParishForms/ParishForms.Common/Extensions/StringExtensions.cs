@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Linq;
 
 namespace ParishForms.Common.Extensions
 {
@@ -35,6 +36,11 @@ namespace ParishForms.Common.Extensions
         public static bool HasValue(this string value)
         {
             return !string.IsNullOrEmpty(value.TryTrim());
+        }
+
+        public static bool IsNumeric(this string value)
+        {
+            return value.HasValue() && value.All(char.IsDigit);
         }
 
         public static string TryToTrimedUpper(this string value)
