@@ -26,16 +26,16 @@ namespace ParishForms
                     City = model.City.TryTrim(),
                     Street = model.Address.TryTrim(),
                     Zip = model.Zip.TryTrim(),
-                    State = new StateDto { Abbreviation = model.State.TryTrim() }
+                    State = new StateDto { Abbreviation = model.State.TryToTrimedUpper() }
                 },
                 HomePhone = model.HomePhone.HasValue()
-                    ? new PhoneDto { PhoneType = PhoneType.Home, Number = model.HomePhone.TryTrim() }
+                    ? new PhoneDto { PhoneType = PhoneType.Home, Number = model.HomePhone.TryTrimRemove("-") }
                     : null,
                 AdultOneMobilePhone = model.Adult1Cell.HasValue() 
-                    ? new PhoneDto { PhoneType = PhoneType.Mobile, Number = model.Adult1Cell.TryTrim() } 
+                    ? new PhoneDto { PhoneType = PhoneType.Mobile, Number = model.Adult1Cell.TryTrimRemove("-") } 
                     : null,
                 AdultTwoMobilePhone = model.Adult2Cell.HasValue()
-                    ? new PhoneDto { PhoneType = PhoneType.Mobile, Number = model.Adult1Cell.TryTrim() }
+                    ? new PhoneDto { PhoneType = PhoneType.Mobile, Number = model.Adult2Cell.TryTrimRemove("-") }
                     : null,
                 AdultOneEmailAddress = model.Adult1Email.HasValue()
                     ? new EmailDto { EmailType = EmailType.Personal, Address = model.Adult1Email.TryTrim() }

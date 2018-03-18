@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ParishForms.Common.Contracts.Accessors;
@@ -44,7 +45,11 @@ namespace ParishForms.Engines
         public async Task<SaveResult> StoreSubmision(SubmisionDto submision)
         {
             var state = await GetStateByAbbr(submision.HomeAddress.State.Abbreviation);
+            if(state == null)
+                throw new InvalidDataException($"Could not match state: {submision.HomeAddress.State.Abbreviation}");
+
             submision.HomeAddress.State.Id = state.Id;
+            submision.HomeAddress.State = null;
 
             var rowCount = await _directoryAccessor.StoreSubmision(submision);
 

@@ -18,7 +18,10 @@
   <ItemGroup>
     <ProjectReference Include="..\DataProvider.Cache\DataProvider.Cache.csproj" />
     <ProjectReference Include="..\DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\ParishForms.Accessors\ParishForms.Accessors.csproj" />
     <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
+    <ProjectReference Include="..\ParishForms.Engines\ParishForms.Engines.csproj" />
+    <ProjectReference Include="..\ParishForms.Managers\ParishForms.Managers.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>

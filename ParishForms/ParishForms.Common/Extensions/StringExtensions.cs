@@ -36,5 +36,19 @@ namespace ParishForms.Common.Extensions
         {
             return !string.IsNullOrEmpty(value.TryTrim());
         }
+
+        public static string TryToTrimedUpper(this string value)
+        {
+            return value.HasValue()
+                ? value.TryTrim().ToUpper()
+                : value;
+        }
+
+        public static string TryTrimRemove(this string value, string toRemove)
+        {
+            return value.HasValue()
+                ? value.Replace(toRemove, "").TryTrim()
+                : value;
+        }
     }
 }
