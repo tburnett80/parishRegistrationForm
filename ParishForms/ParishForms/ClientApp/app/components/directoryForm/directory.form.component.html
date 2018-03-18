@@ -78,7 +78,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="adult1FName">{{translate('First Name')}}</label>
-                <input class="form-control" id="adult1FName" #afamname1="ngModel" type="text" [(ngModel)]="formModel.adult1FName" npt-constr name="adultonefirstname" pattern="^[^0-9]+$" [placeholder]="translate('John')" required />
+                <input class="form-control" id="adult1FName" #afamname1="ngModel" type="text" [(ngModel)]="formModel.adult1FName" npt-constr name="adultonefirstname" pattern="^[^0-9]+$" [placeholder]="translate('i.e. John')" required />
                 <div *ngIf="afamname1.invalid && (afamname1.dirty || afamname1.touched)" class="alert alert-danger">
                     <div *ngIf="afamname1.errors.required">{{translate('Name is required')}}</div>
                     <div *ngIf="afamname1.errors.pattern">{{translate('Letters and symbols only')}}</div>
@@ -107,7 +107,7 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-4 form-group-sm">
                 <label class="control-label" for="adult2FName">{{translate('First Name')}}</label>
-                <input class="form-control" id="adult2FName" #afamname2="ngModel" type="text" [(ngModel)]="formModel.adult2FName" npt-constr name="adulttwofirstname" pattern="^[^0-9]+$" [placeholder]="translate('Jane')" />
+                <input class="form-control" id="adult2FName" #afamname2="ngModel" type="text" [(ngModel)]="formModel.adult2FName" npt-constr name="adulttwofirstname" pattern="^[^0-9]+$" [placeholder]="translate('i.e. Jane')" />
                 <div *ngIf="afamname2.invalid && (afamname2.dirty || afamname2.touched)" class="alert alert-danger">
                     <div *ngIf="afamname2.errors.pattern">{{translate('Letters and symbols only')}}</div>
                 </div>

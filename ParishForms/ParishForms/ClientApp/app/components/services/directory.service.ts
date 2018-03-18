@@ -30,7 +30,7 @@ export class DirectoryService {
                     return Observable.of(er.status).delay(5000);
                 })
                 .take(3)
-                .concat(Observable.throw({ error: 'Error submiting form. Retried 3 times. Please try again.' }));
+                .concat(Observable.throw({ error: 'Error submiting form. Retried 3 times. Please try again later.' }));
             })
             .do(() => this.spinner.hide(DirectoryService.spinnerName))
             .catch((err: any) => {
