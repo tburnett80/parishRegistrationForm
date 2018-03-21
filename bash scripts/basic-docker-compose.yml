@@ -1,0 +1,29 @@
+version: "2"
+services: 
+  app:
+    image: tburnett80/parish-frm
+    container_name: app
+    ports:
+       - "80:80"
+    environment:
+       CONNECTION_STRING: 'Server=192.168.1.1;Port=5432;Database=parish;User Id=user1;Password=password1;'
+       STATE_CACHE_TTL: '14400'
+       TRANSLATION_CACHE_TTL: '14400'
+       REDIRECT_URL: 'http://www.google.com/'
+    depends_on:
+       - parish-db
+  parish-db:
+    image: postgres:10-alpine
+    container_name: parish-db
+    restart: always
+    ports:
+       - "5432:5432"
+    environment:
+       POSTGRES_USER: 'user1'
+       POSTGRES_PASSWORD: 'password1'
+       POSTGRES_DB: 'parish'
+       PGDATA: '/var/lib/postgresql/data/pdata/volume'
+    volumes:
+       - dbdata:/var/lib/postgresql/data/pdata
+volumes:
+  dbdata:
