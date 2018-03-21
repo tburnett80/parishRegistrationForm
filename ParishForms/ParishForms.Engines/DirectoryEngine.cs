@@ -81,7 +81,7 @@ namespace ParishForms.Engines
             if (string.IsNullOrEmpty(submision.HomeAddress.Street))
                 return false;
 
-            if (!ValidatePhone(submision.HomePhone, true))
+            if (!ValidatePhone(submision.HomePhone))
                 return false;
 
             if (!ValidatePhone(submision.AdultOneMobilePhone))
