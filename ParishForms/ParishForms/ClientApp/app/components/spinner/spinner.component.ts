@@ -1,5 +1,6 @@
 ﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SpinnerService } from '../services/spinner.service';
+import { LocalizationService } from '../services/localization.service';
 
 //<spinner loadingImage="path/to/loading.gif" [(show)]="true"></spinner>
 @Component({
@@ -23,7 +24,7 @@ export class SpinnerComponent {
     }
     @Output() showChange = new EventEmitter();
 
-    constructor(private readonly service: SpinnerService) { }
+    constructor(private readonly service: SpinnerService, private readonly localizationService: LocalizationService) { }
 
     ngOnInit() {
         if (!this.name)
@@ -33,5 +34,9 @@ export class SpinnerComponent {
 
     ngOnDestroy() {
         this.service._unregister(this);
+    }
+
+    translate(key: string) {
+        return this.localizationService.translate(key);
     }
 }
