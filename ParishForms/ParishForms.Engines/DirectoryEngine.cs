@@ -9,23 +9,28 @@ using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Extensions;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
+using ParishForms.Common.Models.Exports;
 
 namespace ParishForms.Engines
 {
     [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-    public sealed class DirectoryEngine : IDirectoryEngine
+    public sealed class DirectoryEngine : IDirectoryEngine, IDirectoryExportEngine
     {
         #region Constructor and Private members
         private readonly IDirectoryAccessor _directoryAccessor;
         private readonly ICacheAccessor _cacheAccessor;
+        private readonly IExportAccessor _exportAccessor;
 
-        public DirectoryEngine(IDirectoryAccessor directoryAccessor, ICacheAccessor cacheAccessor)
+        public DirectoryEngine(IDirectoryAccessor directoryAccessor, ICacheAccessor cacheAccessor, IExportAccessor exportAccessor)
         {
             _directoryAccessor = directoryAccessor
                 ?? throw new ArgumentNullException(nameof(directoryAccessor));
 
             _cacheAccessor = cacheAccessor
                 ?? throw new ArgumentNullException(nameof(cacheAccessor));
+
+            _exportAccessor = exportAccessor
+                ?? throw new ArgumentNullException(nameof(exportAccessor));
         }
         #endregion
 
@@ -111,6 +116,14 @@ namespace ParishForms.Engines
         }
         #endregion
 
+        #region Export Impl
+        public async Task<ExportRequestDto> QueueRequest(int userId, string email)
+        {
+            var req = CreateNewExportRequest(userId, email);
+            return await _exportAccessor.QueueRequest(req);
+        }
+        #endregion
+
         #region Private methods
         private int DeterminExpectedRowCount(SubmisionDto dto)
         {
@@ -171,6 +184,19 @@ namespace ParishForms.Engines
             }
 
             return second;
+        }
+
+        private ExportRequestDto CreateNewExportRequest(int userId, string email)
+        {
+            return new ExportRequestDto
+            {
+                Email = email,
+                ExportType = ExportRequestType.Directory,
+                RequestId = Guid.NewGuid(),
+                StartRange = 1,
+                Status = ExportStatus.InQueue,
+                UserId = userId
+            };
         }
         #endregion
     }

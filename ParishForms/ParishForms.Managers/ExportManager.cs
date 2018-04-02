@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Contracts.Managers;
@@ -20,9 +18,24 @@ namespace ParishForms.Managers
         }
         #endregion
 
-        public Task<ExportResultDto> ExportDirectoryResults(bool onlyNew = false)
+        public async Task<ExportResultDto> ExportDirectoryResults()
         {
-            return null;
+            try
+            {
+                return new ExportResultDto
+                {
+                    IsSuccessResult = true,
+                    Request = await _directoryExportEngine.QueueRequest(0, string.Empty)
+                };
+            }
+            catch (Exception)
+            {
+                //TODO: Log errors
+                return new ExportResultDto
+                {
+                    IsSuccessResult = false
+                };
+            }
         }
 
         public Task<ExportResultDto> CheckStatus(Guid requestId)

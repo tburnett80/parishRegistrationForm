@@ -5,6 +5,6 @@ namespace ParishForms.Common.Contracts.Managers
 {
     public interface IDirectoryExportManager
     {
-        Task<ExportResultDto> ExportDirectoryResults(bool onlyNew = false);
+        Task<ExportResultDto> ExportDirectoryResults();
     }
 }
