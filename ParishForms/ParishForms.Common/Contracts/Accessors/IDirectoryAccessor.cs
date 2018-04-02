@@ -11,6 +11,10 @@ namespace ParishForms.Common.Contracts.Accessors
 
         Task<int> StoreSubmision(SubmisionDto submision);
 
+        Task<int> GetLastId();
+
+        Task<IEnumerable<SubmisionDto>> GetSubmisionsInRange(int start, int end);
+
         Task<IDictionary<string, int>> GetFieldLengths<TEnt>() where TEnt : class;
     }
 }

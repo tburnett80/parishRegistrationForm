@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using DataProvider.EntityFrameworkCore.Entities.Common;
 using DataProvider.EntityFrameworkCore.Entities.Directory;
+using DataProvider.EntityFrameworkCore.Entities.Exports;
 using DataProvider.EntityFrameworkCore.Entities.Localization;
 using DataProvider.EntityFrameworkCore.Entities.Logging;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
+using ParishForms.Common.Models.Exports;
 using ParishForms.Common.Models.Logging;
 
 namespace ParishForms.Accessors
@@ -135,6 +136,24 @@ namespace ParishForms.Accessors
                 default:
                     return typeof(object);
             }
+        }
+
+        internal static ExportQueueEntity ToEntity(this ExportRequestDto dto)
+        {
+            if (dto == null)
+                return null;
+
+            return new ExportQueueEntity
+            {
+                RequestId = dto.RequestId,
+                Email = dto.Email,
+                UserId = dto.UserId,
+                ExportType = (int) dto.ExportType,
+                Status = (int) dto.Status,
+                StartRange = dto.StartRange,
+                TimeStamp = null,
+                LastUpdated = null
+            };
         }
     }
 }

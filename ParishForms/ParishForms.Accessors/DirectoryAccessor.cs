@@ -41,6 +41,29 @@ namespace ParishForms.Accessors
             }
         }
 
+        public async Task<int> GetLastId()
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                return await ctx.Submisions
+                    .OrderByDescending(e => e.Id)
+                    .Select(e => e.Id)
+                    .FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<IEnumerable<SubmisionDto>> GetSubmisionsInRange(int start, int end)
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                var ents = await ctx.Submisions
+                    .Where(e => e.Id > (start - 1) && e.Id < (end + 1))
+                    .ToListAsync();
+
+                return ents.Select(e => e.ToDto());
+            }
+        }
+
         public async Task<IDictionary<string, int>> GetFieldLengths<TEnt>() where TEnt : class
         {
             return await Task.Factory.StartNew(() =>
