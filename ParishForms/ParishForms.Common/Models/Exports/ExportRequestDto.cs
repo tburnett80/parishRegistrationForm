@@ -10,7 +10,8 @@ namespace ParishForms.Common.Models.Exports
 
     public enum ExportStatus
     {
-        InQueue = 0,
+        NotFound = 0,
+        InQueue,
         Started,
         Finished,
         Errored,
@@ -21,8 +22,10 @@ namespace ParishForms.Common.Models.Exports
     {
         public ExportRequestDto()
         {
-            TimeStamp = DateTimeOffset.UtcNow;
+            TimeStamp = DateTimeOffset.MinValue;
         }
+
+        public int Id { get; set; }
 
         public Guid RequestId { get; set; }
 

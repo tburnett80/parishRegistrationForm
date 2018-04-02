@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataProvider.EntityFrameworkCore;
@@ -41,6 +42,55 @@ namespace ParishForms.Accessors
                     .FirstOrDefaultAsync();
 
                 return ent.ToDto();
+            }
+        }
+
+        public async Task<IEnumerable<ExportRequestDto>> GetOpenItems()
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                var itms = await ctx.ExportQueue
+                    .Where(e => e.Status == (int) ExportStatus.InQueue || e.Status == (int) ExportStatus.Started)
+                    .OrderBy(e => e.Id)
+                    .ToListAsync();
+
+                return itms.Select(e => e.ToDto());
+            }
+        }
+
+        public async Task<ExportRequestDto> GetStartedItem()
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                var itm = await ctx.ExportQueue
+                    .Where(e => e.Status == (int)ExportStatus.Started)
+                    .OrderBy(e => e.Id)
+                    .FirstOrDefaultAsync();
+
+                return itm.ToDto();
+            }
+        }
+
+        public async Task<ExportRequestDto> GetNextOpenItem()
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                var next = await ctx.ExportQueue
+                    .Where(e => e.Status == (int)ExportStatus.Started || e.Status == (int)ExportStatus.InQueue)
+                    .OrderBy(e => e.Status)
+                    .ThenBy(e => e.Id)
+                    .FirstOrDefaultAsync();
+
+                return next.ToDto();
+            }
+        }
+
+        public async Task<int> UpdateItem(ExportRequestDto dto)
+        {
+            using (var ctx = _contextFactory.ConstructContext())
+            {
+                ctx.Update(dto.ToEntity());
+                return await ctx.SaveChangesAsync(true);
             }
         }
     }

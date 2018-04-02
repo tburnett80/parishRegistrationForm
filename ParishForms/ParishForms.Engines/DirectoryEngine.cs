@@ -14,7 +14,7 @@ using ParishForms.Common.Models.Exports;
 namespace ParishForms.Engines
 {
     [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
-    public sealed class DirectoryEngine : IDirectoryEngine, IDirectoryExportEngine
+    public sealed class DirectoryEngine : IDirectoryEngine
     {
         #region Constructor and Private members
         private readonly IDirectoryAccessor _directoryAccessor;
@@ -116,14 +116,6 @@ namespace ParishForms.Engines
         }
         #endregion
 
-        #region Export Impl
-        public async Task<ExportRequestDto> QueueRequest(int userId, string email)
-        {
-            var req = CreateNewExportRequest(userId, email);
-            return await _exportAccessor.QueueRequest(req);
-        }
-        #endregion
-
         #region Private methods
         private int DeterminExpectedRowCount(SubmisionDto dto)
         {
@@ -184,19 +176,6 @@ namespace ParishForms.Engines
             }
 
             return second;
-        }
-
-        private ExportRequestDto CreateNewExportRequest(int userId, string email)
-        {
-            return new ExportRequestDto
-            {
-                Email = email,
-                ExportType = ExportRequestType.Directory,
-                RequestId = Guid.NewGuid(),
-                StartRange = 1,
-                Status = ExportStatus.InQueue,
-                UserId = userId
-            };
         }
         #endregion
     }

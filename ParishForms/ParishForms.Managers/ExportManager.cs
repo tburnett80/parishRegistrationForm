@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.Engines;
 using ParishForms.Common.Contracts.Managers;
 using ParishForms.Common.Models.Exports;
@@ -9,12 +10,16 @@ namespace ParishForms.Managers
     public sealed class ExportManager : IDirectoryExportManager
     {
         #region Constructor and Private members
-        private readonly IDirectoryExportEngine _directoryExportEngine;
+        private readonly IExportEngine _exportEngine;
+        private readonly IExportAccessor _accessor;
 
-        public ExportManager(IDirectoryExportEngine directoryExportEngine)
+        public ExportManager(IExportEngine exportEngine, IExportAccessor accessor)
         {
-            _directoryExportEngine = directoryExportEngine
-                ?? throw new ArgumentNullException(nameof(directoryExportEngine));
+            _exportEngine = exportEngine
+                ?? throw new ArgumentNullException(nameof(exportEngine));
+
+            _accessor = accessor 
+                ?? throw new ArgumentNullException(nameof(accessor));
         }
         #endregion
 
@@ -22,25 +27,39 @@ namespace ParishForms.Managers
         {
             try
             {
-                return new ExportResultDto
-                {
-                    IsSuccessResult = true,
-                    Request = await _directoryExportEngine.QueueRequest(0, string.Empty)
-                };
+                var req = await _exportEngine.QueueRequest(0, string.Empty);
+                return await _exportEngine.CheckStatus(req.RequestId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO: Log errors
                 return new ExportResultDto
                 {
-                    IsSuccessResult = false
+                    IsSuccessResult = false,
+                    Message = $"Error queueing request: {ex.Message}"
                 };
             }
         }
 
-        public Task<ExportResultDto> CheckStatus(Guid requestId)
+        public async Task<ExportResultDto> CheckStatus(Guid requestId)
         {
-            return null;
+            try
+            {
+                return new ExportResultDto
+                {
+                    IsSuccessResult = true,
+                    Request = await _accessor.GetRequestByGuid(requestId)
+                };
+            }
+            catch (Exception ex)
+            {
+                //TODO: Log errors
+                return new ExportResultDto
+                {
+                    IsSuccessResult = false,
+                    Message = $"Error checking status: {ex.Message}"
+                };
+            }
         }
     }
 }

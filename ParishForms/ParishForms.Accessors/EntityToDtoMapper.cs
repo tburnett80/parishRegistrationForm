@@ -58,6 +58,7 @@ namespace ParishForms.Accessors
 
             return new ExportRequestDto
             {
+                Id = ent.Id,
                 RequestId = ent.RequestId,
                 Email = ent.Email,
                 UserId = ent.UserId,

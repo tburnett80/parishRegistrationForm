@@ -145,14 +145,17 @@ namespace ParishForms.Accessors
 
             return new ExportQueueEntity
             {
+                Id = dto.Id,
                 RequestId = dto.RequestId,
                 Email = dto.Email,
                 UserId = dto.UserId,
                 ExportType = (int) dto.ExportType,
                 Status = (int) dto.Status,
                 StartRange = dto.StartRange,
-                TimeStamp = null,
-                LastUpdated = null
+                LastUpdated = null,
+                TimeStamp = dto.TimeStamp == DateTimeOffset.MinValue 
+                            ? null
+                            : (DateTimeOffset?) dto.TimeStamp
             };
         }
     }

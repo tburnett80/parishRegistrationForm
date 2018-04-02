@@ -12,6 +12,8 @@ namespace ParishForms.Common.Models.Exports
 
         public ExportRequestDto Request { get; set; }
 
+        public string Message { get; set; }
+
         public string FileName { get; set; }
 
         public byte[] Data { get; set; }
