@@ -29,11 +29,11 @@ namespace ParishForms
             IoC.DependencyInjector.AddServices(services, Configuration);
             services.AddMvc();
 
+            var provider = services.BuildServiceProvider();
+
             //pre-cache localization data
             Task.Factory.StartNew(() =>
             {
-                var provider = services.BuildServiceProvider();
-
                 //ensure db and tables exist.
                 using (var factory = provider.GetService<IDbContextFactory<CreationContext>>())
                 using (var ctx = factory.ConstructContext())
@@ -42,6 +42,13 @@ namespace ParishForms
                 //load localization values into cache
                 var loc = provider.GetService<ILocalizationManager>();
                 loc.PreLoadCache().Wait();
+            }, TaskCreationOptions.LongRunning);
+
+            //start processing thread to handle creating exports
+            Task.Factory.StartNew(async () =>
+            {
+                var mgr = provider.GetService<IExportProcessingManager>();
+                await mgr.StartProcessing();
             }, TaskCreationOptions.LongRunning);
         }
 
