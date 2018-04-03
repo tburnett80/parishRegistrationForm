@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DataProvider.EntityFrameworkCore.Entities.Exports;
+﻿using DataProvider.EntityFrameworkCore.Entities.Exports;
 using DataProvider.EntityFrameworkCore.EntityMappings.Exports;
 using Microsoft.EntityFrameworkCore;
 

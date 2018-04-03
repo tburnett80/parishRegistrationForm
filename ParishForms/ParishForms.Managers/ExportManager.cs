@@ -7,7 +7,7 @@ using ParishForms.Common.Models.Exports;
 
 namespace ParishForms.Managers
 {
-    public sealed class ExportManager : IDirectoryExportManager
+    public sealed class ExportManager : IExportManager
     {
         #region Constructor and Private members
         private readonly IExportEngine _exportEngine;

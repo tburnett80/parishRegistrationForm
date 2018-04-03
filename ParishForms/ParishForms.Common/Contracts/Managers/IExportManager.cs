@@ -3,7 +3,7 @@ using ParishForms.Common.Models.Exports;
 
 namespace ParishForms.Common.Contracts.Managers
 {
-    public interface IDirectoryExportManager
+    public interface IExportManager
     {
         Task<ExportResultDto> ExportDirectoryResults();
     }

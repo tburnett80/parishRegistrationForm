@@ -12,7 +12,6 @@ using ParishForms.Common.Models;
 using ParishForms.Engines;
 using ParishForms.Managers;
 
-
 namespace ParishForms.IoC
 {
     public static class DependencyInjector
@@ -32,17 +31,23 @@ namespace ParishForms.IoC
             services.AddTransient<IDbContextFactory<LocalizationContext>, PostgresContextFactory<LocalizationContext>>();
             services.AddTransient<IDbContextFactory<LogContext>, PostgresContextFactory<LogContext>>();
             services.AddTransient<IDbContextFactory<DirectoryContext>, PostgresContextFactory<DirectoryContext>>();
+            services.AddTransient<IDbContextFactory<ExportContext>, PostgresContextFactory<ExportContext>>();
 
             services.AddTransient<ICacheAccessor, CacheAccessor>();
             services.AddTransient<ILogAccessor, LogAccessor>();
             services.AddTransient<ILocalizationAccessor, LocalizationAccessor>();
             services.AddTransient<IDirectoryAccessor, DirectoryAccessor>();
+            services.AddTransient<IExportAccessor, ExportAccessor>();
 
             services.AddTransient<ILocalizationEngine, LocalizationEngine>();
             services.AddTransient<IDirectoryEngine, DirectoryEngine>();
+            services.AddTransient<IExportEngine, ExportEngine>();
+            services.AddSingleton<IExportProcessingEngine, ExportProcessingEngine>();
 
             services.AddTransient<ILocalizationManager, LocalizationManager>();
             services.AddTransient<IDirectoryManager, DirectoryManager>();
+            services.AddTransient<IExportManager, ExportManager>();
+            services.AddSingleton<IExportProcessingManager, ExportProcessingManager>();
         }
     }
 }
