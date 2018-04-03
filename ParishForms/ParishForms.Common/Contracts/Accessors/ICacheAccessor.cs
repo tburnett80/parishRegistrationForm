@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ParishForms.Common.Models;
 using ParishForms.Common.Models.Common;
+using ParishForms.Common.Models.Exports;
 
 namespace ParishForms.Common.Contracts.Accessors
 {
@@ -22,5 +23,9 @@ namespace ParishForms.Common.Contracts.Accessors
         IDictionary<string, int> GetDirectoryFormLimits();
 
         Task CacheDirectoryFormLimits(IDictionary<string, int> limits);
+
+        CompressedResult GetCachedExport(ExportRequestType type);
+
+        Task CacheExport(ExportRequestType type, CompressedResult result);
     }
 }

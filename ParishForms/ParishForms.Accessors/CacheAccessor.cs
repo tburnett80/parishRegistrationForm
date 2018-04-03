@@ -7,6 +7,7 @@ using ParishForms.Common.Contracts.Accessors;
 using ParishForms.Common.Contracts.DataProviders;
 using ParishForms.Common.Models;
 using ParishForms.Common.Models.Common;
+using ParishForms.Common.Models.Exports;
 
 namespace ParishForms.Accessors
 {
@@ -18,6 +19,8 @@ namespace ParishForms.Accessors
         private const string TranslationKeyPart = "Translations";
         private const string CulturesKeyPart = "CultureList";
         private const string DirectoryFormLimitsKey = "DirectoryFormLimits";
+        private const string ExportPartial = "Export-";
+        private const string ExportDataPartial = "Export-Data-";
 
         private readonly ICacheProvider _provider;
         private readonly ConfigSettingsDto _settings;
@@ -79,6 +82,17 @@ namespace ParishForms.Accessors
         public async Task CacheDirectoryFormLimits(IDictionary<string, int> limits)
         {
             await _provider.CacheObject(DirectoryFormLimitsKey, limits.ToDictionary(k => k, v => v), _settings.TranslationCacheTtlSeconds);
+        }
+
+        public CompressedResult GetCachedExport(ExportRequestType type)
+        {
+            return _provider.GetObjectFromCache<CompressedResult>($"{ExportPartial}{type}");
+        }
+
+        public async Task CacheExport(ExportRequestType type, CompressedResult result)
+        {
+            //TODO: create settings for results.
+            await _provider.CacheObject($"{ExportPartial}{type}", result, _settings.TranslationCacheTtlSeconds);
         }
     }
 }

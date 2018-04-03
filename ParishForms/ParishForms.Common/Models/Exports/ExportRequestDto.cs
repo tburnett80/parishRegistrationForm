@@ -13,6 +13,7 @@ namespace ParishForms.Common.Models.Exports
         NotFound = 0,
         InQueue,
         Started,
+        ExcelBuilt,
         Finished,
         Errored,
         Canceled

@@ -57,6 +57,13 @@ namespace ParishForms.Accessors
             using (var ctx = _contextFactory.ConstructContext())
             {
                 var ents = await ctx.Submisions
+                    .Include(e => e.HomeAddress)
+                    .ThenInclude(e => e.State)
+                    .Include(e => e.HomePhone)
+                    .Include(e => e.AdultOneMobilePhone)
+                    .Include(e => e.AdultOneEmail)
+                    .Include(e => e.AdultTwoMobilePhone)
+                    .Include(e => e.AdultTwoEmail)
                     .Where(e => e.Id > (start - 1) && e.Id < (end + 1))
                     .ToListAsync();
 
