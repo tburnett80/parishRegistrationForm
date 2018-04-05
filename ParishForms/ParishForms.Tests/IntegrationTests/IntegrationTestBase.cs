@@ -11,7 +11,7 @@ namespace ParishForms.Tests.IntegrationTests
 {
     public abstract class IntegrationTestBase
     {
-        protected IDirectoryManager FactoryManager(ConfigSettingsDto settings = null, IDbContextFactory<LogContext> logCtxFactory = null, IDbContextFactory<DirectoryContext> dirCtxFactory = null)
+        protected IDirectoryManager FactoryManager(ConfigSettingsDto settings = null, IDbContextFactory<LogContext> logCtxFactory = null, IDbContextFactory<DirectoryContext> dirCtxFactory = null, IDbContextFactory<ExportContext> xprtCtxFactory = null)
         {
             if(settings == null)
                 settings = new ConfigSettingsDto
@@ -26,11 +26,15 @@ namespace ParishForms.Tests.IntegrationTests
             if(dirCtxFactory == null)
                 dirCtxFactory = new SqliteInMemoryContextFactory<DirectoryContext>();
 
+            if(xprtCtxFactory == null)
+                xprtCtxFactory = new SqliteInMemoryContextFactory<ExportContext>();
+
             var cacheAccessor = new CacheAccessor(new MemoryCache(), settings);
             var dirAccessor = new DirectoryAccessor(dirCtxFactory);
             var logAccessor = new LogAccessor(logCtxFactory);
+            var exportAccessor = new ExportAccessor(xprtCtxFactory);
 
-            var dirEngine = new DirectoryEngine(dirAccessor, cacheAccessor);
+            var dirEngine = new DirectoryEngine(dirAccessor, cacheAccessor, exportAccessor);
             return new DirectoryManager(dirEngine, logAccessor);
         }
     }

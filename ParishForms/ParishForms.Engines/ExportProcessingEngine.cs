@@ -22,7 +22,8 @@ namespace ParishForms.Engines
         private readonly IEmailAccessor _emailAccessor;
         private readonly ICacheAccessor _cache;
 
-        public ExportProcessingEngine(IExportAccessor exportAccessor, IDirectoryAccessor directoryAccessor, IEmailAccessor emailAccessor, ICacheAccessor cache)
+        public ExportProcessingEngine(IExportAccessor exportAccessor, 
+            IDirectoryAccessor directoryAccessor, IEmailAccessor emailAccessor, ICacheAccessor cache)
         {
             _exportAccessor = exportAccessor
                 ?? throw new ArgumentNullException(nameof(exportAccessor));
@@ -56,35 +57,30 @@ namespace ParishForms.Engines
             nextItm.Status = ExportStatus.Started;
             await _exportAccessor.UpdateItem(nextItm);
 
-            using(var ms = new MemoryStream())
-            using (var pck = new ExcelPackage(ms))
-            using(var wb = pck.Workbook.Worksheets.Add(nextItm.ExportType.ToString()))
+            var zip = new byte[0];
+            using (var dt = CreateDataTable())
             {
-                var table = CreateDataTable();
                 foreach (var chunk in ChunkRanges(nextItm.StartRange, lastId))
-                {
                     foreach (var row in await _directoryAccessor.GetSubmisionsInRange(chunk.start, chunk.end))
-                        AddRow(table, row);
-                }
+                        AddRow(dt, row);
 
-                wb.Cells["A1"].LoadFromDataTable(table, true);
-                var zip = await CompressExcelFile(ms);
-
-                nextItm.Status = ExportStatus.ExcelBuilt;
-                await _exportAccessor.UpdateItem(nextItm);
-
-                await _cache.CacheExport(nextItm.ExportType, new CompressedResult
-                {
-                    Start = nextItm.StartRange,
-                    End = lastId,
-                    Data = zip
-                });
-
-                await SendResultEmail(nextItm, zip);
-
-                nextItm.Status = ExportStatus.Finished;
-                await _exportAccessor.UpdateItem(nextItm);
+                zip = await CompressExcelFile(dt, nextItm.ExportType.ToString());
             }
+
+            nextItm.Status = ExportStatus.ExcelBuilt;
+            await _exportAccessor.UpdateItem(nextItm);
+
+            await _cache.CacheExport(nextItm.ExportType, new CompressedResult
+            {
+                Start = nextItm.StartRange,
+                End = lastId,
+                Data = zip
+            });
+
+            await SendResultEmail(nextItm, zip);
+
+            nextItm.Status = ExportStatus.Finished;
+            await _exportAccessor.UpdateItem(nextItm);
         }
 
         #region Private Methods
@@ -154,30 +150,39 @@ namespace ParishForms.Engines
             row[3] = dto.OtherFamily;
             row[4] = dto.PublishAddress.ToString();
             row[5] = dto.PublishPhone.ToString();
-            row[6] = dto.HomePhone.Number; //TODO: format like nnn-nnn-nnnn
+            row[6] = dto.HomePhone?.Number; //TODO: format like nnn-nnn-nnnn
             row[7] = dto.HomeAddress.Street;
             row[8] = dto.HomeAddress.City;
             row[9] = dto.HomeAddress.State.Name;
             row[10] = dto.HomeAddress.Zip;
-            row[11] = dto.AdultOneMobilePhone.Number; //TODO: format like nnn-nnn-nnnn
-            row[12] = dto.AdultOneEmailAddress.Address;
-            row[13] = dto.AdultTwoMobilePhone.Number; //TODO: format like nnn-nnn-nnnn
-            row[14] = dto.AdultTwoEmailAddress.Address;
+            row[11] = dto.AdultOneMobilePhone?.Number; //TODO: format like nnn-nnn-nnnn
+            row[12] = dto.AdultOneEmailAddress?.Address;
+            row[13] = dto.AdultTwoMobilePhone?.Number; //TODO: format like nnn-nnn-nnnn
+            row[14] = dto.AdultTwoEmailAddress?.Address;
 
             table.Rows.Add(row);
         }
 
-        private async Task<byte[]> CompressExcelFile(MemoryStream ms)
+        private async Task<byte[]> CompressExcelFile(DataTable data, string bookName)
         {
             return await Task.Factory.StartNew(() =>
             {
-                using (ms)
+                using(var ms = new MemoryStream())
+                using (var pck = new ExcelPackage(ms))
+                using (var wb = pck.Workbook.Worksheets.Add(bookName))
                 using (var cms = new MemoryStream())
-                using (var zip = new ZipArchive(cms, ZipArchiveMode.Create, false))
                 {
-                    var entry = zip.CreateEntry($"export-{DateTime.Now:yyyy-MM-dd}.xlsx", CompressionLevel.Optimal);
-                    using (var entStr = entry.Open())
-                        ms.CopyTo(entStr);
+                    wb.Cells["A1"].LoadFromDataTable(data, true);
+                    pck.Save();
+
+                    //have to leave zip stream inside, only gets bytes after its disposed
+                    using (var zip = new ZipArchive(cms, ZipArchiveMode.Create, true))
+                    {
+                        ms.Seek(0, SeekOrigin.Begin);
+                        var entry = zip.CreateEntry($"export-{DateTime.Now:yyyy-MM-dd}.xlsx", CompressionLevel.Optimal);
+                        using (var entStr = entry.Open())
+                            ms.CopyTo(entStr);
+                    }
 
                     return cms.ToArray();
                 }

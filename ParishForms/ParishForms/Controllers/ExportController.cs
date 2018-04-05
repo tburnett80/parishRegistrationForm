@@ -14,12 +14,12 @@ namespace ParishForms.Controllers
     public class ExportController : Controller
     {
         #region Constructor and Private members
-        private readonly IDirectoryExportManager _manager;
+        //private readonly IDirectoryExportManager _manager;
 
-        public ExportController(IDirectoryExportManager manager)
+        public ExportController()
         {
-            _manager = manager
-                ?? throw new ArgumentNullException(nameof(manager));
+            //_manager = manager
+            //    ?? throw new ArgumentNullException(nameof(manager));
         }
         #endregion
 
