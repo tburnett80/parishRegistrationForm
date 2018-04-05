@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using DataProvider.Cache;
 using DataProvider.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using ParishForms.Accessors;
-using ParishForms.Common.Contracts.Accessors;
-using ParishForms.Common.Models;
 using ParishForms.Common.Models.Common;
 using ParishForms.Common.Models.Directory;
-using ParishForms.Engines;
-using ParishForms.Managers;
 
 namespace ParishForms.Tests.IntegrationTests
 {

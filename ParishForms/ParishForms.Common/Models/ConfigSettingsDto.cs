@@ -10,5 +10,7 @@ namespace ParishForms.Common.Models
         public int TranslationCacheTtlSeconds { get; set; }
 
         public string RedirectUrl { get; set; }
+
+        public string RelayAddress { get; set; }
     }
 }

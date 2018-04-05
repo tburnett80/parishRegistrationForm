@@ -23,7 +23,8 @@ namespace ParishForms.IoC
                 ConnectionString = configuration["CONNECTION_STRING"],
                 StateCacheTtlSeconds = configuration["STATE_CACHE_TTL"].TryToInt(),
                 TranslationCacheTtlSeconds = configuration["TRANSLATION_CACHE_TTL"].TryToInt(),
-                RedirectUrl = configuration["REDIRECT_URL"]
+                RedirectUrl = configuration["REDIRECT_URL"],
+                RelayAddress = configuration["SMTP_RELAY_ADDRESS"]
             });
 
             services.AddSingleton<ICacheProvider, MemoryCache>();
@@ -34,6 +35,7 @@ namespace ParishForms.IoC
             services.AddTransient<IDbContextFactory<ExportContext>, PostgresContextFactory<ExportContext>>();
 
             services.AddTransient<ICacheAccessor, CacheAccessor>();
+            services.AddTransient<IEmailAccessor, EmailAccessor>();
             services.AddTransient<ILogAccessor, LogAccessor>();
             services.AddTransient<ILocalizationAccessor, LocalizationAccessor>();
             services.AddTransient<IDirectoryAccessor, DirectoryAccessor>();
