@@ -22,6 +22,8 @@ import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
 import { DirectoryFormComponent } from './components/directoryForm/directory.form.component';
 import { DirectoryResultComponent } from './components/directoryForm/directory.result.component';
+import { LoginComponent } from './components/auth/login.component';
+import { UnAuthorizedComponent } from './components/auth/unauthorized.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CommonModalComponent } from './components/modal/common-modal.component';
 
@@ -34,6 +36,8 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         CultureComponent,
         DirectoryFormComponent,
         DirectoryResultComponent,
+        LoginComponent,
+        UnAuthorizedComponent,
         SpinnerComponent,
         CommonModalComponent
     ],
@@ -55,7 +59,10 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
             { path: 'directory', component: DirectoryFormComponent },
-            { path: 'directory-result', component: DirectoryResultComponent }
+            { path: 'directory-result', component: DirectoryResultComponent },
+            { path: 'logout', component: LoginComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'unauthorized', component: UnAuthorizedComponent },
         ])
     ]
 })
