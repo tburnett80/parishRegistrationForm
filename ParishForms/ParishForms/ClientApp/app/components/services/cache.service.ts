@@ -21,10 +21,20 @@ export class CacheService {
             return;
 
         const container: any = {};
+        
         container["expires"] = new Date().getTime() + ttl;
         container["data"] = json;
 
         localStorage.setItem(key, JSON.stringify(container));
+    }
+
+    invalidateKey(key: string) {
+        if (!key) {
+            console.log("cant cache when key null");
+            return;
+        }
+
+        localStorage.removeItem(key);
     }
 
     getCache(key: string): any | null {
@@ -51,6 +61,7 @@ export class CacheService {
 
         if (container["expires"] < new Date().getTime()) {
             console.log("Cache expired for key: ", key);
+            this.invalidateKey(key);
             return null;
         }
 

@@ -5,6 +5,7 @@ import { AuthorizationToken } from '../models/AuthorizationToken';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { CookieService } from '../../cookie-module/services/cookies.service';
+import { CacheService } from './cache.service';
 
 const AUTH_TOKEN_COOKIE: string = 'authToken';
 
@@ -12,9 +13,12 @@ const AUTH_TOKEN_COOKIE: string = 'authToken';
 export class AuthService {
 
     private acquireTokens: Subscription;
+    private readonly ttl: number = 86400000;
+    private readonly tokenKey: string = 'id_token';
+    private readonly resourceTokenKey: string = 'resource_token';
 
     constructor(private readonly adalService: Adal4Service, private readonly http: Http,
-        private readonly cookieService: CookieService) { }
+        private readonly cookieService: CookieService, private readonly cache: CacheService) { }
 
     /**
      * Azure Active Directory Configuration Definition
@@ -37,33 +41,33 @@ export class AuthService {
      * Azure Active Directory get custom profile information
      */
     checkUserProfile(): Observable<boolean> {
-        //console.log('AuthService.checkUserProfile')
-        const id_token: string = localStorage.getItem('id_token');
+        const idToken: string | null = this.cache.getCache(this.tokenKey);
 
         //if we don't have their profile, go get it
-        if ((id_token && id_token != null)) {
+        if (idToken) {
             return Observable.of(true);
         } else {
             return this.adalService.acquireToken(this.adalConfig.resourceId)
                 .map((tokenOut: string) => {
-                    //console.log('checkUserProfile.acquireToken -> map');
-                    localStorage.setItem('id_token', tokenOut);
-                    localStorage.setItem('resource_token', 'true');
+                    this.cache.setCache(this.tokenKey, tokenOut, this.ttl);
+                    this.cache.setCache(this.resourceTokenKey, 'true', this.ttl);
+
                     return true;
                 });
         }
     }
 
     get resourceTokenAcquired(): boolean {
-        let tokenExists: string = localStorage.getItem('resource_token')
-        return tokenExists != null;
+        const tokenExists: string | null = this.cache.getCache(this.resourceTokenKey);
+        return tokenExists !== null && tokenExists === 'true';
     }
 
     /**
      * @description Logout from the server to purge the credentail cache
      */
     logOut() {
-        localStorage.clear();
+        this.cache.invalidateKey(this.tokenKey);
+        this.cache.invalidateKey(this.resourceTokenKey);
         //let endpoint: string = this.config.authenticationUrl + '/logout';
         //return this.httpService.post(endpoint, null);
     }
