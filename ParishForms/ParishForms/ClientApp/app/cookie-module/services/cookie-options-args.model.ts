@@ -22,7 +22,7 @@
  * - **secure** - {boolean} - If `true`, then the cookie will only be available through a
  *   secured connection.
  */
-export interface CookieOptionsArgs {
+interface ICookieOptionsArgs {
     path?: string;
     domain?: string;
     expires?: string | Date;

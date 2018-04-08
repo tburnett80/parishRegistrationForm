@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
     <div *ngIf="!IsAuthenticated" class="heading">Please login</div>
     <button *ngIf="!IsAuthenticated" class="btn btn-default" (click)="logIn()">Login</button>
     <div *ngIf="IsAuthenticated">
-        <loader-inline></loader-inline>
+        <h3>already logged in....</h3>
     </div>
     `,
     styles: [`

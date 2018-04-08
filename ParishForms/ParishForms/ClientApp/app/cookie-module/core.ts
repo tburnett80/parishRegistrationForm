@@ -6,7 +6,7 @@
  */
 import { BaseCookieOptions, CookieOptions, CookieService } from './services';
 
-export * from './services';
+export { CookieOptions, BaseCookieOptions, CookieService } from './services';
 
 export const ANGULAR2_COOKIE_PROVIDERS = [
     { provide: CookieOptions, useClass: BaseCookieOptions },

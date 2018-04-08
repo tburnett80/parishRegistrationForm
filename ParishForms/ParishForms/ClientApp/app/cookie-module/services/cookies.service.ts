@@ -5,9 +5,7 @@
  * @license MIT
  */
 import { Injectable, Optional } from '@angular/core';
-
 import { CookieOptions } from './base-cookie-options';
-import { CookieOptionsArgs } from './cookie-options-args.model';
 
 @Injectable()
 export class CookieService {
@@ -36,7 +34,7 @@ export class CookieService {
      * @returns {Object} Deserialized cookie value.
      */
     getObject(key: string): Object {
-        let value = this.get(key);
+        const  value = this.get(key);
         return value ? JSON.parse(value) : value;
     }
 
@@ -62,7 +60,7 @@ export class CookieService {
      * @param {string} value Raw value to be stored.
      * @param {CookieOptionsArgs} options (Optional) Options object.
      */
-    put(key: string, value: string, options?: CookieOptionsArgs) {
+    put(key: string, value: string, options?: ICookieOptionsArgs) {
         this._cookieWriter()(key, value, options);
     }
 
@@ -76,7 +74,7 @@ export class CookieService {
      * @param {Object} value Value to be stored.
      * @param {CookieOptionsArgs} options (Optional) Options object.
      */
-    putObject(key: string, value: Object, options?: CookieOptionsArgs) {
+    putObject(key: string, value: Object, options?: ICookieOptionsArgs) {
         this.put(key, JSON.stringify(value), options);
     }
 
@@ -89,7 +87,7 @@ export class CookieService {
      * @param {string} key Id of the key-value pair to delete.
      * @param {CookieOptionsArgs} options (Optional) Options object.
      */
-    remove(key: string, options?: CookieOptionsArgs): void {
+    remove(key: string, options?: ICookieOptionsArgs): void {
         this._cookieWriter()(key, undefined, options);
     }
 
@@ -139,11 +137,10 @@ export class CookieService {
     }
 
     private _cookieWriter() {
-        let that = this;
-        let rawDocument = document;
+        const rawDocument = document;
 
-        return function (name: string, value: string, options?: CookieOptionsArgs) {
-            rawDocument.cookie = that._buildCookieString(name, value, options);
+        return (name: string, value: string | undefined, options?: ICookieOptionsArgs) => {
+            rawDocument.cookie = this._buildCookieString(name, value, options);
         };
     }
 
@@ -155,13 +152,13 @@ export class CookieService {
         }
     }
 
-    private _buildCookieString(name: string, value: string, options?: CookieOptionsArgs): string {
-        let cookiePath = '/';
-        let path: string, expires: any;
-        let defaultOpts =
-            this._defaultOptions || new CookieOptions(<CookieOptionsArgs>{ path: cookiePath });
-        let opts: CookieOptions = this._mergeOptions(defaultOpts, options);
-        expires = opts.expires;
+    private _buildCookieString(name: string, value: string | undefined, options?: ICookieOptionsArgs): string {
+        const  cookiePath = '/';
+        //let path: string, expires: any;
+        const defaultOpts =
+            this._defaultOptions || new CookieOptions(<ICookieOptionsArgs>{ path: cookiePath });
+        const opts: CookieOptions = this._mergeOptions(defaultOpts, options);
+        let expires = opts.expires;
         if (this.isBlank(value)) {
             expires = 'Thu, 01 Jan 1970 00:00:00 GMT';
             value = '';
@@ -170,7 +167,7 @@ export class CookieService {
             expires = new Date(expires);
         }
 
-        let str = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+        let str = encodeURIComponent(name) + '=' + (this.hasValue(value) ? encodeURIComponent(String(value)) : "");
         str += opts.path ? ';path=' + opts.path : '';
         str += opts.domain ? ';domain=' + opts.domain : '';
         str += expires ? ';expires=' + expires.toUTCString() : '';
@@ -180,19 +177,18 @@ export class CookieService {
         // - 300 cookies
         // - 20 cookies per unique domain
         // - 4096 bytes per cookie
-        let cookieLength = str.length + 1;
+        const cookieLength = str.length + 1;
         if (cookieLength > 4096) {
-            console.log(`Cookie \'${name}\' possibly not set or overflowed because it was too 
-      large (${cookieLength} > 4096 bytes)!`);
+            console.log(`Cookie \'${name}\' possibly not set or overflowed because it was too large (${cookieLength} > 4096 bytes)!`);
         }
         return str;
     }
 
-    private _mergeOptions(defaultOpts: CookieOptions, providedOpts?: CookieOptionsArgs):
+    private _mergeOptions(defaultOpts: CookieOptions, providedOpts: ICookieOptionsArgs = {}):
         CookieOptions {
-        let newOpts = defaultOpts;
+        const  newOpts = defaultOpts;
         if (this.isPresent(providedOpts)) {
-            return newOpts.merge(new CookieOptions(providedOpts));
+            return newOpts.merge((new CookieOptions(providedOpts)) as any);
         }
         return newOpts;
     }
@@ -207,5 +203,9 @@ export class CookieService {
 
     private isString(obj: any): obj is string {
         return typeof obj === 'string';
+    }
+
+    private hasValue(obj: any): boolean {
+        return obj !== undefined && obj !== null;
     }
 }

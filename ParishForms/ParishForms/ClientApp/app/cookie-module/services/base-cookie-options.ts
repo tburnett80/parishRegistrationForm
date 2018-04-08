@@ -6,31 +6,27 @@
  */
 import { APP_BASE_HREF } from '@angular/common';
 import { Inject, Injectable, Injector, Optional } from '@angular/core';
-import { CookieOptionsArgs } from './cookie-options-args.model';
 
 /** @private */
 export class CookieOptions {
-    path: string;
-    domain: string;
-    expires: string | Date;
+    path?: string;
+    domain?: string;
+    expires?: string | Date;
     secure: boolean;
 
-    constructor({ path, domain, expires, secure }: CookieOptionsArgs = {}) {
-        this.path = this.isPresent(path) ? path : null;
-        this.domain = this.isPresent(domain) ? domain : null;
-        this.expires = this.isPresent(expires) ? expires : null;
+    constructor({ path, domain, expires, secure }: ICookieOptionsArgs = {}) {
+        this.path = this.isPresent(path) ? path : undefined;
+        this.domain = this.isPresent(domain) ? domain : undefined;
+        this.expires = this.isPresent(expires) ? expires : undefined;
         this.secure = this.isPresent(secure) ? secure : false;
     }
 
-    merge(options?: CookieOptionsArgs): CookieOptions {
-        return new CookieOptions(<CookieOptionsArgs>{
-            path: this.isPresent(options) && this.isPresent(options.path) ? options.path : this.path,
-            domain: this.isPresent(options) && this.isPresent(options.domain) ? options.domain :
-                this.domain,
-            expires: this.isPresent(options) && this.isPresent(options.expires) ? options.expires :
-                this.expires,
-            secure: this.isPresent(options) && this.isPresent(options.secure) ? options.secure :
-                this.secure,
+    merge(options?: ICookieOptionsArgs): CookieOptions {
+        return new CookieOptions(<ICookieOptionsArgs> {
+            path: options && options.path ? options.path : this.path,
+            domain: options && options.domain ? options.domain : this.domain,
+            expires: options && options.expires ? options.expires : this.expires,
+            secure: options && options.secure ? options.secure : this.secure
         });
     }
 
