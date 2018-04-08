@@ -27,6 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\auth\login.component.ts" />
+    <None Remove="ClientApp\app\components\auth\unauthorized.component.ts" />
     <None Remove="ClientApp\app\components\culturePicker\culture.component.ts" />
     <None Remove="ClientApp\app\components\directives\email-validator.directive.ts" />
     <None Remove="ClientApp\app\components\directives\phone-validator.directive.ts" />
@@ -34,15 +36,24 @@
     <None Remove="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <None Remove="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <None Remove="ClientApp\app\components\modal\common-modal.component.ts" />
+    <None Remove="ClientApp\app\components\models\AuthorizationToken.ts" />
     <None Remove="ClientApp\app\components\models\DirectoryForm.ts" />
+    <None Remove="ClientApp\app\components\services\auth.service.ts" />
     <None Remove="ClientApp\app\components\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
     <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
     <None Remove="ClientApp\app\components\services\directory.service.ts" />
     <None Remove="ClientApp\app\components\services\form-constraints.service.ts" />
     <None Remove="ClientApp\app\components\services\localization.service.ts" />
+    <None Remove="ClientApp\app\components\services\routeGaurd.service.ts" />
     <None Remove="ClientApp\app\components\services\spinner.service.ts" />
     <None Remove="ClientApp\app\components\spinner\spinner.component.ts" />
+    <None Remove="ClientApp\app\cookie-module\cookies.module.ts" />
+    <None Remove="ClientApp\app\cookie-module\core.ts" />
+    <None Remove="ClientApp\app\cookie-module\services.ts" />
+    <None Remove="ClientApp\app\cookie-module\services\base-cookie-options.ts" />
+    <None Remove="ClientApp\app\cookie-module\services\cookie-options-args.model.ts" />
+    <None Remove="ClientApp\app\cookie-module\services\cookies.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +63,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\auth\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\auth\unauthorized.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\culturePicker\culture.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directives\email-validator.directive.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directives\phone-validator.directive.ts" />
@@ -59,15 +72,24 @@
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.form.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\directoryForm\directory.result.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\modal\common-modal.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\models\AuthorizationToken.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\models\DirectoryForm.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\auth.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\client.settings.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\directory.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\form-constraints.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\localization.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\routeGaurd.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\spinner.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\spinner\spinner.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\cookies.module.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\core.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\services.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\services\base-cookie-options.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\services\cookie-options-args.model.ts" />
+    <TypeScriptCompile Include="ClientApp\app\cookie-module\services\cookies.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
