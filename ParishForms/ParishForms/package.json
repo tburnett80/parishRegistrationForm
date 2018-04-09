@@ -60,7 +60,7 @@
     "zone.js": "0.8.12"
   },
   "dependencies": {
-    "adal-angular4": "1.1.11",
+    "adal-angular4": "1.1.10",
     "ngx-bootstrap": "^2.0.3"
   }
 }

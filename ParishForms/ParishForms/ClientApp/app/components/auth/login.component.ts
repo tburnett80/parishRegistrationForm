@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
-import { Adal4Service } from 'adal-angular4';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,39 +20,42 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
     get isAuthenticated(): boolean {
-        return this.adalService.userInfo.authenticated;
+        return this.authService.isAuthenticated;
     }
 
-    constructor(private readonly adalService: Adal4Service,
+    constructor(private readonly authService: AuthService,
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
     ngOnInit() {
         console.log('login init');
-        const resourceToken = localStorage.getItem('resource_token');
+        
+        //const resourceToken = localStorage.getItem('resource_token');
 
-        if (this.isAuthenticated && resourceToken != null) {
-            this.router.navigateByUrl('/export');
-        } else {
-            this.zone.run(() => {
-                this.adalService.acquireToken(this.adalService.config.resourceId)
-                    .subscribe((tokenOut: string) => {
+        //if (this.isAuthenticated && resourceToken != null) {
+        //    this.router.navigateByUrl('/export');
+        //} else {
+        //    this.zone.run(() => {
+        //        console.log('resource: ', this.AuthService.config.resource);
+        //        this.adalService.acquireToken(this.adalService.config.resourceId)
+        //            .subscribe((tokenOut: string) => {
 
-                        localStorage.setItem('id_token', tokenOut);
-                        localStorage.setItem('resource_token', 'true');
+        //                localStorage.setItem('id_token', tokenOut);
+        //                localStorage.setItem('resource_token', 'true');
 
-                        window.location.href = window.location.origin + '/export';
-                    });
-            });
+        //                window.location.href = window.location.origin + '/export';
+        //            });
+        //    });
 
-        }
+        //}
     }
 
     logIn() {
-        this.adalService.login();
+        console.log('login clicked.');
+        this.authService.login();
     }
 
     logOut() {
-        this.adalService.logOut();
+        this.authService.logOut();
     }
 }

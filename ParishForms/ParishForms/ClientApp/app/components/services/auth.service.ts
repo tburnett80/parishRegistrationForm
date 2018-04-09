@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, NgZone } from '@angular/core';
 import { Adal4Service } from 'adal-angular4';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AuthorizationToken } from '../models/AuthorizationToken';
@@ -17,7 +17,7 @@ export class AuthService {
     private readonly tokenKey: string = 'id_token';
     private readonly resourceTokenKey: string = 'resource_token';
 
-    constructor(private readonly adalService: Adal4Service, private readonly http: Http,
+    constructor(private readonly adalService: Adal4Service, private readonly http: Http, private readonly zone: NgZone,
         private readonly cookieService: CookieService, private readonly cache: CacheService) { }
 
     /**
@@ -25,11 +25,11 @@ export class AuthService {
      */
     get adalConfig(): any {
         return {
-            tenant: '<todo>.onmicrosoft.com',
-            clientId: '',
+            tenant: 'borromeoparish.onmicrosoft.com',
+            clientId: '043e77fd-9913-4259-90ac-02ac61b90e89',
             redirectUri: window.location.origin + '/login',
             postLogoutRedirectUri: window.location.origin + '/login',
-            resourceId: 'https://<todo>.onmicrosoft.com/<client id>',
+            resourceId: 'https://borromeoparish.onmicrosoft.com/043e77fd-9913-4259-90ac-02ac61b90e89',
             endpoints: {
                 'https://graph.microsoft.com/v1.0/me/':
                 'https://graph.microsoft.com/'
@@ -66,9 +66,40 @@ export class AuthService {
      * @description Logout from the server to purge the credentail cache
      */
     logOut() {
+        this.adalService.logOut();
         this.cache.invalidateKey(this.tokenKey);
         this.cache.invalidateKey(this.resourceTokenKey);
         //let endpoint: string = this.config.authenticationUrl + '/logout';
         //return this.httpService.post(endpoint, null);
     }
+
+    login() {
+        this.adalService.login();
+    }
+
+    get isAuthenticated(): boolean {
+        return this.adalService.userInfo.authenticated;
+    }
+
+    aquireToken() {
+        if (this.isAuthenticated && this.resourceTokenAcquired) {
+            //this.router.navigateByUrl('/export');
+            window.location.href = window.location.origin + '/export';
+            return true;
+        } else {
+            this.zone.run(() => {
+                console.log('resource: ', this.adalConfig.resourceId);
+                this.adalService.acquireToken(this.adalConfig.resourceId)
+                    .subscribe((tokenOut: string) => {
+
+                        this.cache.setCache(this.tokenKey, tokenOut, this.ttl);
+                        this.cache.setCache(this.resourceTokenKey, 'true', this.ttl);
+
+                        window.location.href = window.location.origin + '/export';
+                    });
+            });
+
+        }
+    }
+
 }

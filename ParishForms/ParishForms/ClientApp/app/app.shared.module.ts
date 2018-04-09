@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ModalDirective, ModalModule } from 'ngx-bootstrap';
 import { CookiesModule } from './cookie-module/cookies.module'; 
+import { Adal4Service, Adal4HTTPService } from 'adal-angular4';
 
 import { TextLengthDirective } from './components/directives/text-len.directive';
 import { EmailValidatorDirective } from './components/directives/email-validator.directive';
 import { PhoneValidatorDirective } from './components/directives/phone-validator.directive';
 
 import { EnvironmentSettings } from './components/services/client.settings.service';
+import { AuthService } from './components/services/auth.service';
 import { CultureChangedEmitterService } from './components/services/cultureChangedEmitter.service';
 import { CacheService } from './components/services/cache.service';
 import { FormConstraintsService } from './components/services/form-constraints.service';
@@ -48,7 +50,14 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         FormConstraintsService,
         LocalizationService,
         DirectoryService,
-        SpinnerService
+        SpinnerService,
+        AuthService,
+        Adal4Service,
+        {
+            provide: Adal4HTTPService,
+            useFactory: Adal4HTTPService.factory,
+            deps: [Http, Adal4Service]
+        }
     ],
     imports: [
         CommonModule,
@@ -62,7 +71,7 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
             { path: 'directory-result', component: DirectoryResultComponent },
             { path: 'logout', component: LoginComponent },
             { path: 'login', component: LoginComponent },
-            { path: 'unauthorized', component: UnAuthorizedComponent },
+            { path: 'unauthorized', component: UnAuthorizedComponent }
         ])
     ]
 })
