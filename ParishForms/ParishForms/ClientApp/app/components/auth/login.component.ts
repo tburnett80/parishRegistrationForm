@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Adal4Service } from 'adal-angular4';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,20 +24,20 @@ export class LoginComponent implements OnInit {
         return this.authService.isAuthenticated;
     }
 
-    constructor(private readonly authService: AuthService,
+    constructor(private readonly authService: AuthService, private readonly adalService: Adal4Service,
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
     ngOnInit() {
-        console.log('login init');
-        
+        this.adalService.handleWindowCallback();
+        this.authService.aquireToken();
         //const resourceToken = localStorage.getItem('resource_token');
 
         //if (this.isAuthenticated && resourceToken != null) {
         //    this.router.navigateByUrl('/export');
         //} else {
         //    this.zone.run(() => {
-        //        console.log('resource: ', this.AuthService.config.resource);
+        //        //console.log('resource: ', this.AuthService.config.resource);
         //        this.adalService.acquireToken(this.adalService.config.resourceId)
         //            .subscribe((tokenOut: string) => {
 
