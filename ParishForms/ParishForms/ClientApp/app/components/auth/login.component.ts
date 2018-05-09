@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { Adal4Service } from 'adal-angular4';
 import { Router } from '@angular/router';
 
@@ -18,19 +17,17 @@ import { Router } from '@angular/router';
        padding-bottom:15px;      
     }`]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
     get isAuthenticated(): boolean {
-        return this.authService.isAuthenticated;
+        return false;
     }
 
-    constructor(private readonly authService: AuthService, private readonly adalService: Adal4Service,
+    constructor(private readonly adalService: Adal4Service,
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
     ngOnInit() {
-        this.adalService.handleWindowCallback();
-        this.authService.aquireToken();
         //const resourceToken = localStorage.getItem('resource_token');
 
         //if (this.isAuthenticated && resourceToken != null) {
@@ -53,10 +50,10 @@ export class LoginComponent implements OnInit {
 
     logIn() {
         console.log('login clicked.');
-        this.authService.login();
+        
     }
 
     logOut() {
-        this.authService.logOut();
+        
     }
 }

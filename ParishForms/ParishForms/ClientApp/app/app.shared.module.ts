@@ -3,16 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { Adal4Service, Adal4HTTPService } from 'adal-angular4';
 import { ModalDirective, ModalModule } from 'ngx-bootstrap';
 import { CookiesModule } from './cookie-module/cookies.module'; 
-import { Adal4Service, Adal4HTTPService } from 'adal-angular4';
 
 import { TextLengthDirective } from './components/directives/text-len.directive';
 import { EmailValidatorDirective } from './components/directives/email-validator.directive';
 import { PhoneValidatorDirective } from './components/directives/phone-validator.directive';
 
 import { EnvironmentSettings } from './components/services/client.settings.service';
-import { AuthService } from './components/services/auth.service';
 import { CultureChangedEmitterService } from './components/services/cultureChangedEmitter.service';
 import { CacheService } from './components/services/cache.service';
 import { FormConstraintsService } from './components/services/form-constraints.service';
@@ -51,7 +50,6 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         LocalizationService,
         DirectoryService,
         SpinnerService,
-        AuthService,
         Adal4Service,
         {
             provide: Adal4HTTPService,
