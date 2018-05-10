@@ -29,22 +29,14 @@ export class LoginComponent {
 
     ngOnInit() {
         this.adalService.handleWindowCallback();
+        console.log(this.adalService.userInfo);
     }
 
     logIn() {
-        console.log('login clicked.');
         this.adalService.login();
-
-        // Log the user information to the console
-        console.log('username ' + this.adalService.userInfo.username);
-        console.log('authenticated: ' + this.adalService.userInfo.authenticated);
-        console.log('name: ' + this.adalService.userInfo.profile.name);
-        console.log('token: ' + this.adalService.userInfo.token);
-        console.log(this.adalService.userInfo.profile);
     }
 
     logOut() {
-        console.log('logout clicked.');
         this.adalService.logOut();
     }
 }
