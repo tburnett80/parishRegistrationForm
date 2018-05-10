@@ -28,32 +28,23 @@ export class LoginComponent {
     }
 
     ngOnInit() {
-        //const resourceToken = localStorage.getItem('resource_token');
-
-        //if (this.isAuthenticated && resourceToken != null) {
-        //    this.router.navigateByUrl('/export');
-        //} else {
-        //    this.zone.run(() => {
-        //        //console.log('resource: ', this.AuthService.config.resource);
-        //        this.adalService.acquireToken(this.adalService.config.resourceId)
-        //            .subscribe((tokenOut: string) => {
-
-        //                localStorage.setItem('id_token', tokenOut);
-        //                localStorage.setItem('resource_token', 'true');
-
-        //                window.location.href = window.location.origin + '/export';
-        //            });
-        //    });
-
-        //}
+        this.adalService.handleWindowCallback();
     }
 
     logIn() {
         console.log('login clicked.');
-        
+        this.adalService.login();
+
+        // Log the user information to the console
+        console.log('username ' + this.adalService.userInfo.username);
+        console.log('authenticated: ' + this.adalService.userInfo.authenticated);
+        console.log('name: ' + this.adalService.userInfo.profile.name);
+        console.log('token: ' + this.adalService.userInfo.token);
+        console.log(this.adalService.userInfo.profile);
     }
 
     logOut() {
-        
+        console.log('logout clicked.');
+        this.adalService.logOut();
     }
 }
