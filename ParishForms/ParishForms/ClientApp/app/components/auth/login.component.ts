@@ -29,7 +29,10 @@ export class LoginComponent {
 
     ngOnInit() {
         this.adalService.handleWindowCallback();
-        console.log(this.adalService.userInfo);
+        if (this.adalService.userInfo) {
+            console.log(this.adalService.userInfo);
+            console.log("role: ", this.adalService.userInfo.profile.roles);
+        }
     }
 
     logIn() {

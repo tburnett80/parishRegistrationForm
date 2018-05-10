@@ -3,7 +3,8 @@ import { Adal4Service } from 'adal-angular4';
 
 const config: any = {
     tenant: 'borromeoparish.onmicrosoft.com',
-    clientId: '043e77fd-9913-4259-90ac-02ac61b90e89'
+    clientId: '043e77fd-9913-4259-90ac-02ac61b90e89',
+    redirectUri: 'http://localhost:3020/login'
 };
 
 @Component({

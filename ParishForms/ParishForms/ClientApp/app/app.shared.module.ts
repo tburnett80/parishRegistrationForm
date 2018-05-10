@@ -17,6 +17,7 @@ import { FormConstraintsService } from './components/services/form-constraints.s
 import { LocalizationService } from './components/services/localization.service';
 import { DirectoryService } from './components/services/directory.service';
 import { SpinnerService } from './components/services/spinner.service';
+import { AuthGuard } from './components/services/authgarud.service';
 
 import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
@@ -54,7 +55,8 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
             provide: Adal4HTTPService,
             useFactory: Adal4HTTPService.factory,
             deps: [Http, Adal4Service]
-        }
+        },
+        AuthGuard
     ],
     imports: [
         CommonModule,
@@ -63,7 +65,8 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         ModalModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
-            { path: 'directory', component: DirectoryFormComponent },
+            //{ path: 'directory', component: DirectoryFormComponent, canActivate: [AuthGuard] },
+            { path: 'directory', component: DirectoryFormComponent, canActivate: [AuthGuard] },
             { path: 'directory-result', component: DirectoryResultComponent },
             { path: 'logout', component: LoginComponent },
             { path: 'login', component: LoginComponent },
