@@ -1,5 +1,6 @@
 ﻿using DataProvider.EntityFrameworkCore.EntityMappings.Common;
 using DataProvider.EntityFrameworkCore.EntityMappings.Directory;
+using DataProvider.EntityFrameworkCore.EntityMappings.Exports;
 using DataProvider.EntityFrameworkCore.EntityMappings.Localization;
 using DataProvider.EntityFrameworkCore.EntityMappings.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ namespace DataProvider.EntityFrameworkCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new ExportQueueEntityMapping());
 
             modelBuilder.ApplyConfiguration(new LogHeaderEntityMapping());
             modelBuilder.ApplyConfiguration(new LogDetailEntityMapping());

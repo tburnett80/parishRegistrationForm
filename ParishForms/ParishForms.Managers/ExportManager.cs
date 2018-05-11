@@ -23,11 +23,11 @@ namespace ParishForms.Managers
         }
         #endregion
 
-        public async Task<ExportResultDto> ExportDirectoryResults()
+        public async Task<ExportResultDto> ExportDirectoryResults(string email)
         {
             try
             {
-                var req = await _exportEngine.QueueRequest(0, string.Empty);
+                var req = await _exportEngine.QueueRequest(0, email);
                 return await _exportEngine.CheckStatus(req.RequestId);
             }
             catch (Exception ex)

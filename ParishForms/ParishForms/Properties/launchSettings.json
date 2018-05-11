@@ -34,7 +34,12 @@
         "STATE_CACHE_TTL": "14400",
         "SMTP_RELAY_ADDRESS": "192.168.1.1",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "REDIRECT_URL": "http://www.borromeoparish.com/"
+        "REDIRECT_URL": "http://www.borromeoparish.com/",
+        "AAD_TENANTID": "6adf3b51-543b-4678-9a3c-9805bcbfa5e5",
+        "AAD_CLIENTID": "043e77fd-9913-4259-90ac-02ac61b90e89",
+        "AAD_CLIENTSECRET": "Nks/NsKXdJF88PDCUIJekQrN0p/mCFZDnbopVMGFZ/E=",
+        "AAD_DOMAIN": "borromeoparish.onmicrosoft.com",
+        "AAD_INSTANCE": "https://login.microsoftonline.com/"
       },
       "applicationUrl": "http://localhost:3020/"
     }
