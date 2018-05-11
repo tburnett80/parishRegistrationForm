@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Models;
@@ -21,7 +20,7 @@ namespace ParishForms.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSettings()
+        public IActionResult GetSettings()
         {
             return Ok(new Dictionary<string, string>
             {
