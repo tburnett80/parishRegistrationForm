@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Contracts.Managers;
 using ParishForms.Common.Models.Directory;
@@ -7,6 +8,7 @@ using ParishForms.ViewModels;
 
 namespace ParishForms.Controllers
 {
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/directory")]
     public class DirectoryController : Controller

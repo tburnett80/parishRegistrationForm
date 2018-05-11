@@ -31,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\auth\exporter\export.component.ts" />
     <None Remove="ClientApp\app\components\auth\login.component.ts" />
     <None Remove="ClientApp\app\components\auth\unauthorized.component.ts" />
     <None Remove="ClientApp\app\components\culturePicker\culture.component.ts" />
@@ -42,11 +43,13 @@
     <None Remove="ClientApp\app\components\modal\common-modal.component.ts" />
     <None Remove="ClientApp\app\components\models\AuthorizationToken.ts" />
     <None Remove="ClientApp\app\components\models\DirectoryForm.ts" />
+    <None Remove="ClientApp\app\components\services\auth-helper.service.ts" />
     <None Remove="ClientApp\app\components\services\authgarud.service.ts" />
     <None Remove="ClientApp\app\components\services\cache.service.ts" />
     <None Remove="ClientApp\app\components\services\client.settings.service.ts" />
     <None Remove="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
     <None Remove="ClientApp\app\components\services\directory.service.ts" />
+    <None Remove="ClientApp\app\components\services\export.service.ts" />
     <None Remove="ClientApp\app\components\services\form-constraints.service.ts" />
     <None Remove="ClientApp\app\components\services\localization.service.ts" />
     <None Remove="ClientApp\app\components\services\spinner.service.ts" />
@@ -60,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\auth\exporter\export.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\auth\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\auth\unauthorized.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\culturePicker\culture.component.ts" />
@@ -71,11 +75,13 @@
     <TypeScriptCompile Include="ClientApp\app\components\modal\common-modal.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\models\AuthorizationToken.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\models\DirectoryForm.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\auth-helper.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\authgarud.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cache.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\client.settings.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\cultureChangedEmitter.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\directory.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\services\export.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\form-constraints.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\localization.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\services\spinner.service.ts" />

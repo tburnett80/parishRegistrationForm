@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Contracts.Managers;
@@ -9,6 +11,7 @@ using ParishForms.ViewModels;
 
 namespace ParishForms.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Export")]
     public class ExportController : Controller
@@ -26,6 +29,8 @@ namespace ParishForms.Controllers
         [HttpGet("check/{requestId}")]
         public async Task<ExportQueueResultViewModel> CheckStatus(Guid requestId)
         {
+            var ctx = HttpContext.User.Identity;
+            var stuff = ctx;
             return null;
         }
     }

@@ -18,6 +18,8 @@ import { LocalizationService } from './components/services/localization.service'
 import { DirectoryService } from './components/services/directory.service';
 import { SpinnerService } from './components/services/spinner.service';
 import { AuthGuard } from './components/services/authgarud.service';
+import { AuthHelperService } from './components/services/auth-helper.service';
+import { ExportService } from './components/services/export.service';
 
 import { AppComponent } from './components/app.component';
 import { CultureComponent } from './components/culturePicker/culture.component';
@@ -27,6 +29,7 @@ import { LoginComponent } from './components/auth/login.component';
 import { UnAuthorizedComponent } from './components/auth/unauthorized.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { CommonModalComponent } from './components/modal/common-modal.component';
+import { ExportComponent } from './components/auth/exporter/export.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +43,8 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         LoginComponent,
         UnAuthorizedComponent,
         SpinnerComponent,
-        CommonModalComponent
+        CommonModalComponent,
+        ExportComponent
     ],
     providers: [
         EnvironmentSettings,
@@ -56,7 +60,9 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
             useFactory: Adal4HTTPService.factory,
             deps: [Http, Adal4Service]
         },
-        AuthGuard
+        AuthGuard,
+        AuthHelperService,
+        ExportService
     ],
     imports: [
         CommonModule,
@@ -65,12 +71,12 @@ import { CommonModalComponent } from './components/modal/common-modal.component'
         ModalModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'directory', pathMatch: 'full' },
-            //{ path: 'directory', component: DirectoryFormComponent, canActivate: [AuthGuard] },
-            { path: 'directory', component: DirectoryFormComponent, canActivate: [AuthGuard] },
+            { path: 'directory', component: DirectoryFormComponent },
             { path: 'directory-result', component: DirectoryResultComponent },
             { path: 'logout', component: LoginComponent },
             { path: 'login', component: LoginComponent },
-            { path: 'unauthorized', component: UnAuthorizedComponent }
+            { path: 'unauthorized', component: UnAuthorizedComponent },
+            { path: 'export', component: ExportComponent, canActivate: [AuthGuard] }
         ])
     ]
 })

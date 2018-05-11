@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using DataProvider.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -26,6 +27,19 @@ namespace ParishForms
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Add azure ad as authentication scheme for securing API calls
+            services.AddAuthentication(sopt =>
+            {
+                sopt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddAzureAdBearer(new AzureAdOptions
+            {
+                Instance = Configuration["AAD_INSTANCE"],
+                ClientId = Configuration["AAD_CLIENTID"],
+                ClientSecret = Configuration["AAD_CLIENTSECRET"],
+                Domain = Configuration["AAD_DOMAIN"],
+                TenantId = Configuration["AAD_TENANTID"]
+            });
+
             IoC.DependencyInjector.AddServices(services, Configuration);
             services.AddMvc();
 
@@ -69,6 +83,7 @@ namespace ParishForms
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

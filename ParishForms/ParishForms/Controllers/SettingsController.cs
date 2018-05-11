@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParishForms.Common.Models;
 
 namespace ParishForms.Controllers
 {
+    [AllowAnonymous]
     [Produces("application/json")]
     [Route("api/settings")]
     public class SettingsController : Controller

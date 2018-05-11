@@ -19,17 +19,17 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-    get isAuthenticated(): boolean {
-        return false;
-    }
-
     constructor(private readonly adalService: Adal4Service,
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
+    get isAuthenticated(): boolean {
+        return this.adalService.userInfo && this.adalService.userInfo.authenticated;
+    }
+
     ngOnInit() {
         this.adalService.handleWindowCallback();
-        if (this.adalService.userInfo) {
+        if (this.adalService.userInfo && this.adalService.userInfo.profile) {
             console.log(this.adalService.userInfo);
             console.log("role: ", this.adalService.userInfo.profile.roles);
         }

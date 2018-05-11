@@ -12,24 +12,29 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
         "CONNECTION_STRING": "Server=10.200.7.48;Port=5432;Database=parish;User Id=user1;Password=password1;",
-        "STATE_CACHE_TTL": "14400",
+        "AAD_TENANTID": "6adf3b51-543b-4678-9a3c-9805bcbfa5e5",
+        "AAD_CLIENTID": "043e77fd-9913-4259-90ac-02ac61b90e89",
         "TRANSLATION_CACHE_TTL": "14400",
-        "REDIRECT_URL": "http://localhost:3020/",
-        "SMTP_RELAY_ADDRESS":  "10.200.7.48" 
+        "AAD_CLIENTSECRET": "Nks/NsKXdJF88PDCUIJekQrN0p/mCFZDnbopVMGFZ/E=",
+        "AAD_DOMAIN": "borromeoparish.onmicrosoft.com",
+        "STATE_CACHE_TTL": "14400",
+        "SMTP_RELAY_ADDRESS": "10.200.7.48",
+        "AAD_INSTANCE": "https://login.microsoftonline.com/",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "REDIRECT_URL": "http://localhost:3020/"
       }
     },
     "ParishForms": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
         "CONNECTION_STRING": "Server=192.168.1.1;Port=5432;Database=parish;User Id=user1;Password=password1;",
-        "STATE_CACHE_TTL": "14400",
         "TRANSLATION_CACHE_TTL": "14400",
-        "REDIRECT_URL": "http://www.borromeoparish.com/",
-        "SMTP_RELAY_ADDRESS":  "192.168.1.1" 
+        "STATE_CACHE_TTL": "14400",
+        "SMTP_RELAY_ADDRESS": "192.168.1.1",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "REDIRECT_URL": "http://www.borromeoparish.com/"
       },
       "applicationUrl": "http://localhost:3020/"
     }
