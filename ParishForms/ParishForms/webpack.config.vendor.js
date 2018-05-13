@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const merge = require('webpack-merge');
+const adal4 = require('adal-angular4');
+
 const treeShakableModules = [
     '@angular/animations',
     '@angular/common',
@@ -12,7 +14,7 @@ const treeShakableModules = [
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
-    'zone.js',
+    'zone.js'
 ];
 const nonTreeShakableModules = [
     'bootstrap',
@@ -21,6 +23,7 @@ const nonTreeShakableModules = [
     'es6-shim',
     'event-source-polyfill',
     'jquery',
+    'adal-angular4'
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
 

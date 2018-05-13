@@ -23,7 +23,7 @@ export class LoginComponent {
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
-    get isAuthenticated(): boolean {
+    get IsAuthenticated(): boolean {
         return this.adalService.userInfo && this.adalService.userInfo.authenticated;
     }
 
