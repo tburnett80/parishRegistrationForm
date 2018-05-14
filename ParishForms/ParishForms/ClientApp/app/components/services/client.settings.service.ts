@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { isPlatformServer } from '@angular/common';
 import { CacheService } from './cache.service';
 import { SpinnerService } from './spinner.service';
@@ -12,7 +12,7 @@ export class EnvironmentSettings {
     static readonly spinnerName: string = "getSettings";
 
     constructor( @Inject(PLATFORM_ID) private platformId: Object, private readonly spinner: SpinnerService,
-        private readonly cache: CacheService, private http: Http) { }
+        private readonly cache: CacheService, private http: HttpClient) { }
 
     getApiUrlBase(): string | undefined {
 
@@ -34,16 +34,20 @@ export class EnvironmentSettings {
 
     getRedirectUrl(): Observable<any> {
         const key = 'RedirectUrl';
-        const fromCache = this.cache.getCache(key);
+        const fromCacheStr = this.cache.getCache(key);
 
-        if (fromCache && fromCache["redirectUrl"])
+        if (fromCacheStr) {
+            const fromCache = JSON.parse(fromCacheStr);
+            if (fromCache && fromCache["redirectUrl"])
             return Observable.of(fromCache["redirectUrl"]);
-
+        }
+            
         this.spinner.show(EnvironmentSettings.spinnerName);
         return this.http.get(`${this.getApiUrlBase()}/api/settings`)
-            .map((res: Response) => {
-                this.cache.setCache(key, res.json());
-                return res.json()["redirectUrl"];
-            }).do(() => this.spinner.hide(EnvironmentSettings.spinnerName));
+            .map((r: any) => {
+                this.cache.setCache(key, JSON.stringify(r));
+                return r["redirectUrl"];
+            })
+            .do(() => this.spinner.hide(EnvironmentSettings.spinnerName));
     }
 }

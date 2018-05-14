@@ -1,6 +1,5 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformServer } from '@angular/common';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CacheService } from './cache.service';
 import { EnvironmentSettings } from './client.settings.service';
 import { SpinnerService } from './spinner.service';
@@ -17,7 +16,7 @@ export class LocalizationService {
     private static initProm: Promise<any>;
     private static stateProm: Promise<any>;
     
-    constructor(private readonly cache: CacheService, private http: Http, private readonly spinner: SpinnerService,
+    constructor(private readonly cache: CacheService, private http: HttpClient, private readonly spinner: SpinnerService,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
         LocalizationService.culture = "en-us";
         if (!LocalizationService.transSubs)
@@ -32,7 +31,7 @@ export class LocalizationService {
         const filter = (cult: any) => cult.value !== 'en-us';
 
         if (cultsFromCache)
-            return Observable.of(cultsFromCache);
+            return Observable.of(JSON.parse(cultsFromCache));
 
         //pre-cache states
         this.getStatesOptions();
@@ -43,10 +42,10 @@ export class LocalizationService {
         if (!LocalizationService.initProm) {
             this.spinner.show(LocalizationService.spinnerName);
             LocalizationService.initProm = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/list-cultures/`)
-                .map(res => {
-                    this.cache.setCache(culturesKey, res.json());
-                    res.json().filter(filter).forEach(cacheFunc);
-                    return res.json();
+                .map((res: any) => {
+                    this.cache.setCache(culturesKey, JSON.stringify(res));
+                    res.filter(filter).forEach(cacheFunc);
+                    return res;
                 })
                 .do(() => this.spinner.hide(LocalizationService.spinnerName))
                 .toPromise();
@@ -60,7 +59,7 @@ export class LocalizationService {
         const cultsFromCache = this.cache.getCache(culturesKey);
 
         if(cultsFromCache)
-            return Observable.of(cultsFromCache);
+            return Observable.of(JSON.parse(cultsFromCache));
 
         return this.initializeLocalization();
     }
@@ -69,19 +68,22 @@ export class LocalizationService {
         if (LocalizationService.culture === 'en-us')
             return key;
 
-        const fromCache = this.cache.getCache(`${LocalizationService.culture}-translations`);
-        if (fromCache && fromCache[key])
-            return fromCache[key];
-        if (fromCache && !fromCache[key])
-            return key;
+        const fromCachestr = this.cache.getCache(`${LocalizationService.culture}-translations`);
+        if (fromCachestr) {
+            const fromCache = JSON.parse(fromCachestr);
+            if (fromCache && fromCache[key])
+                return fromCache[key];
+            if (fromCache && !fromCache[key])
+                return key;
+        }
 
         if (!LocalizationService.transSubs[LocalizationService.culture]) {
             this.spinner.show(LocalizationService.spinnerName);
             LocalizationService.transSubs[LocalizationService.culture] = this.http
                 .get(`${this.settings.getApiUrlBase()}/api/localization/labels/${LocalizationService.culture}/`)
-                .map((res: Response) => {
-                    this.cache.setCache(`${LocalizationService.culture}-translations`, res.json());
-                    return res.json();
+                .map((res: any) => {
+                    this.cache.setCache(`${LocalizationService.culture}-translations`, JSON.stringify(res));
+                    return res;
                 })
                 .do(() => this.spinner.hide(LocalizationService.spinnerName))
                 .toPromise();
@@ -101,15 +103,16 @@ export class LocalizationService {
         const key = `${LocalizationService.culture}-stateslist`;
         const fromCache = this.cache.getCache(key);
         if (fromCache) {
-            return Observable.of(fromCache);
+            return Observable.of(JSON.parse(fromCache));
         } 
 
         if (this.settings.getApiUrlBase() !== undefined && !LocalizationService.stateProm) {
             this.spinner.show(LocalizationService.stateSpinnerName);
             LocalizationService.stateProm = this.http.get(`${this.settings.getApiUrlBase()}/api/localization/states`)
-                .map((res: Response) => {
-                    this.cache.setCache(key, res.json());
-                    return res.json();
+                .map((res: any) => {
+                    console.log("Get States Options: ", res);
+                    this.cache.setCache(key, JSON.stringify(res));
+                    return res;
                 })
                 .do(() => this.spinner.hide(LocalizationService.stateSpinnerName))
                 .toPromise();
@@ -128,9 +131,9 @@ export class LocalizationService {
 
             LocalizationService.transSubs[culture] = this.http
                 .get(`${this.settings.getApiUrlBase()}/api/localization/labels/${culture}/`)
-                .map((res: Response) => {
-                    this.cache.setCache(key, res.json());
-                    return res.json();
+                .map((res: any) => {
+                    this.cache.setCache(key, JSON.stringify(res));
+                    return res;
                 }).toPromise();
         }
     }

@@ -1,6 +1,6 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CacheService } from './cache.service';
 import { EnvironmentSettings } from './client.settings.service';
 import { SpinnerService } from './spinner.service';
@@ -13,7 +13,7 @@ export class FormConstraintsService {
     static calls: any = {};
     static readonly spinnerName:string = "frmConstraint";
 
-    constructor(private readonly cache: CacheService, private http: Http, private readonly spinner: SpinnerService,
+    constructor(private readonly cache: CacheService, private http: HttpClient, private readonly spinner: SpinnerService,
         @Inject(PLATFORM_ID) private platformId: Object, private readonly settings: EnvironmentSettings) {
     }
 
@@ -47,9 +47,10 @@ export class FormConstraintsService {
             if (FormConstraintsService.calls[frmKey]) {
                 FormConstraintsService.calls[frmKey] = null;
             }
-            
+
+            const cached = JSON.parse(fromCache);
             return new Promise((resolve) => {
-                resolve(fromCache);
+                resolve(cached);
             });
         }
 
@@ -59,9 +60,9 @@ export class FormConstraintsService {
 
         this.spinner.show(FormConstraintsService.spinnerName);
         FormConstraintsService.calls[frmKey] = this.http.get(`${this.settings.getApiUrlBase()}${urlPath}`)
-            .map(res => {
-                this.cache.setCache(frmKey, res.json());
-                return res.json();
+            .map((res: any) => {
+                this.cache.setCache(frmKey, JSON.stringify(res));
+                return res;
             })
             .do(() => this.spinner.hide(FormConstraintsService.spinnerName))
             .toPromise();

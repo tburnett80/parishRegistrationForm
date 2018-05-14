@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, Http } from '@angular/http';
+//import { HttpModule, Http } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { Adal4Service, Adal4HTTPService } from 'adal-angular4';
+import { AdalService, AdalGuard } from 'adal-angular4';
 import { ModalDirective, ModalModule } from 'ngx-bootstrap';
 
 import { TextLengthDirective } from './components/directives/text-len.directive';
@@ -54,19 +55,15 @@ import { ExportComponent } from './components/auth/exporter/export.component';
         LocalizationService,
         DirectoryService,
         SpinnerService,
-        Adal4Service,
-        {
-            provide: Adal4HTTPService,
-            useFactory: Adal4HTTPService.factory,
-            deps: [Http, Adal4Service]
-        },
+        AdalService,
+        //AdalGuard,
         AuthGuard,
         AuthHelperService,
         ExportService
     ],
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
         ModalModule.forRoot(),
         RouterModule.forRoot([

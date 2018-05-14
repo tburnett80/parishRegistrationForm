@@ -1,6 +1,6 @@
 ﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { EnvironmentSettings } from './client.settings.service';
 import { SpinnerService } from './spinner.service';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 export class DirectoryService {
     static readonly spinnerName: string = "dirSpinner";
 
-    constructor(private http: Http, @Inject(PLATFORM_ID) private platformId: Object,
+    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object,
         private readonly settings: EnvironmentSettings, private readonly spinner: SpinnerService) { }
 
     storeForm(frm: IDirectoryModel): Observable<any> {

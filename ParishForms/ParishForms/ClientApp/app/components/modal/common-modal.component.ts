@@ -7,7 +7,7 @@ import { ModalDirective } from 'ngx-bootstrap';
     styleUrls: ['./common-modal.component.css']
 })
 export class CommonModalComponent {
-    @ViewChild('modalChild') modalChild: ModalDirective;
+    @ViewChild('modalChild') modalChild!: ModalDirective;
     private _title: string = "";
     private _btn: string = "";
 

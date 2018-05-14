@@ -1,13 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Adal4Service } from 'adal-angular4';
+import { AdalService } from 'adal-angular4';
 import { AuthHelperService } from './auth-helper.service';
 import { Observable } from "rxjs";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private readonly adalService: Adal4Service, private readonly router: Router,
+    constructor(private readonly adalService: AdalService, private readonly router: Router,
         private readonly authHelper: AuthHelperService) {
     }
 

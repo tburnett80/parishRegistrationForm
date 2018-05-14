@@ -16,8 +16,8 @@ export class SpinnerComponent {
         this.showChange.emit(this.isShowing);
     }
 
-    @Input() name: string;
-    @Input() loadingImage: string;
+    @Input() name!: string;
+    @Input() loadingImage!: string;
     @Input()
     get show(): boolean {
         return this.isShowing;

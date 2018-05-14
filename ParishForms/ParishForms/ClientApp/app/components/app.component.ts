@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Adal4Service } from 'adal-angular4';
+import { AdalService } from 'adal-angular4';
 
 const config: any = {
     tenant: 'borromeoparish.onmicrosoft.com',
@@ -13,9 +13,9 @@ const config: any = {
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    loaderUrl: string;
+    loaderUrl!: string;
 
-    constructor(private readonly adalService: Adal4Service) {
+    constructor(private readonly adalService: AdalService) {
         this.adalService.init(config);
     }
 

@@ -14,17 +14,17 @@ import { CommonModalComponent } from '../modal/common-modal.component';
 })
 export class DirectoryFormComponent {
     static readonly frmKey: string = "DirectoryForm";
-    private stateSub: Subscription;
-    private cultureSub: Subscription;
-    private dirSub: Subscription;
-    formModel: IDirectoryModel;
-    stateList: any[];
-    loaderUrl: string;
+    private stateSub!: Subscription;
+    private cultureSub!: Subscription;
+    private dirSub!: Subscription;
+    formModel!: IDirectoryModel;
+    stateList!: any[];
+    loaderUrl!: string;
     modaltitle: string | undefined;
     modalbody: string | undefined;
     modalBtn: string | undefined;
 
-    @ViewChild('modalChild') modal: CommonModalComponent;
+    @ViewChild('modalChild') modal!: CommonModalComponent;
 
     constructor(private readonly localizationService: LocalizationService, private readonly router: Router, private readonly cache: CacheService,
         private readonly changeEmitter: CultureChangedEmitterService, private readonly service: DirectoryService) { }

@@ -12,9 +12,9 @@ import { Subscription } from 'rxjs';
 
 export class DirectoryResultComponent {
     counter: number = 20;
-    private url: string;
-    private sub: Subscription;
-    private cultureSub: Subscription;
+    private url!: string;
+    private sub!: Subscription;
+    private cultureSub!: Subscription;
     private timer: any;
 
     constructor(private service: EnvironmentSettings, private loc: LocalizationService,

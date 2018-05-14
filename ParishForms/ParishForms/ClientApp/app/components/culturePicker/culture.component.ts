@@ -10,9 +10,9 @@ import { CultureChangedEmitterService } from '../services/cultureChangedEmitter.
 })
 
 export class CultureComponent {
-    private getCultureListSub: Subscription;
-    loaderUrl: string;
-    cultures: any[];
+    private getCultureListSub!: Subscription;
+    loaderUrl!: string;
+    cultures!: any[];
 
     constructor(private readonly localizationService: LocalizationService,
         private ref: ApplicationRef, private changeEmitter: CultureChangedEmitterService) {

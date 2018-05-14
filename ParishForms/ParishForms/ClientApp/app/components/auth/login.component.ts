@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, NgZone } from '@angular/core';
-import { Adal4Service } from 'adal-angular4';
+import { AdalService } from 'adal-angular4';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-    constructor(private readonly adalService: Adal4Service,
+    constructor(private readonly adalService: AdalService,
         private readonly router: Router, private readonly zone: NgZone) {
     }
 
