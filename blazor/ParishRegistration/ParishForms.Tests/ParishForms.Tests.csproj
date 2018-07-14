@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TestResources\stuff.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestResources\stuff.zip">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.1" />
+    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataProvider.Cache\DataProvider.Cache.csproj" />
+    <ProjectReference Include="..\DataProvider.EntityFrameworkCore\DataProvider.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\ParishForms.Accessors\ParishForms.Accessors.csproj" />
+    <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
+    <ProjectReference Include="..\ParishForms.Engines\ParishForms.Engines.csproj" />
+    <ProjectReference Include="..\ParishForms.Managers\ParishForms.Managers.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+  </PropertyGroup>
+</Project>

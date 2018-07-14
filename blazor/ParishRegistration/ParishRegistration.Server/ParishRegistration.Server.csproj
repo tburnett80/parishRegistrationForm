@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParishForms.Common\ParishForms.Common.csproj" />
+    <ProjectReference Include="..\ParishForms.IoC\ParishForms.IoC.csproj" />
+    <ProjectReference Include="..\ParishForms.Managers\ParishForms.Managers.csproj" />
     <ProjectReference Include="..\ParishRegistration.Client\ParishRegistration.Client.csproj" />
     <ProjectReference Include="..\ParishRegistration.Shared\ParishRegistration.Shared.csproj" />
   </ItemGroup>
